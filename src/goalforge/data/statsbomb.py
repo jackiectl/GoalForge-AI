@@ -1,12 +1,14 @@
 """Optional StatsBomb open-data loader (real-data path).
 
 Wraps ``statsbombpy`` to produce the same (matches, appearances, goals) frames the pipeline
-expects (see :class:`goalforge.data.synthetic.SyntheticData`, reused as a generic bundle).
-``statsbombpy`` is an optional dependency: ``pip install statsbombpy``. The free open data
-covers FIFA World Cups (1958-2022), Euros, Champions League, and more — non-commercial use
-with StatsBomb attribution.
+expects (see :class:`goalforge.data.synthetic.SyntheticData`, reused as a generic bundle),
+and caches the assembled frames locally so repeat runs are instant. ``statsbombpy`` is an
+optional dependency: ``pip install statsbombpy``. The free open data covers FIFA World Cups
+(1958-2022), Euros, etc. — non-commercial use with StatsBomb attribution.
 """
 from __future__ import annotations
+
+from pathlib import Path
 
 import pandas as pd
 
@@ -47,9 +49,43 @@ def _minutes(positions) -> float:
     return total
 
 
+def _cache_fmt() -> str:
+    try:
+        import pyarrow  # noqa: F401
+        return "parquet"
+    except Exception:
+        return "pkl"
+
+
+def _read(path: Path) -> pd.DataFrame:
+    return pd.read_parquet(path) if path.suffix == ".parquet" else pd.read_pickle(path)
+
+
+def _write(df: pd.DataFrame, path: Path) -> None:
+    df.to_parquet(path) if path.suffix == ".parquet" else df.to_pickle(path)
+
+
+def _bundle(matches, appearances, goals) -> SyntheticData:
+    teams = sorted(set(matches.home_team) | set(matches.away_team))
+    return SyntheticData(matches.reset_index(drop=True), appearances, goals, teams, rosters={})
+
+
 def load_competition(competition_id: int, season_id: int, max_matches: int | None = None,
-                     verbose: bool = True) -> SyntheticData:
-    """Load a StatsBomb competition-season into (matches, appearances, goals) frames."""
+                     verbose: bool = True, cache_dir: str | Path = "data/raw") -> SyntheticData:
+    """Load a StatsBomb competition-season into (matches, appearances, goals) frames.
+
+    Assembled frames are cached under ``cache_dir`` (default ``data/raw/``, git-ignored) so
+    subsequent calls skip the network entirely.
+    """
+    key = f"statsbomb_{competition_id}_{season_id}" + (f"_n{max_matches}" if max_matches else "")
+    cache = Path(cache_dir)
+    ext = _cache_fmt()
+    paths = {name: cache / f"{key}_{name}.{ext}" for name in ("matches", "appearances", "goals")}
+    if all(p.exists() for p in paths.values()):
+        if verbose:
+            print(f"  (cache hit: {cache}/{key}_*.{ext})")
+        return _bundle(_read(paths["matches"]), _read(paths["appearances"]), _read(paths["goals"]))
+
     sb = _require_sb()
     fixtures = sb.matches(competition_id=competition_id, season_id=season_id).sort_values("match_date")
     if max_matches:
@@ -89,5 +125,14 @@ def load_competition(competition_id: int, season_id: int, max_matches: int | Non
 
     appearances = pd.DataFrame(app_rows, columns=["match_id", "team", "player", "minutes"])
     goals = pd.DataFrame(goal_rows, columns=["match_id", "team", "scorer", "assister", "minute"])
-    teams = sorted(set(matches.home_team) | set(matches.away_team))
-    return SyntheticData(matches.reset_index(drop=True), appearances, goals, teams, rosters={})
+
+    try:  # cache the assembled frames for next time
+        cache.mkdir(parents=True, exist_ok=True)
+        _write(matches, paths["matches"])
+        _write(appearances, paths["appearances"])
+        _write(goals, paths["goals"])
+    except Exception as e:  # pragma: no cover
+        if verbose:
+            print(f"  (cache write skipped: {e})")
+
+    return _bundle(matches, appearances, goals)

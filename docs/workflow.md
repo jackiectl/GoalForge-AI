@@ -87,6 +87,53 @@ GPU 真正有价值的地方是：①**大规模向量化蒙特卡洛**（10^6+ 
 
 ①任何对外产出**署名 StatsBomb**、仅非商业；②**不要用 FBref 数据训练模型**——FBref 仅做探索/历史分析，训练用 StatsBomb/Understat/CC0；③所有抓取限速、优先用 **CC0 Kaggle 快照**；④Understat/Transfermarkt/Sofascore 抓取属 ToS 敏感，缓存为主。
 
+### 2.6 数据流与存储 (Data flow & storage)
+
+**当前不使用任何数据库，也没有 Supabase。** 数据是「**按需拉取 → 本地文件缓存 → 内存计算**」，
+这最贴合 HPC：数据留在 Great Lakes 文件系统（大文件放 `/scratch` 或 Turbo），零外传、免费、快。
+
+```
+[数据源]                              [加载器]                 [规范化中间表 canonical frames]
+StatsBomb 开放数据 (HTTP/git)  ─┐
+Kaggle CC0 (martj42/Fjelstul) ─┼─►  data/statsbomb.py  ──►   matches      (比分标签)
+API-Football (未来: 实时首发)  ─┘    data/synthetic.py         appearances (谁上场 / 分钟)
+                                     (可插拔 loader)           goals       (射手 / 助攻 / 分钟)
+                                          │
+                                          ▼  缓存 (Parquet)
+                                     data/raw/*.parquet          ← git 忽略, 只在本地
+                                          │
+                                          ▼  features/  特征工程
+                        球员 per-90 得分/助攻率(+收缩) · 球队强度 · 教练效应
+                                          │
+                                          ▼  models/  拟合
+                        DixonColesModel(attack/defence/home/rho) · PlayerRatings
+                                (可 pickle 到 models/*.pkl 复用)
+                                          │
+                                          ▼  simulation/ + prediction/
+                        Monte-Carlo  ──►  MatchPrediction (比分/射手/助攻概率)
+                                          │
+                                          ▼  reports/  或  Web 前端 (Streamlit)
+                                    JSON / 图表 / 交互页面
+```
+
+**磁盘布局**（`data/`、`models/` 内容都已 git 忽略；见 `.gitignore`）：
+
+| 位置 | 放什么 | 说明 |
+|---|---|---|
+| `data/raw/` | 原始拉取的缓存（StatsBomb Parquet 等） | 首次拉取后缓存，之后**秒开**、免网络 |
+| `data/interim/`, `data/processed/` | 清洗表 / 特征表 | Parquet |
+| `models/` | 拟合好的模型工件（`*.pkl`） | 供预测 / 服务复用（下一步接入） |
+| `reports/` | 预测输出、图 | |
+| `/scratch/<acct>/…` 或 Turbo | 大文件 / 全联赛事件数据 | 不放 `$HOME` / git |
+
+**Phase 0 现状：** 合成数据按种子在内存生成（不落盘）；StatsBomb 经 `statsbombpy` 按需 HTTP 拉取，
+**首次组装后缓存为 `data/raw/*.parquet`**（第二次秒开）；模型在内存拟合（尚未固化到 `models/`，下一步加）。
+
+**要不要上 Supabase / 数据库？**
+- **研究 / 单机阶段：不需要。** 本地 Parquet +（可选）DuckDB 足够，且符合 HPC「数据不出集群」原则。
+- **将来做可部署的多用户 Web 站点时**：可考虑 **Supabase(托管 Postgres)** 或自建 Postgres，存缓存数据、
+  模型工件、历史预测、用户输入——但那是 Streamlit 验证之后、上 FastAPI + 前端那一步的事；在此之前引入云 DB 属于过度设计。
+
 ---
 
 ## 3. 特征工程 (Feature Engineering)

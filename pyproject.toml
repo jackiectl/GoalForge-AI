@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 statsbomb = ["statsbombpy"]      # real-data path (StatsBomb open data)
+app = ["streamlit", "matplotlib"]  # web UI (app/streamlit_app.py)
 dev = ["pytest", "ruff"]
 
 [tool.setuptools.packages.find]
