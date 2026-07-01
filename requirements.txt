@@ -1,32 +1,5 @@
-# pip requirements (mirror of environment.yml for venv users).
-# Prefer the conda env on Great Lakes; this is a fallback.
+# Minimal RUNTIME deps for the deployed API (kept small for Vercel serverless).
+# Full dev / training deps: requirements-dev.txt (or environment.yml).
 numpy
-pandas
-scipy
-scikit-learn
-statsmodels
-matplotlib
-seaborn
-jupyterlab
-pyyaml
-requests
-tqdm
-python-dotenv
-pyarrow
-xgboost
-lightgbm
-pytest
-ruff
-# football data + analytics
-soccerdata
-statsbombpy
-socceraction
-penaltyblog
-# web app / api
-streamlit
 fastapi
 uvicorn[standard]
-httpx
-# deep learning / probabilistic — install the CUDA-matched build on a GPU node
-# torch
-# numpyro

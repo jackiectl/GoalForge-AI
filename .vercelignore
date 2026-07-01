@@ -1,0 +1,18 @@
+# Keep the Vercel deployment small — only api/, src/, web/, model.json, requirements.txt are needed.
+.venv/
+data/
+models/
+Literature Review/
+notebooks/
+reports/
+slurm/
+tests/
+docs/
+app/
+scripts/
+*.pkl
+*.parquet
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.git/

@@ -1,0 +1,32 @@
+# Full development / training dependencies (superset of requirements.txt).
+# On Great Lakes prefer the conda env (environment.yml); this is a venv fallback.
+numpy
+pandas
+scipy
+scikit-learn
+statsmodels
+matplotlib
+seaborn
+jupyterlab
+pyyaml
+requests
+tqdm
+python-dotenv
+pyarrow
+xgboost
+lightgbm
+pytest
+ruff
+# football data + analytics
+soccerdata
+statsbombpy
+socceraction
+penaltyblog
+# web app / api
+streamlit
+fastapi
+uvicorn[standard]
+httpx
+# deep learning / probabilistic — install the CUDA-matched build on a GPU node
+# torch
+# numpyro

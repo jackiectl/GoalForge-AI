@@ -16,7 +16,9 @@ designed to generalize to any match. Full design: [docs/workflow.md](docs/workfl
   `pip install -e .`.
 - Large data and model artifacts stay out of git (see `.gitignore`); keep them under
   `data/` and `models/`, or on `/scratch` for big files.
-- When adding dependencies, update **both** `environment.yml` and `requirements.txt`.
+- When adding dependencies: put full dev/training deps in `requirements-dev.txt` and
+  `environment.yml`; keep root `requirements.txt` **minimal** (numpy/fastapi/uvicorn) so the
+  Vercel serverless function stays small. The deployed API path is NumPy-only (no scipy/pandas).
 - **Isolated env only** — never `pip install` into the system Python (it's 3.6.8 here).
   Use the `goalforge` conda env (or a venv). Keep the footprint slim; add heavy/optional
   deps (torch, numpyro) only when actually needed.
