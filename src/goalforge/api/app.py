@@ -58,7 +58,10 @@ def squad(team: str):
     m = get_model()
     if team not in m["squads"]:
         raise HTTPException(404, f"unknown team: {team}")
-    return {"team": team, "players": m["squads"][team], "default_xi": m["squads"][team][:11]}
+    players = m["squads"][team]
+    info = m.get("player_info", {})
+    return {"team": team, "players": players, "default_xi": players[:11],
+            "info": {p: info[p] for p in players if p in info}}
 
 
 @app.post("/api/predict", response_model=PredictResponse)

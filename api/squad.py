@@ -16,8 +16,10 @@ class handler(BaseHTTPRequestHandler):
         team = (parse_qs(urlparse(self.path).query).get("team") or [""])[0]
         if team not in M["squads"]:
             return send_json(self, 404, {"detail": f"unknown team: {team}"})
-        send_json(self, 200, {"team": team, "players": M["squads"][team],
-                              "default_xi": M["squads"][team][:11]})
+        players = M["squads"][team]
+        info = M.get("player_info", {})
+        send_json(self, 200, {"team": team, "players": players, "default_xi": players[:11],
+                              "info": {p: info[p] for p in players if p in info}})
 
     def log_message(self, *args):
         pass

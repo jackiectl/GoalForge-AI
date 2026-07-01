@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>GoalForge ⚽</title>
+  <title>GoalForge ⚽ — 2026 World Cup</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <header>
     <h1>⚽ GoalForge</h1>
-    <p class="sub">Predict the scoreline, scorers &amp; assisters from two starting lineups</p>
+    <p class="sub">Predict the scoreline, scorers &amp; assisters for the <b>2026 FIFA World Cup</b> from two starting lineups</p>
   </header>
 
   <main>
@@ -21,13 +21,14 @@
       </div>
       <div class="opts">
         <label class="chk"><input type="checkbox" id="neutral" checked/> Neutral venue</label>
-        <label class="slider">Simulations <input type="range" id="nsims" min="10000" max="100000" step="10000" value="50000"/> <span id="nsimsv">50000</span></label>
+        <span id="venueNote" class="venue"></span>
         <button id="go">Predict</button>
       </div>
       <div class="xis">
         <div class="xicol"><h3 id="homeName">Home</h3><div id="homeXI" class="xi"></div></div>
         <div class="xicol"><h3 id="awayName">Away</h3><div id="awayXI" class="xi"></div></div>
       </div>
+      <p class="hint">The ticked 11 are a suggested XI (most-capped player per position, 4-3-3). Tick/untick to set your own lineup.</p>
     </section>
 
     <section id="results" class="results hidden">
@@ -46,10 +47,16 @@
       </div>
     </section>
     <p id="err" class="err"></p>
+
+    <details class="method">
+      <summary>ℹ️ How it works &amp; what to trust</summary>
+      <div id="methodBody"></div>
+    </details>
   </main>
 
   <footer>
-    Data: StatsBomb open data (attribution: StatsBomb) + martj42 international results.
+    Squads &amp; player caps/goals: Wikipedia (2026 FIFA World Cup squads, CC BY-SA).
+    Team strength: martj42 international results. Player events: StatsBomb open data.
     Research demo — not betting advice.
   </footer>
   <script src="app.js"></script>

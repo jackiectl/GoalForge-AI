@@ -1,35 +1,68 @@
 const $ = (id) => document.getElementById(id);
 
+let META = {};
+let HOSTS = new Set();
+const isHost = (t) => HOSTS.has(t);
+
 async function api(url, opts) {
   const r = await fetch(url, opts);
   if (!r.ok) {
     const e = await r.json().catch(() => ({ detail: r.statusText }));
-    throw new Error(e.detail || r.statusText);
+    throw new Error(e.detail || `HTTP ${r.status}`);
   }
   return r.json();
 }
 
 async function init() {
-  const { teams } = await api('/api/teams');
+  const { teams, meta } = await api('/api/teams');
+  META = meta || {};
+  HOSTS = new Set(META.hosts || []);
   const opts = teams.map((t) => `<option>${t}</option>`).join('');
   $('home').innerHTML = opts;
   $('away').innerHTML = opts;
   $('away').selectedIndex = Math.min(1, teams.length - 1);
+  updateVenue();
   await Promise.all([loadXI('home'), loadXI('away')]);
-  $('home').onchange = () => loadXI('home');
-  $('away').onchange = () => loadXI('away');
-  $('nsims').oninput = (e) => ($('nsimsv').textContent = e.target.value);
+  $('home').onchange = () => { updateVenue(); loadXI('home'); };
+  $('away').onchange = () => { updateVenue(); loadXI('away'); };
+  $('neutral').onchange = renderVenueNote;
   $('go').onclick = predict;
+  renderMethod();
+}
+
+// --- venue: neutral by default; a single 2026 host gets home advantage ---------------
+function updateVenue() {
+  const oneHost = isHost($('home').value) !== isHost($('away').value); // XOR
+  $('neutral').checked = !oneHost;
+  renderVenueNote();
+}
+
+function renderVenueNote() {
+  const h = $('home').value, a = $('away').value;
+  if ($('neutral').checked) {
+    $('venueNote').textContent = 'Neutral venue — World Cup default (no home advantage).';
+  } else {
+    const host = isHost(h) ? h : isHost(a) ? a : h;
+    $('venueNote').textContent = `🏠 Home advantage: ${host}${isHost(host) ? ' (2026 host)' : ''}`;
+  }
 }
 
 async function loadXI(side) {
   const team = $(side).value;
   $(side === 'home' ? 'homeName' : 'awayName').textContent = team;
-  const { players, default_xi } = await api(`/api/squad?team=${encodeURIComponent(team)}`);
+  const { players, default_xi, info } = await api(`/api/squad?team=${encodeURIComponent(team)}`);
   const def = new Set(default_xi);
-  $(side === 'home' ? 'homeXI' : 'awayXI').innerHTML = players
-    .map((p) => `<label><input type="checkbox" value="${p}" ${def.has(p) ? 'checked' : ''}/> ${p}</label>`)
-    .join('');
+  const row = (p) => {
+    const i = info && info[p];
+    const meta = i && i.caps != null
+      ? `<span class="pmeta">${i.pos || ''} · ${i.caps} caps · ${i.goals} gls</span>` : '';
+    return `<label><input type="checkbox" value="${p}" ${def.has(p) ? 'checked' : ''}/>
+      <span class="pname">${p}</span>${meta}</label>`;
+  };
+  const starters = players.slice(0, 11).map(row).join('');
+  const bench = players.slice(11).map(row).join('');
+  $(side === 'home' ? 'homeXI' : 'awayXI').innerHTML =
+    starters + (bench ? `<div class="benchsep">Bench</div>${bench}` : '');
 }
 
 const xiOf = (side) =>
@@ -50,13 +83,18 @@ async function predict() {
   $('go').disabled = true;
   $('go').textContent = 'Simulating…';
   try {
-    const body = {
-      home_team: $('home').value, away_team: $('away').value,
-      home_xi: xiOf('home'), away_xi: xiOf('away'),
-      neutral: $('neutral').checked, n_sims: +$('nsims').value,
-    };
+    let homeTeam = $('home').value, awayTeam = $('away').value;
+    let homeXI = xiOf('home'), awayXI = xiOf('away');
+    const neutral = $('neutral').checked;
+    // If not neutral, the advantaged (home) side must be the host — reorder if the host was picked as away.
+    if (!neutral && isHost(awayTeam) && !isHost(homeTeam)) {
+      [homeTeam, awayTeam] = [awayTeam, homeTeam];
+      [homeXI, awayXI] = [awayXI, homeXI];
+    }
     const p = await api('/api/predict', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ home_team: homeTeam, away_team: awayTeam,
+        home_xi: homeXI, away_xi: awayXI, neutral }),
     });
     $('results').classList.remove('hidden');
     $('matchTitle').textContent = `${p.home_team} vs ${p.away_team}`;
@@ -85,6 +123,19 @@ async function predict() {
     $('go').disabled = false;
     $('go').textContent = 'Predict';
   }
+}
+
+function renderMethod() {
+  const m = META.method || {}, b = META.backtest || {};
+  const li = (k, v) => (v ? `<li><b>${k}:</b> ${v}</li>` : '');
+  $('methodBody').innerHTML =
+    '<ul>' +
+    li('Scoreline', m.scoreline) + li('Scorers', m.scorer) + li('Assists', m.assist) +
+    li('Default XI', m.default_xi) + li('Venue', m.venue) + '</ul>' +
+    (b.test_rps ? `<p class="mnote">Team layer held-out backtest on international matches:
+       RPS ${b.test_rps} (lower is better — beats Elo &amp; base-rate). The scorer &amp; assist
+       layers are history/prior-based and are <b>not</b> validated on 2026 outcomes.</p>` : '') +
+    (META.note ? `<p class="mnote">${META.note}</p>` : '');
 }
 
 init().catch((e) => ($('err').textContent = 'Init error: ' + e.message));

@@ -1,8 +1,8 @@
 # Deploying GoalForge on Vercel
 
-The current (statistical) model is tiny (`api/model.json` ≈ 100 KB) and inference is analytic,
-so the whole app runs on Vercel: a static frontend + tiny Python serverless functions. This
-mirrors the working structure of the reference project `aevum-orrin/applet-material`.
+The current (statistical) model is tiny (`api/model.json` ≈ 230 KB — 48 teams, ~1250 players)
+and inference is analytic, so the whole app runs on Vercel: a static frontend + tiny Python
+serverless functions. This mirrors the working reference project `aevum-orrin/applet-material`.
 
 ## Structure
 - `public/` — static frontend (`outputDirectory` in `vercel.json`), served at `/`.
@@ -28,14 +28,17 @@ mirrors the working structure of the reference project `aevum-orrin/applet-mater
 1. Push to GitHub (done).
 2. vercel.com → New Project → import `GoalForge-AI`. Framework preset **Other**; root = repo root.
 3. Deploy → public URL. Every `git push` redeploys. Check `<url>/api/health` first — it returns
-   `{"status":"ok","teams":32}` when the model is bundled.
+   `{"status":"ok","teams":48}` when the model is bundled.
 
-## Updating the model
+## Updating the model / squads (real 2026 World Cup)
 ```bash
-python scripts/train.py            # retrain on Great Lakes
-python scripts/export_model.py     # writes api/model.json
-git add api/model.json && git commit -m "update model" && git push
+python scripts/train.py               # (re)fit the Dixon-Coles team layer -> models/agent_intl.pkl
+python scripts/scrape_wc2026.py       # scrape the 48 real 2026 squads (Wikipedia) -> scratch cache
+python scripts/build_wc2026_model.py  # combine -> api/model.json (48 teams, caps/goals scorer rates)
+git add api/model.json && git commit -m "update 2026 model" && git push
 ```
+`build_wc2026_model.py` reuses the validated team checkpoint for the scoreline layer and derives
+scorer rates from each player's real international goals-per-cap; see its module docstring.
 
 ## Endgame (after Phase 3)
 Once neural models arrive, the heavy model moves to a **Hugging Face Space** (torch + GPU);

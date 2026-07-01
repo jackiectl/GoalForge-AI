@@ -21,6 +21,20 @@ international) for which both starting lineups are available.
 > (Dixon–Coles scoreline + Monte-Carlo scorer/assist allocation) is implemented and runs on
 > both synthetic data and real StatsBomb World Cup data — see Quickstart.
 
+## Live demo — real 2026 World Cup
+A deployed build predicts the **48-team 2026 FIFA World Cup** end-to-end (static frontend +
+stdlib serverless API on Vercel), from **real data**:
+- **Squads** — the official 26-man rosters (48 teams) with each player's caps and international
+  goals, scraped from Wikipedia (`scripts/scrape_wc2026.py`).
+- **Team strength** — Dixon–Coles fit on martj42 international results (honest held-out backtest).
+- **Scorers** — each player's real international goals-per-cap, shrunk to a position prior.
+- **Assists** — a position-based *estimate* (no public international assist dataset — the weakest layer).
+- **Venue** — neutral by default; the three hosts (USA / Canada / Mexico) get home advantage.
+
+The default XI is the most-capped player per position (4-3-3), editable per match. Only the team
+layer is validated on match outcomes; the scorer/assist layers are history/prior-based. Pipeline:
+`scripts/build_wc2026_model.py` → `api/model.json`; see [DEPLOY.md](DEPLOY.md).
+
 ## Why an "agent"?
 The end goal is an automated agent: hand it two lineups, and it fetches the required
 historical data, builds features, runs the simulation, and returns a structured prediction
@@ -35,8 +49,8 @@ models/          Saved model artifacts — contents git-ignored
 notebooks/       Exploratory analysis
 reports/         Generated figures and prediction outputs
 app/             Streamlit web UI
-public/          web frontend (static HTML/CSS/JS; served by FastAPI locally & Vercel)
-api/             self-contained Vercel serverless function (numpy + fastapi)
+public/          static web frontend (HTML/CSS/JS; served by FastAPI locally & Vercel)
+api/             Vercel serverless functions (Python stdlib only) + model.json
 scripts/         CLI entry points (run_pipeline / train / run_worldcup)
 slurm/           Great Lakes (Slurm) job templates
 src/goalforge/   Main Python package
@@ -70,6 +84,9 @@ python scripts/run_worldcup.py Argentina France  # real StatsBomb WC2022 data
 
 # train a checkpoint (team model on martj42 internationals + player rates on StatsBomb)
 python scripts/train.py
+
+# build the deployed 2026 World Cup model (48 real squads via Wikipedia -> api/model.json)
+python scripts/scrape_wc2026.py && python scripts/build_wc2026_model.py
 
 # --- web app ---
 python -m streamlit run app/streamlit_app.py                    # Streamlit UI

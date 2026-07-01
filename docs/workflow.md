@@ -134,6 +134,18 @@ API-Football (未来: 实时首发)  ─┘    data/synthetic.py         appeara
 - **将来做可部署的多用户 Web 站点时**：可考虑 **Supabase(托管 Postgres)** 或自建 Postgres，存缓存数据、
   模型工件、历史预测、用户输入——但那是 Streamlit 验证之后、上 FastAPI + 前端那一步的事；在此之前引入云 DB 属于过度设计。
 
+### 2.7 部署用的真实 2026 世界杯数据 (deployed 2026 build)
+线上 demo(Vercel)预测**真实的 48 队 2026 世界杯**,三个真实来源合成一个 `api/model.json`:
+- **名单 + 球员数据**:`scripts/scrape_wc2026.py` 爬 Wikipedia「2026 FIFA World Cup squads」,
+  拿到 48 队官方 26 人名单,每人含**位置、国家队出场数(caps)、国家队进球数(goals)、俱乐部**。
+- **球队强度(比分层)**:沿用已验证的 Dixon-Coles checkpoint(martj42 国际赛,有留出回测)。48 队队名与 martj42 完全匹配。
+- **射手率**:每名球员**真实的国际赛 goals/caps**,按位置先验做经验贝叶斯收缩(K=8 caps),避免低出场数噪声。
+- **助攻率**:**位置先验估计**(无公开国际助攻数据)——如实标注为最弱的一层。
+- **首发 XI**:各位置按 caps 最高填 4-3-3(启发式,可在 UI 手动改)。
+- **主客场**:默认中立;仅东道主 **美/加/墨** 有主场优势(`meta.hosts`,前端自动处理)。
+
+诚实边界:**只有球队层在真实赛果上回测过**;射手/助攻层是历史/先验驱动,未在 2026 赛果上验证。构建脚本:`scripts/build_wc2026_model.py`。
+
 ---
 
 ## 3. 特征工程 (Feature Engineering)

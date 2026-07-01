@@ -74,7 +74,12 @@ Great Lakes GPU partitions include `gpu`, `spgpu` (A40), and `gpu_mig40`.
 ```bash
 # tests / lint
 pytest -q
-ruff check src tests
+ruff check src tests api scripts
+
+# deployed 2026 World Cup model (real 48 squads -> api/model.json, served on Vercel)
+python scripts/train.py                # (re)fit Dixon-Coles team layer -> models/agent_intl.pkl
+python scripts/scrape_wc2026.py        # scrape 48 real 2026 squads (Wikipedia) -> scratch cache
+python scripts/build_wc2026_model.py   # combine -> api/model.json (48 teams, caps/goals scorers)
 
 # (planned) pipeline entry points — see docs/workflow.md
 python -m goalforge.data.download       --config configs/default.yaml   # fetch & cache data
