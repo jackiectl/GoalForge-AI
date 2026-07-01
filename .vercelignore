@@ -1,4 +1,4 @@
-# The Vercel deploy only needs api/ (self-contained function + model.json), public/ (frontend),
+# The Vercel deploy only needs api/*.py (stdlib functions + model.json), public/ (frontend),
 # requirements.txt and vercel.json. Everything else is excluded to keep the function small.
 .venv/
 data/
@@ -12,6 +12,13 @@ app/
 notebooks/
 reports/
 Literature Review/
+# Python-package markers: exclude so Vercel does NOT auto-detect a Python/FastAPI backend
+# and look for a single ASGI entrypoint. pyproject.toml lists fastapi (optional-deps) and marks
+# an installable package; without it Vercel treats api/*.py as classic serverless functions
+# (stdlib only, empty requirements.txt) — the same path the working applet-material project uses.
+pyproject.toml
+setup.py
+setup.cfg
 environment.yml
 requirements-dev.txt
 *.pkl

@@ -14,6 +14,12 @@ mirrors the working structure of the reference project `aevum-orrin/applet-mater
 - `vercel.json` — `outputDirectory: public`; a negative-lookahead rewrite sends every non-`/api/`
   path to the frontend; `includeFiles` bundles `api/model.json` into each function.
 - `requirements.txt` — empty (the functions need no third-party deps).
+- `.vercelignore` — **excludes `pyproject.toml`** (and `src/`). This matters: newer Vercel builders
+  scan `pyproject.toml`, and ours lists `fastapi` (optional-deps) while the real FastAPI app lives in
+  `src/goalforge/api/app.py`. If Vercel sees that, it switches to "FastAPI backend" mode, hunts for a
+  single ASGI entrypoint, finds only the `handler` functions, and fails the build with
+  *"No FastAPI entrypoint found"*. Ignoring `pyproject.toml`/`src/` keeps it on the classic
+  static-site + per-file Python serverless-functions path (what applet-material uses).
 
 ## Connect (you handle the GitHub↔Vercel link)
 1. Push to GitHub (done).

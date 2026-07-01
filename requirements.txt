@@ -1,2 +1,4 @@
-# The Vercel serverless function (api/index.py) uses only the Python standard library, so there
-# is nothing to install. Full dev / training dependencies: requirements-dev.txt / environment.yml.
+# The Vercel serverless functions (api/*.py: health, teams, squad, predict) use only the Python
+# standard library, so there is nothing to install here. Keeping this file empty (no fastapi) is
+# deliberate: it stops Vercel from auto-detecting a Python/FastAPI backend and looking for a single
+# ASGI entrypoint. Full dev / training dependencies: requirements-dev.txt / environment.yml.
