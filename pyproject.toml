@@ -8,6 +8,16 @@ version = "0.0.1"
 description = "Predict soccer match scores, scorers, and assists from starting lineups."
 readme = "README.md"
 requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+statsbomb = ["statsbombpy"]      # real-data path (StatsBomb open data)
+dev = ["pytest", "ruff"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

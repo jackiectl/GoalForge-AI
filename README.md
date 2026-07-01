@@ -17,7 +17,9 @@ The first target is the **FIFA World Cup**; the design generalizes to any match 
 international) for which both starting lineups are available.
 
 > **Status:** early scaffold. The full design — data sources, models, and the prediction
-> pipeline — lives in [docs/workflow.md](docs/workflow.md). No production code yet.
+> pipeline — lives in [docs/workflow.md](docs/workflow.md). A working **Phase-0 pipeline**
+> (Dixon–Coles scoreline + Monte-Carlo scorer/assist allocation) is implemented and runs on
+> both synthetic data and real StatsBomb World Cup data — see Quickstart.
 
 ## Why an "agent"?
 The end goal is an automated agent: hand it two lineups, and it fetches the required
@@ -48,14 +50,29 @@ tests/           test suite
 ## Quickstart (UMich Great Lakes)
 See [CLAUDE.md](CLAUDE.md) for the full command reference. In short:
 ```bash
-# 1) one-time: install Miniforge + create the env (see CLAUDE.md)
-conda env create -f environment.yml
-conda activate goalforge
-pip install -e .            # install the goalforge package (editable)
+# one-time: env = anaconda module (scientific stack) + project .venv, then install goalforge
+module load python3.11-anaconda/2024.02
+python -m venv --system-site-packages .venv && source .venv/bin/activate
+pip install -e . && pip install statsbombpy      # statsbombpy = real-data path
+# (alternative, self-contained: conda env create -f environment.yml && conda activate goalforge && pip install -e .)
 
-# 2) GPU work runs through Slurm — never on the login node
+# per-session
+source slurm/env_setup.sh
+
+# --- run Phase 0 ---
+python scripts/run_pipeline.py                   # synthetic, offline: fit -> backtest -> predict
+pytest -q                                        # test suite (11 tests)
+python scripts/run_worldcup.py Argentina France  # real StatsBomb WC2022 data
+
+# GPU work runs through Slurm — never on the login node
 sbatch slurm/train_gpu.sbatch
 ```
+
+**What Phase 0 does:** generate/load matches → fit a Dixon–Coles scoreline model → estimate
+per-player scoring/assist rates (empirical-Bayes shrinkage) → Monte-Carlo simulate the match
+→ output scoreline probabilities, per-player anytime-scorer and assist probabilities, with a
+walk-forward RPS backtest. Real data flows through [statsbomb.py](src/goalforge/data/statsbomb.py);
+synthetic data through [synthetic.py](src/goalforge/data/synthetic.py).
 
 ## Hardware
 Development happens on Great Lakes. GPUs are requested via Slurm (see [slurm/](slurm/)) and
