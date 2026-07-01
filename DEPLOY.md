@@ -5,12 +5,13 @@ so the whole app runs on Vercel: a static frontend + one small serverless functi
 
 ## Structure (standard Vercel layout)
 - `public/` — static frontend, served by Vercel at `/`.
-- `api/index.py` — **self-contained** serverless function (NumPy + FastAPI only; no imports from
-  `src/`, no static serving). Handles `/api/*`; reads `api/model.json` beside it.
+- `api/index.py` — **self-contained** serverless function, **Python standard library only** (no
+  numpy/fastapi → nothing to install, so it cannot fail to import). Analytic inference (Poisson
+  scoreline + per-player Poisson-thinning anytime probabilities); reads `api/model.json`.
 - `api/model.json` — the exported model (regenerate with `python scripts/export_model.py`).
 - `vercel.json` — rewrites `/api/*` to the function; `public/` is auto-served.
-- `requirements.txt` — minimal (`numpy`, `fastapi`, `uvicorn`). `.vercelignore` excludes
-  everything else (src/, data/, tests/, …) so the function bundle stays tiny.
+- `requirements.txt` — empty (the function needs no third-party deps). `.vercelignore` excludes
+  src/, data/, tests/, … so the bundle stays tiny.
 
 ## Connect (you handle the GitHub↔Vercel link)
 1. Push to GitHub (done).

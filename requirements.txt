@@ -1,5 +1,2 @@
-# Minimal RUNTIME deps for the deployed API (kept small for Vercel serverless).
-# Full dev / training deps: requirements-dev.txt (or environment.yml).
-numpy
-fastapi
-uvicorn[standard]
+# The Vercel serverless function (api/index.py) uses only the Python standard library, so there
+# is nothing to install. Full dev / training dependencies: requirements-dev.txt / environment.yml.
