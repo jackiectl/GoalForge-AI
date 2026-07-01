@@ -18,7 +18,8 @@ dependencies = [
 [project.optional-dependencies]
 statsbomb = ["statsbombpy"]      # real-data path (StatsBomb open data)
 app = ["streamlit", "matplotlib"]  # web UI (app/streamlit_app.py)
-dev = ["pytest", "ruff"]
+api = ["fastapi", "uvicorn[standard]"]  # REST backend (src/goalforge/api/)
+dev = ["pytest", "ruff", "httpx"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

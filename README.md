@@ -34,15 +34,18 @@ docs/            Design docs; start with docs/workflow.md
 models/          Saved model artifacts — contents git-ignored
 notebooks/       Exploratory analysis
 reports/         Generated figures and prediction outputs
-scripts/         Thin CLI entry points (download / train / predict / backtest)
+app/             Streamlit web UI
+web/             FastAPI frontend (static HTML/CSS/JS)
+scripts/         CLI entry points (run_pipeline / train / run_worldcup)
 slurm/           Great Lakes (Slurm) job templates
 src/goalforge/   Main Python package
-  data/          ingestion & loaders
+  data/          ingestion & loaders (synthetic, StatsBomb, martj42)
   features/      feature engineering (player form, ratings, coach effects)
-  models/        scoreline & player goal/assist models
+  models/        scoreline (Dixon-Coles, hierarchical) & player models
   simulation/    Monte-Carlo match engine
-  prediction/    end-to-end lineup -> prediction agent
-  evaluation/    backtesting & metrics
+  prediction/    end-to-end agent + checkpoint + likely-XI
+  evaluation/    temporal split, baselines, metrics, backtest
+  api/           FastAPI backend
   utils/         shared helpers
 tests/           test suite
 ```
@@ -63,6 +66,13 @@ source slurm/env_setup.sh
 python scripts/run_pipeline.py                   # synthetic, offline: fit -> backtest -> predict
 pytest -q                                        # test suite (11 tests)
 python scripts/run_worldcup.py Argentina France  # real StatsBomb WC2022 data
+
+# train a checkpoint (team model on martj42 internationals + player rates on StatsBomb)
+python scripts/train.py
+
+# --- web app ---
+python -m streamlit run app/streamlit_app.py                    # Streamlit UI
+python -m uvicorn goalforge.api.app:app --host 127.0.0.1 --port 8000   # FastAPI + web/ frontend
 
 # GPU work runs through Slurm — never on the login node
 sbatch slurm/train_gpu.sbatch

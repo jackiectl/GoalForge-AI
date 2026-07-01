@@ -22,8 +22,11 @@ soccerdata
 statsbombpy
 socceraction
 penaltyblog
-# web app
+# web app / api
 streamlit
+fastapi
+uvicorn[standard]
+httpx
 # deep learning / probabilistic — install the CUDA-matched build on a GPU node
 # torch
 # numpyro

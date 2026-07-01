@@ -36,6 +36,9 @@ dependencies:
       - socceraction   # VAEP / xT player action-value models
       - penaltyblog    # Dixon-Coles, bivariate Poisson, rating models
       - streamlit      # web UI (app/streamlit_app.py)
+      - fastapi        # REST API (src/goalforge/api/)
+      - uvicorn
+      - httpx          # FastAPI TestClient (tests)
       # Probabilistic / deep learning — install GPU builds on a GPU node per the
       # Great Lakes CUDA toolkit (see CLAUDE.md / slurm/). Left commented so a plain
       # `conda env create` stays CPU-only and reproducible.

@@ -23,6 +23,7 @@ class GoalForgeAgent:
     scoreline: DixonColesModel
     ratings: PlayerRatings
     meta: dict = field(default_factory=dict)
+    squads: dict = field(default_factory=dict)   # team -> [player names by minutes] for the UI
 
     def build_lineup(self, team: str, player_names, **kwargs) -> Lineup:
         return self.ratings.build_lineup(team, player_names, **kwargs)

@@ -100,7 +100,10 @@ def main():
             "player_source": "statsbomb_wc2022",
             "cutoff": str(d.matches.date.max().date()),
             "test_rps": round(r_test, 4), "test_logloss": round(ll_test, 4)}
-    agent = GoalForgeAgent(final_dc, ratings, meta)
+    squads = {t: list(wc.appearances[wc.appearances.team == t]
+                      .groupby("player").minutes.sum().sort_values(ascending=False).index)
+              for t in sorted(wc.appearances.team.unique())}
+    agent = GoalForgeAgent(final_dc, ratings, meta, squads=squads)
     path = agent.save(args.out)
     print(f"   saved -> {path}\n   meta = {meta}")
 
