@@ -5,7 +5,7 @@ data). It does NOT block ordinary residential IPs, so run this ON YOUR LAPTOP, t
 output to the cluster:
 
     # on your laptop (residential IP):
-    pip install pandas pyarrow
+    pip install pandas pyarrow curl_cffi      # curl_cffi impersonates a real browser (Understat needs it)
     python scripts/fetch_understat_live.py
     scp understat_players.parquet ctlang@gl-login.arc-ts.umich.edu:$GOALFORGE_DATA_DIR/
 
@@ -24,7 +24,6 @@ import json
 import os
 import re
 import time
-import urllib.request
 
 import pandas as pd
 
@@ -35,10 +34,22 @@ UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit
                     "(KHTML, like Gecko) Chrome/122.0 Safari/537.36"}
 
 
+def _get(url: str) -> str:
+    """Fetch a page. Prefer curl_cffi (impersonates a real Chrome TLS fingerprint, which gets
+    past Understat's bot detection); fall back to urllib if curl_cffi isn't installed."""
+    try:
+        from curl_cffi import requests as creq
+        return creq.get(url, impersonate="chrome", timeout=30).text
+    except ImportError:
+        import urllib.request
+        req = urllib.request.Request(url, headers=UA)
+        return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+
+
 def _players(html: str):
     m = re.search(r"playersData\s*=\s*JSON\.parse\('", html)
     if not m:
-        return None                                            # stripped page (blocked IP)
+        return None                                            # data not in page (bot-blocked)
     end = html.index("')", m.end())
     return json.loads(html[m.end():end].encode().decode("unicode_escape"))
 
@@ -48,11 +59,12 @@ def fetch(cache: str, verbose: bool = True) -> pd.DataFrame:
     rows = []
     for lg in LEAGUES:
         for yr in SEASONS:
-            url = f"https://understat.com/league/{lg}/{yr}"
-            html = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30).read().decode("utf-8", "replace")
+            html = _get(f"https://understat.com/league/{lg}/{yr}")
             players = _players(html)
             if not players:
-                print(f"  WARN {lg}/{yr}: no player data (blocked IP? run on a residential network)")
+                has = "playersData" in html
+                print(f"  WARN {lg}/{yr}: no data (page {len(html)} B, playersData present={has}). "
+                      f"Install curl_cffi (`pip install curl_cffi`) to impersonate a browser.")
                 continue
             for p in players:
                 r = {"player_name": p["player_name"], "position": p["position"],
@@ -62,6 +74,8 @@ def fetch(cache: str, verbose: bool = True) -> pd.DataFrame:
             if verbose:
                 print(f"  {lg}/{yr}: {len(players)} players")
             time.sleep(1.0)                                    # be polite
+    if not rows:
+        return pd.DataFrame(), None
     allp = pd.DataFrame(rows)
     agg = allp.groupby("player_name", as_index=False).agg(
         {**{c: "sum" for c in SUM}, "team_title": "last"})
@@ -84,7 +98,9 @@ def main():
         print(out.sort_values("xA", ascending=False).head(5)
               [["player_name", "team_title", "nineties", "goals", "xG", "assists", "xA"]].round(1).to_string(index=False))
     else:
-        print("\nNo data fetched — you are on a blocked IP. Run on your laptop or via an SSH SOCKS tunnel.")
+        print("\nNo data fetched. Understat serves a stripped page to non-browser requests; "
+              "install curl_cffi (`pip install curl_cffi`) so this impersonates a real Chrome, "
+              "then re-run.")
 
 
 if __name__ == "__main__":
