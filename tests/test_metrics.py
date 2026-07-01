@@ -1,4 +1,4 @@
-from goalforge.evaluation.metrics import brier_score, outcome_index, rps
+from goalforge.evaluation.metrics import brier_score, ece, outcome_index, rps
 
 
 def test_rps_bounds():
@@ -16,3 +16,8 @@ def test_outcome_index():
 def test_brier():
     assert brier_score([1, 0, 0], 0) == 0.0
     assert brier_score([0, 1, 0], 0) == 2.0
+
+
+def test_ece():
+    assert ece([[1, 0, 0], [0, 1, 0]], [0, 1]) == 0.0        # confident & correct
+    assert ece([[1, 0, 0], [1, 0, 0]], [2, 2]) == 1.0        # confident & wrong

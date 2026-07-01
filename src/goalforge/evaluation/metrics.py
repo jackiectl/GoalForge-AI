@@ -46,6 +46,23 @@ def mean_log_loss(prob_matrix, outcomes, eps: float = 1e-15) -> float:
     return float(np.mean([log_loss(prob_matrix[i], outcomes[i], eps) for i in range(len(outcomes))]))
 
 
+def ece(prob_matrix, outcomes, n_bins: int = 10) -> float:
+    """Top-label Expected Calibration Error for multiclass forecasts (lower is better)."""
+    P = np.asarray(prob_matrix, dtype=float)
+    y = np.asarray(outcomes, dtype=int)
+    conf = P.max(axis=1)
+    correct = (P.argmax(axis=1) == y).astype(float)
+    edges = np.linspace(0.0, 1.0, n_bins + 1)
+    n = len(y)
+    total = 0.0
+    for i in range(n_bins):
+        m = (conf > edges[i]) & (conf <= edges[i + 1])
+        if m.sum() == 0:
+            continue
+        total += m.sum() / n * abs(correct[m].mean() - conf[m].mean())
+    return float(total)
+
+
 def brier_score(probs, outcome: int) -> float:
     p = np.asarray(probs, dtype=float)
     o = np.zeros_like(p)
