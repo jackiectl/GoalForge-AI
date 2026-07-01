@@ -22,5 +22,11 @@ else
   return 1 2>/dev/null || exit 1
 fi
 
-# 3) (GPU jobs) load a CUDA toolkit matching your framework build, e.g.:
+# 3) Storage: artifacts default to the repo under $HOME (data/, models/) — all small for now.
+# Nothing is stored under drjieliu (Turbo/Scratch) or Lighthouse. If big regenerable caches
+# are ever needed, the nmasoud scratch (10 TB, owned by you) is available — set e.g.:
+# export GOALFORGE_DATA_DIR=/scratch/nmasoud_owned_root/nmasoud_owned1/ctlang/gf_cache
+# (Scratch is fast but auto-purged ~60d and not backed up; keep checkpoints in $HOME.)
+
+# 4) (GPU jobs) load a CUDA toolkit matching your framework build, e.g.:
 # module load cuda/12.6.3

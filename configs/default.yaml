@@ -5,7 +5,9 @@
 
 project:
   seed: 42
-  scratch_dir: /scratch/your_account/ctlang/goalforge   # big data on /scratch (adjust)
+  # All data/model artifacts default to the repo under $HOME (data/, models/); no cloud DB.
+  # Everything is small for now; if big caches are ever needed they can go to the EECS498
+  # class Scratch via env vars (slurm/env_setup.sh). Do not create dirs under drjieliu/nmasoud.
 
 data:
   provider: statsbomb        # statsbomb | fbref | understat | api_football

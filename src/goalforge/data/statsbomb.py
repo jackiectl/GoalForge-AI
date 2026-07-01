@@ -8,6 +8,7 @@ optional dependency: ``pip install statsbombpy``. The free open data covers FIFA
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -71,7 +72,8 @@ def _bundle(matches, appearances, goals) -> SyntheticData:
 
 
 def load_competition(competition_id: int, season_id: int, max_matches: int | None = None,
-                     verbose: bool = True, cache_dir: str | Path = "data/raw") -> SyntheticData:
+                     verbose: bool = True,
+                     cache_dir: str | Path = os.environ.get("GOALFORGE_DATA_DIR", "data/raw")) -> SyntheticData:
     """Load a StatsBomb competition-season into (matches, appearances, goals) frames.
 
     Assembled frames are cached under ``cache_dir`` (default ``data/raw/``, git-ignored) so

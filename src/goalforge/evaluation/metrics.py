@@ -40,6 +40,12 @@ def log_loss(probs, outcome: int, eps: float = 1e-15) -> float:
     return float(-np.log(p[outcome]))
 
 
+def mean_log_loss(prob_matrix, outcomes, eps: float = 1e-15) -> float:
+    prob_matrix = np.asarray(prob_matrix, dtype=float)
+    outcomes = np.asarray(outcomes, dtype=int)
+    return float(np.mean([log_loss(prob_matrix[i], outcomes[i], eps) for i in range(len(outcomes))]))
+
+
 def brier_score(probs, outcome: int) -> float:
     p = np.asarray(probs, dtype=float)
     o = np.zeros_like(p)
