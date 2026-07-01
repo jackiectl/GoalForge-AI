@@ -5,9 +5,9 @@
 
 project:
   seed: 42
-  # All data/model artifacts default to the repo under $HOME (data/, models/); no cloud DB.
-  # Everything is small for now; if big caches are ever needed they can go to the EECS498
-  # class Scratch via env vars (slurm/env_setup.sh). Do not create dirs under drjieliu/nmasoud.
+  # Storage: keep GoalForge's $HOME footprint < 5 GB. Big/regenerable caches -> NEDA scratch
+  # (GOALFORGE_DATA_DIR in slurm/env_setup.sh); small checkpoints in $HOME/models. No cloud DB.
+  # Never store project files under drjieliu (Turbo/Scratch) or Lighthouse.
 
 data:
   provider: statsbomb        # statsbomb | fbref | understat | api_football

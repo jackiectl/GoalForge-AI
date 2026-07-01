@@ -81,6 +81,16 @@ python -m goalforge.prediction.predict_match --home <home.yaml> --away <away.yam
 python -m goalforge.evaluation.backtest --config configs/default.yaml   # backtest
 ```
 
+## Storage (Great Lakes)
+- **Keep GoalForge's `$HOME` footprint under 5 GB** (`$HOME` is Turbo-backed and shared with
+  other projects). Code + `.venv` + small checkpoints only.
+- **Big / regenerable data caches go to NEDA scratch** (10 TB, owned; fast, auto-purged
+  ~60 days, not backed up) via `GOALFORGE_DATA_DIR` (set in `slurm/env_setup.sh`):
+  `/scratch/nmasoud_owned_root/nmasoud_owned1/ctlang/gf_cache/data`.
+- Small model checkpoints stay in `$HOME/models/` (persistent, tiny); large neural
+  checkpoints (later) also go to scratch.
+- **Never** store project files under drjieliu (Turbo/Scratch) or Lighthouse.
+
 ## Secrets
 API keys (e.g. API-Football) go in a local `.env` (git-ignored). Never commit keys.
 
