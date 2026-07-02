@@ -1583,14 +1583,22 @@
 "neutral": true,
 "winner": "Switzerland",
 "p_win": 0.5141,
-"decided": "et_pens",
+"reg": [
+1,
+1
+],
+"pens": [
+3,
+5
+],
+"decided": "pens",
 "id": "M73"
 },
 {
 "home": "United States",
 "away": "Germany",
 "hg": 1,
-"ag": 1,
+"ag": 2,
 "p_home": 0.2585,
 "p_draw": 0.2374,
 "p_away": 0.5041,
@@ -1599,7 +1607,12 @@
 "neutral": false,
 "winner": "Germany",
 "p_win": 0.661,
-"decided": "et_pens",
+"reg": [
+1,
+2
+],
+"pens": null,
+"decided": "reg",
 "id": "M74"
 },
 {
@@ -1615,13 +1628,21 @@
 "neutral": true,
 "winner": "Japan",
 "p_win": 0.5667,
-"decided": "et_pens",
+"reg": [
+0,
+0
+],
+"pens": [
+5,
+4
+],
+"decided": "pens",
 "id": "M75"
 },
 {
 "home": "Brazil",
 "away": "Netherlands",
-"hg": 1,
+"hg": 2,
 "ag": 1,
 "p_home": 0.5142,
 "p_draw": 0.2293,
@@ -1631,7 +1652,12 @@
 "neutral": true,
 "winner": "Brazil",
 "p_win": 0.6672,
-"decided": "et_pens",
+"reg": [
+2,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M76"
 },
 {
@@ -1647,7 +1673,12 @@
 "neutral": true,
 "winner": "France",
 "p_win": 0.8216,
-"decided": "90min",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M77"
 },
 {
@@ -1663,13 +1694,18 @@
 "neutral": true,
 "winner": "Ecuador",
 "p_win": 0.7438,
-"decided": "90min",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M78"
 },
 {
 "home": "Mexico",
 "away": "Ivory Coast",
-"hg": 0,
+"hg": 1,
 "ag": 0,
 "p_home": 0.4765,
 "p_draw": 0.3424,
@@ -1679,13 +1715,18 @@
 "neutral": false,
 "winner": "Mexico",
 "p_win": 0.7246,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M79"
 },
 {
 "home": "England",
 "away": "Senegal",
-"hg": 0,
+"hg": 1,
 "ag": 0,
 "p_home": 0.4907,
 "p_draw": 0.3124,
@@ -1695,7 +1736,12 @@
 "neutral": true,
 "winner": "England",
 "p_win": 0.7136,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M80"
 },
 {
@@ -1711,7 +1757,12 @@
 "neutral": true,
 "winner": "Australia",
 "p_win": 0.6328,
-"decided": "90min",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M81"
 },
 {
@@ -1727,14 +1778,19 @@
 "neutral": true,
 "winner": "Belgium",
 "p_win": 0.8596,
-"decided": "90min",
+"reg": [
+2,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M82"
 },
 {
 "home": "Portugal",
 "away": "Croatia",
 "hg": 1,
-"ag": 1,
+"ag": 0,
 "p_home": 0.5123,
 "p_draw": 0.2705,
 "p_away": 0.2172,
@@ -1743,14 +1799,19 @@
 "neutral": true,
 "winner": "Portugal",
 "p_win": 0.7023,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M83"
 },
 {
 "home": "Spain",
 "away": "Algeria",
 "hg": 1,
-"ag": 1,
+"ag": 0,
 "p_home": 0.569,
 "p_draw": 0.254,
 "p_away": 0.177,
@@ -1759,14 +1820,19 @@
 "neutral": true,
 "winner": "Spain",
 "p_win": 0.7627,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M84"
 },
 {
 "home": "Canada",
 "away": "New Zealand",
 "hg": 1,
-"ag": 1,
+"ag": 0,
 "p_home": 0.5732,
 "p_draw": 0.2561,
 "p_away": 0.1707,
@@ -1775,13 +1841,18 @@
 "neutral": false,
 "winner": "Canada",
 "p_win": 0.7705,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M85"
 },
 {
 "home": "Argentina",
 "away": "Uruguay",
-"hg": 0,
+"hg": 1,
 "ag": 0,
 "p_home": 0.5212,
 "p_draw": 0.3295,
@@ -1791,7 +1862,12 @@
 "neutral": true,
 "winner": "Argentina",
 "p_win": 0.7773,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M86"
 },
 {
@@ -1807,7 +1883,12 @@
 "neutral": true,
 "winner": "Colombia",
 "p_win": 0.8712,
-"decided": "90min",
+"reg": [
+2,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M87"
 },
 {
@@ -1823,7 +1904,15 @@
 "neutral": true,
 "winner": "Iran",
 "p_win": 0.5909,
-"decided": "et_pens",
+"reg": [
+0,
+0
+],
+"pens": [
+3,
+4
+],
+"decided": "pens",
 "id": "M88"
 }
 ],
@@ -1832,7 +1921,7 @@
 "home": "Germany",
 "away": "France",
 "hg": 1,
-"ag": 1,
+"ag": 2,
 "p_home": 0.2685,
 "p_draw": 0.2566,
 "p_away": 0.4748,
@@ -1841,7 +1930,12 @@
 "neutral": true,
 "winner": "France",
 "p_win": 0.6388,
-"decided": "et_pens",
+"reg": [
+1,
+2
+],
+"pens": null,
+"decided": "reg",
 "id": "M89"
 },
 {
@@ -1857,13 +1951,18 @@
 "neutral": true,
 "winner": "Japan",
 "p_win": 0.6914,
-"decided": "90min",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M90"
 },
 {
 "home": "Brazil",
 "away": "Ecuador",
-"hg": 0,
+"hg": 1,
 "ag": 0,
 "p_home": 0.4582,
 "p_draw": 0.3553,
@@ -1873,7 +1972,12 @@
 "neutral": true,
 "winner": "Brazil",
 "p_win": 0.7107,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M91"
 },
 {
@@ -1889,13 +1993,21 @@
 "neutral": false,
 "winner": "England",
 "p_win": 0.5977,
-"decided": "et_pens",
+"reg": [
+0,
+0
+],
+"pens": [
+3,
+4
+],
+"decided": "pens",
 "id": "M92"
 },
 {
 "home": "Portugal",
 "away": "Spain",
-"hg": 1,
+"hg": 0,
 "ag": 1,
 "p_home": 0.2418,
 "p_draw": 0.3483,
@@ -1905,7 +2017,12 @@
 "neutral": true,
 "winner": "Spain",
 "p_win": 0.629,
-"decided": "et_pens",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M93"
 },
 {
@@ -1921,7 +2038,15 @@
 "neutral": true,
 "winner": "Belgium",
 "p_win": 0.5522,
-"decided": "et_pens",
+"reg": [
+1,
+1
+],
+"pens": [
+3,
+4
+],
+"decided": "pens",
 "id": "M94"
 },
 {
@@ -1937,7 +2062,12 @@
 "neutral": true,
 "winner": "Argentina",
 "p_win": 0.8492,
-"decided": "90min",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M95"
 },
 {
@@ -1953,7 +2083,12 @@
 "neutral": false,
 "winner": "Colombia",
 "p_win": 0.7274,
-"decided": "90min",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M96"
 }
 ],
@@ -1971,14 +2106,22 @@
 "neutral": true,
 "winner": "France",
 "p_win": 0.5185,
-"decided": "et_pens",
+"reg": [
+1,
+1
+],
+"pens": [
+4,
+2
+],
+"decided": "pens",
 "id": "M97"
 },
 {
 "home": "Spain",
 "away": "Belgium",
 "hg": 1,
-"ag": 1,
+"ag": 0,
 "p_home": 0.5195,
 "p_draw": 0.246,
 "p_away": 0.2344,
@@ -1987,14 +2130,19 @@
 "neutral": true,
 "winner": "Spain",
 "p_win": 0.6891,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M98"
 },
 {
 "home": "Brazil",
 "away": "England",
 "hg": 1,
-"ag": 1,
+"ag": 0,
 "p_home": 0.4836,
 "p_draw": 0.2902,
 "p_away": 0.2263,
@@ -2003,7 +2151,12 @@
 "neutral": true,
 "winner": "Brazil",
 "p_win": 0.6812,
-"decided": "et_pens",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M99"
 },
 {
@@ -2019,7 +2172,12 @@
 "neutral": true,
 "winner": "Argentina",
 "p_win": 0.6557,
-"decided": "90min",
+"reg": [
+1,
+0
+],
+"pens": null,
+"decided": "reg",
 "id": "M100"
 }
 ],
@@ -2027,7 +2185,7 @@
 {
 "home": "France",
 "away": "Spain",
-"hg": 1,
+"hg": 0,
 "ag": 1,
 "p_home": 0.2735,
 "p_draw": 0.2869,
@@ -2037,13 +2195,18 @@
 "neutral": true,
 "winner": "Spain",
 "p_win": 0.6165,
-"decided": "et_pens",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M101"
 },
 {
 "home": "Brazil",
 "away": "Argentina",
-"hg": 0,
+"hg": 1,
 "ag": 1,
 "p_home": 0.2896,
 "p_draw": 0.2977,
@@ -2053,7 +2216,15 @@
 "neutral": true,
 "winner": "Argentina",
 "p_win": 0.5876,
-"decided": "90min",
+"reg": [
+1,
+1
+],
+"pens": [
+3,
+4
+],
+"decided": "pens",
 "id": "M102"
 }
 ],
@@ -2071,7 +2242,12 @@
 "neutral": true,
 "winner": "Argentina",
 "p_win": 0.6198,
-"decided": "90min",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M104"
 }
 ],
@@ -2079,7 +2255,7 @@
 {
 "home": "France",
 "away": "Brazil",
-"hg": 1,
+"hg": 0,
 "ag": 1,
 "p_home": 0.2383,
 "p_draw": 0.243,
@@ -2089,7 +2265,12 @@
 "neutral": true,
 "winner": "Brazil",
 "p_win": 0.6852,
-"decided": "et_pens",
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M103"
 }
 ],
@@ -2453,9 +2634,9 @@
 "golden_glove": {
 "player": "Emiliano Martínez",
 "team": "Argentina",
-"conceded": 0,
+"conceded": 1,
 "matches": 8,
-"per_match": 0.0
+"per_match": 0.12
 },
 "total_goals": 142
 }

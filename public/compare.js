@@ -69,7 +69,8 @@ function showBracket() {
   const byMid = {};
   for (const [id, m] of Object.entries(A.bracket || {})) {
     byMid[id] = { home: m.home, away: m.away, winner: m.winner, live: m.played === false && m.home && m.away,
-      hs: m.actual ? m.actual[0] : null, as: m.actual ? m.actual[1] : null };
+      hs: m.actual ? m.actual[0] : null, as: m.actual ? m.actual[1] : null,
+      pens: m.pens, decided: m.decided };
   }
   renderBracket($('bracket'), byMid, { champion: A.champion_actual, championLabel: 'Champion (TBD)' });
 }

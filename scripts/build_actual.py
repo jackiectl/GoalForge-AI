@@ -51,6 +51,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", default=os.path.join(
         os.environ.get("GOALFORGE_DATA_DIR", "data"), "martj42_results.csv"))
+    ap.add_argument("--shootouts", default=os.path.join(
+        os.environ.get("GOALFORGE_DATA_DIR", "data"), "martj42_shootouts.csv"))
     ap.add_argument("--model", default="api/model.json")
     ap.add_argument("--pred", default="public/tournament.json")
     ap.add_argument("--out", default="public/actual.json")
@@ -72,6 +74,20 @@ def main():
     for _, r in wc[wc.played].iterrows():
         actual[frozenset((r.home_team, r.away_team))] = (
             r.home_team, r.away_team, int(r.home_score), int(r.away_score))
+
+    # penalty-shootout winners (martj42 shootouts.csv gives the winner, not the pens score)
+    if not os.path.exists(args.shootouts):               # fetch once if the cache lacks it
+        url = "https://raw.githubusercontent.com/martj42/international_results/master/shootouts.csv"
+        try:
+            pd.read_csv(url).to_csv(args.shootouts, index=False)
+        except Exception as e:
+            print(f"  (could not fetch shootouts.csv: {e})")
+    pens_winner = {}
+    if os.path.exists(args.shootouts):
+        sh = pd.read_csv(args.shootouts)
+        sh["date"] = pd.to_datetime(sh["date"])
+        for _, r in sh[sh.date >= "2026-06-01"].iterrows():
+            pens_winner[frozenset((r.home_team, r.away_team))] = r.winner
 
     # ---- group stage: 72 fixtures, predicted vs actual ----
     groups_out = {}
@@ -181,7 +197,8 @@ def main():
     advanced_beyond = set(ko_rows.iloc[16:].home_team) | set(ko_rows.iloc[16:].away_team)
 
     def decide(home, away):
-        m = {"home": home, "away": away, "actual": None, "winner": None, "played": False}
+        m = {"home": home, "away": away, "actual": None, "winner": None, "played": False,
+             "reg": None, "pens": None, "decided": None}
         if not home or not away:
             return m
         pair = frozenset((home, away))
@@ -189,9 +206,14 @@ def main():
             ah, _, hs, as_ = actual[pair]
             if ah != home:
                 hs, as_ = as_, hs
-            m.update(actual=[hs, as_], played=True)
-            m["winner"] = (home if hs > as_ else away) if hs != as_ else (
-                home if home in advanced_beyond else (away if away in advanced_beyond else None))
+            m.update(actual=[hs, as_], reg=[hs, as_], played=True)
+            if hs != as_:
+                m["winner"], m["decided"] = (home if hs > as_ else away), "reg"
+            elif pair in pens_winner:                        # level after 120' -> penalties (no score in data)
+                m["winner"], m["decided"] = pens_winner[pair], "pens"
+            else:                                            # drawn, undecided in data; infer from a deeper fixture
+                m["winner"] = home if home in advanced_beyond else (away if away in advanced_beyond else None)
+                m["decided"] = "pens" if m["winner"] else None
         else:                                                # not played yet; winner only if one side is seen deeper
             m["winner"] = (home if home in advanced_beyond and away not in advanced_beyond
                            else (away if away in advanced_beyond and home not in advanced_beyond else None))

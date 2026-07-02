@@ -1,0 +1,558 @@
+{
+"as_of": "2026-06-29",
+"cutoff": "2026-06-30",
+"bracket": {
+"M73": {
+"home": "South Africa",
+"away": "Canada",
+"hs": 0,
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
+"winner": "Canada",
+"played": true,
+"pred": false,
+"id": "M73",
+"as": 1
+},
+"M74": {
+"home": "Germany",
+"away": "Paraguay",
+"hs": 1,
+"reg": [
+1,
+1
+],
+"pens": null,
+"decided": "pens",
+"winner": "Paraguay",
+"played": true,
+"pred": false,
+"id": "M74",
+"as": 1
+},
+"M75": {
+"home": "Netherlands",
+"away": "Morocco",
+"hs": 1,
+"reg": [
+1,
+1
+],
+"pens": null,
+"decided": "pens",
+"winner": "Morocco",
+"played": true,
+"pred": false,
+"id": "M75",
+"as": 1
+},
+"M76": {
+"home": "Brazil",
+"away": "Japan",
+"hs": 2,
+"reg": [
+2,
+1
+],
+"pens": null,
+"decided": "reg",
+"winner": "Brazil",
+"played": true,
+"pred": false,
+"id": "M76",
+"as": 1
+},
+"M77": {
+"home": "France",
+"away": "Sweden",
+"winner": "France",
+"id": "M77",
+"pred": true,
+"played": false,
+"reg": [
+2,
+0
+],
+"hs": 2,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M78": {
+"home": "Ivory Coast",
+"away": "Norway",
+"winner": "Ivory Coast",
+"id": "M78",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+4,
+2
+],
+"decided": "pens",
+"as": 0
+},
+"M79": {
+"home": "Mexico",
+"away": "Ecuador",
+"winner": "Ecuador",
+"id": "M79",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+4,
+5
+],
+"decided": "pens",
+"as": 0
+},
+"M80": {
+"home": "England",
+"away": "DR Congo",
+"winner": "England",
+"id": "M80",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M81": {
+"home": "United States",
+"away": "Bosnia and Herzegovina",
+"winner": "United States",
+"id": "M81",
+"pred": true,
+"played": false,
+"reg": [
+2,
+0
+],
+"hs": 2,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M82": {
+"home": "Belgium",
+"away": "Senegal",
+"winner": "Belgium",
+"id": "M82",
+"pred": true,
+"played": false,
+"reg": [
+1,
+1
+],
+"hs": 1,
+"pens": [
+5,
+3
+],
+"decided": "pens",
+"as": 1
+},
+"M83": {
+"home": "Portugal",
+"away": "Croatia",
+"winner": "Portugal",
+"id": "M83",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M84": {
+"home": "Spain",
+"away": "Austria",
+"winner": "Spain",
+"id": "M84",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M85": {
+"home": "Switzerland",
+"away": "Algeria",
+"winner": "Algeria",
+"id": "M85",
+"pred": true,
+"played": false,
+"reg": [
+1,
+1
+],
+"hs": 1,
+"pens": [
+3,
+4
+],
+"decided": "pens",
+"as": 1
+},
+"M86": {
+"home": "Argentina",
+"away": "Cape Verde",
+"winner": "Argentina",
+"id": "M86",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M87": {
+"home": "Colombia",
+"away": "Ghana",
+"winner": "Colombia",
+"id": "M87",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M88": {
+"home": "Australia",
+"away": "Egypt",
+"winner": "Australia",
+"id": "M88",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+2,
+1
+],
+"decided": "pens",
+"as": 0
+},
+"M89": {
+"home": "Paraguay",
+"away": "France",
+"winner": "France",
+"id": "M89",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M90": {
+"home": "Canada",
+"away": "Morocco",
+"winner": "Morocco",
+"id": "M90",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M91": {
+"home": "Brazil",
+"away": "Ivory Coast",
+"winner": "Brazil",
+"id": "M91",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M92": {
+"home": "Ecuador",
+"away": "England",
+"winner": "England",
+"id": "M92",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M93": {
+"home": "Portugal",
+"away": "Spain",
+"winner": "Spain",
+"id": "M93",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M94": {
+"home": "United States",
+"away": "Belgium",
+"winner": "Belgium",
+"id": "M94",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M95": {
+"home": "Argentina",
+"away": "Australia",
+"winner": "Argentina",
+"id": "M95",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M96": {
+"home": "Algeria",
+"away": "Colombia",
+"winner": "Colombia",
+"id": "M96",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M97": {
+"home": "France",
+"away": "Morocco",
+"winner": "Morocco",
+"id": "M97",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+4,
+5
+],
+"decided": "pens",
+"as": 0
+},
+"M98": {
+"home": "Spain",
+"away": "Belgium",
+"winner": "Spain",
+"id": "M98",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M99": {
+"home": "Brazil",
+"away": "England",
+"winner": "Brazil",
+"id": "M99",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+4,
+3
+],
+"decided": "pens",
+"as": 0
+},
+"M100": {
+"home": "Argentina",
+"away": "Colombia",
+"winner": "Argentina",
+"id": "M100",
+"pred": true,
+"played": false,
+"reg": [
+1,
+0
+],
+"hs": 1,
+"pens": null,
+"decided": "reg",
+"as": 0
+},
+"M101": {
+"home": "Morocco",
+"away": "Spain",
+"winner": "Spain",
+"id": "M101",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+1,
+2
+],
+"decided": "pens",
+"as": 0
+},
+"M102": {
+"home": "Brazil",
+"away": "Argentina",
+"winner": "Argentina",
+"id": "M102",
+"pred": true,
+"played": false,
+"reg": [
+0,
+1
+],
+"hs": 0,
+"pens": null,
+"decided": "reg",
+"as": 1
+},
+"M104": {
+"home": "Spain",
+"away": "Argentina",
+"winner": "Argentina",
+"id": "M104",
+"pred": true,
+"played": false,
+"reg": [
+0,
+0
+],
+"hs": 0,
+"pens": [
+3,
+5
+],
+"decided": "pens",
+"as": 0
+}
+},
+"champion_live": "Argentina",
+"champion_original": "Argentina",
+"original_odds": [
+{
+"team": "Argentina",
+"p": 0.25595
+},
+{
+"team": "Spain",
+"p": 0.12295
+},
+{
+"team": "Brazil",
+"p": 0.1202
+},
+{
+"team": "Japan",
+"p": 0.0937
+},
+{
+"team": "Colombia",
+"p": 0.08155
+},
+{
+"team": "England",
+"p": 0.04955
+}
+],
+"note": "Team ratings refit on every international match through 2026-06-29; the real bracket walked forward with actual results where played."
+}

@@ -31,7 +31,9 @@ function showBracket() {
   for (const rnd of ['r32', 'r16', 'qf', 'sf', 'third_place', 'final']) {
     const arr = T.bracket[rnd];
     if (!Array.isArray(arr)) continue;
-    for (const m of arr) if (m.id) byMid[m.id] = { home: m.home, away: m.away, hs: m.hg, as: m.ag, winner: m.winner };
+    for (const m of arr) if (m.id) byMid[m.id] = { home: m.home, away: m.away,
+      hs: m.reg ? m.reg[0] : m.hg, as: m.reg ? m.reg[1] : m.ag,
+      winner: m.winner, pens: m.pens, decided: m.decided };
   }
   renderBracket($('bracket'), byMid, { champion: T.bracket.champion, championLabel: 'Predicted champion' });
 }

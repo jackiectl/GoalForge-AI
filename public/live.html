@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Live Re-forecast</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+      <a href="compare.html">Prediction vs Actual</a>
+      <a href="live.html" class="active">Live Re-forecast</a>
+    </nav>
+    <h1><span class="grad-text">🔄 Live Re-forecast</span></h1>
+    <p class="sub">Two forecasts side by side. The <b>original</b> was frozen at kick-off and never
+      sees a result; the <b>live</b> one refits team ratings on every game played so far and
+      re-projects the real bracket to a champion <span id="asof" class="pill pill-soft"></span></p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+
+    <section class="statstrip" id="champs"></section>
+
+    <section class="card reveal">
+      <h2>📊 Original pre-tournament champion odds</h2>
+      <p class="hint">From 20,000 Monte-Carlo tournaments run before a ball was kicked — the frozen
+        baseline the live re-forecast is departing from.</p>
+      <div class="bars" id="odds"></div>
+    </section>
+
+    <section class="card reveal">
+      <h2>🔄 Live bracket — real results so far + re-projected rest</h2>
+      <p class="hint">Solid boxes are matches already played (real results); <span class="tag"
+        style="background:rgba(124,92,255,.1);color:var(--violet)">dashed</span> boxes are the live
+        model's projection of ties not yet played, refit on results through <span id="asof2"></span>.
+        Green ▸ = who goes through; the champion's route glows gold.</p>
+      <div class="bracket-wrap"><div id="bracket" class="bracket"></div></div>
+    </section>
+
+    <section class="card reveal">
+      <h2>ℹ️ What's different between the two</h2>
+      <div class="mnote" id="explain"></div>
+    </section>
+  </main>
+
+  <footer>
+    Live model: Dixon-Coles refit on martj42 international results incl. the 2026 games played so
+    far; real bracket &amp; results from martj42 (CC0). Research demo — not betting advice.
+  </footer>
+  <script src="bracket.js"></script>
+  <script src="live.js"></script>
+</body>
+</html>

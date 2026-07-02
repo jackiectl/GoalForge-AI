@@ -9,10 +9,11 @@ const BRACKET_ROUNDS = [
   ['final', 'Final', ['M104']],
 ];
 
-function bkTeamRow(name, score, win, lose) {
+function bkTeamRow(name, score, pens, win, lose) {
   const cls = !name ? 'tbd' : (win ? 'win' : (lose ? 'lose' : ''));
+  const sc = score == null ? '' : `${score}${pens != null ? `<span class="bk-pk">(${pens})</span>` : ''}`;
   return `<div class="bkteam ${cls}"><span class="bk-nm">${name || 'TBD'}</span>
-    <span class="bk-sc">${score == null ? '' : score}</span></div>`;
+    <span class="bk-sc">${sc}</span></div>`;
 }
 
 function bkMatchBox(m, champ) {
@@ -21,9 +22,15 @@ function bkMatchBox(m, champ) {
   const aw = m.winner && m.winner === m.away;
   const live = m.live && !m.winner && m.home && m.away;
   const isChamp = champ && m.winner === champ;
-  return `<div class="bkbox ${live ? 'bk-live' : ''} ${isChamp ? 'bk-champ' : ''}">
-    ${bkTeamRow(m.home, m.hs, hw, m.winner && aw)}
-    ${bkTeamRow(m.away, m.as, aw, m.winner && hw)}
+  const pred = m.pred && (m.home || m.away);         // live re-forecast: a predicted future tie
+  const penH = m.pens ? m.pens[0] : null, penA = m.pens ? m.pens[1] : null;
+  let note = '';
+  if (m.decided === 'pens') note = m.pens ? 'a.e.t. · penalties' : 'a.e.t. · won on pens';
+  else if (m.decided === 'aet') note = 'after extra time';
+  return `<div class="bkbox ${live ? 'bk-live' : ''} ${pred ? 'bk-pred' : ''} ${isChamp ? 'bk-champ' : ''}">
+    ${bkTeamRow(m.home, m.hs, penH, hw, m.winner && aw)}
+    ${bkTeamRow(m.away, m.as, penA, aw, m.winner && hw)}
+    ${note ? `<div class="bk-note">${note}</div>` : ''}
   </div>`;
 }
 

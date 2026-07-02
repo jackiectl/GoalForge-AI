@@ -2731,6 +2731,12 @@
 ],
 "winner": "Canada",
 "played": true,
+"reg": [
+0,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M73"
 },
 "M74": {
@@ -2740,8 +2746,14 @@
 1,
 1
 ],
-"winner": null,
+"winner": "Paraguay",
 "played": true,
+"reg": [
+1,
+1
+],
+"pens": null,
+"decided": "pens",
 "id": "M74"
 },
 "M75": {
@@ -2753,6 +2765,12 @@
 ],
 "winner": "Morocco",
 "played": true,
+"reg": [
+1,
+1
+],
+"pens": null,
+"decided": "pens",
 "id": "M75"
 },
 "M76": {
@@ -2764,6 +2782,12 @@
 ],
 "winner": "Brazil",
 "played": true,
+"reg": [
+2,
+1
+],
+"pens": null,
+"decided": "reg",
 "id": "M76"
 },
 "M77": {
@@ -2772,6 +2796,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M77"
 },
 "M78": {
@@ -2780,6 +2807,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M78"
 },
 "M79": {
@@ -2788,6 +2818,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M79"
 },
 "M80": {
@@ -2796,6 +2829,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M80"
 },
 "M81": {
@@ -2804,6 +2840,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M81"
 },
 "M82": {
@@ -2812,6 +2851,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M82"
 },
 "M83": {
@@ -2820,6 +2862,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M83"
 },
 "M84": {
@@ -2828,6 +2873,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M84"
 },
 "M85": {
@@ -2836,6 +2884,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M85"
 },
 "M86": {
@@ -2844,6 +2895,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M86"
 },
 "M87": {
@@ -2852,6 +2906,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M87"
 },
 "M88": {
@@ -2860,14 +2917,20 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M88"
 },
 "M89": {
-"home": null,
+"home": "Paraguay",
 "away": null,
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M89"
 },
 "M90": {
@@ -2876,6 +2939,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M90"
 },
 "M91": {
@@ -2884,6 +2950,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M91"
 },
 "M92": {
@@ -2892,6 +2961,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M92"
 },
 "M93": {
@@ -2900,6 +2972,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M93"
 },
 "M94": {
@@ -2908,6 +2983,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M94"
 },
 "M95": {
@@ -2916,6 +2994,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M95"
 },
 "M96": {
@@ -2924,6 +3005,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M96"
 },
 "M97": {
@@ -2932,6 +3016,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M97"
 },
 "M98": {
@@ -2940,6 +3027,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M98"
 },
 "M99": {
@@ -2948,6 +3038,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M99"
 },
 "M100": {
@@ -2956,6 +3049,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M100"
 },
 "M101": {
@@ -2964,6 +3060,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M101"
 },
 "M102": {
@@ -2972,6 +3071,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M102"
 },
 "M104": {
@@ -2980,6 +3082,9 @@
 "actual": null,
 "winner": null,
 "played": false,
+"reg": null,
+"pens": null,
+"decided": null,
 "id": "M104"
 }
 },

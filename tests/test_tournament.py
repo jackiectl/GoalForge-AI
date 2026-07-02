@@ -186,8 +186,15 @@ def test_knockout_always_has_winner_and_decided_flag(T):
     for rnd in ("r32", "r16", "qf", "sf", "third_place", "final"):
         for m in T["bracket"][rnd] if isinstance(T["bracket"][rnd], list) else []:
             assert m["winner"] in (m["home"], m["away"])
-            assert m["decided"] == ("90min" if m["hg"] != m["ag"] else "et_pens")
             assert m["p_win"] >= 0.5 - 1e-9                          # winner is the likelier side
+            if m["hg"] == m["ag"]:                                   # level after 120' -> penalties
+                assert m["decided"] == "pens"
+                assert m["pens"][0] != m["pens"][1]                 # shootout has a decisive winner
+                won_home = m["winner"] == m["home"]
+                assert (m["pens"][0] > m["pens"][1]) == won_home    # higher pens tally is the winner
+            else:
+                assert m["decided"] == "reg" and m["pens"] is None
+                assert (m["hg"] > m["ag"]) == (m["winner"] == m["home"])
 
 
 def test_thirds_ranking_order(T):

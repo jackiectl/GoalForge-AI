@@ -114,9 +114,11 @@ h3 { margin: 12px 0 6px; font-size: 13px; color: var(--mut); text-transform: upp
 .home-card:nth-child(2)::before { background: var(--grad-cool); }
 .home-card:nth-child(3)::before { background: var(--grad-warm); }
 .home-card:nth-child(4)::before { background: linear-gradient(135deg, var(--pink), var(--coral)); }
+.home-card:nth-child(5)::before { background: linear-gradient(135deg, var(--violet), var(--teal)); }
 .home-card:nth-child(2) { animation-delay: .07s; }
 .home-card:nth-child(3) { animation-delay: .14s; }
 .home-card:nth-child(4) { animation-delay: .21s; }
+.home-card:nth-child(5) { animation-delay: .28s; }
 .home-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .home-card h2 { margin: 4px 0 2px; }
 .home-card p { color: var(--ink-soft); font-size: 13.5px; margin: 0; }
@@ -365,12 +367,17 @@ footer { max-width: var(--maxw); margin: 0 auto; padding: 8px 32px 40px; color: 
 .bkteam + .bkteam { border-top: 1px solid var(--line); }
 .bkteam .bk-nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bkteam .bk-sc { font-variant-numeric: tabular-nums; color: var(--mut); font-weight: 700; min-width: 16px; text-align: right; }
+.bkteam .bk-pk { color: var(--violet); font-size: 10px; margin-left: 3px; font-weight: 800; }
+.bkteam.win .bk-pk { color: var(--green); }
+.bk-note { font-size: 9.5px; color: var(--mut); text-align: center; padding: 3px 0 2px;
+  border-top: 1px dashed var(--line); text-transform: uppercase; letter-spacing: .04em; }
 .bkteam.win { color: var(--ink); }
 .bkteam.win .bk-nm::before { content: "▸ "; color: var(--green); font-weight: 800; }
 .bkteam.win .bk-sc { color: var(--green); }
 .bkteam.lose { color: var(--mut); }
 .bkteam.tbd { color: #b9c1dd; font-style: italic; font-weight: 500; }
 .bkbox.bk-live { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(18,194,176,.14); }
+.bkbox.bk-pred { border-style: dashed; border-color: #cbb8ff; background: rgba(124,92,255,.035); }
 .bkbox.bk-champ { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(247,183,51,.25); }
 .bk-final-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
 .bk-trophy { font-size: 40px; filter: drop-shadow(0 6px 12px rgba(0,0,0,.15)); }

@@ -64,6 +64,44 @@ def test_actual_advancers_are_32_real_teams():
     assert all(t in model["squads"] for t in adv)
 
 
+@pytest.mark.skipif(not ACTUAL.exists(), reason="actual.json not built")
+def test_actual_bracket_penalties_consistent():
+    A = json.loads(ACTUAL.read_text())
+    for m in A["bracket"].values():
+        if not m.get("played"):
+            continue
+        assert m["winner"] in (m["home"], m["away"])
+        hs, as_ = m["actual"]
+        if hs != as_:                                        # decided in regulation/ET
+            assert m["decided"] == "reg"
+            assert m["winner"] == (m["home"] if hs > as_ else m["away"])
+        else:                                                # level -> a shootout decided it
+            assert m["decided"] == "pens"
+
+
+LIVE = ROOT / "public" / "live.json"
+
+
+@pytest.mark.skipif(not LIVE.exists(), reason="live.json not built")
+def test_live_bracket_wellformed():
+    L = json.loads(LIVE.read_text())
+    model = json.loads((API / "model.json").read_text())
+    squads = set(model["squads"])
+    b = L["bracket"]
+    assert len(b) == 31                                      # 16+8+4+2+1
+    played = [m for m in b.values() if not m["pred"]]
+    assert len(played) >= 4                                  # at least the R32 games already played
+    for m in b.values():
+        if m["home"] and m["away"]:
+            assert m["winner"] in (m["home"], m["away"])
+            assert m["home"] in squads and m["away"] in squads
+            if m["decided"] == "pens" and m.get("pens"):
+                won_home = m["winner"] == m["home"]
+                assert (m["pens"][0] > m["pens"][1]) == won_home
+    assert L["champion_live"] in squads
+    assert L["champion_original"] in squads
+
+
 # ---------- deployed ensemble blend ----------
 def test_ens_layer_present_and_valid():
     model = json.loads((API / "model.json").read_text())

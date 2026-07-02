@@ -42,8 +42,11 @@ cp reports/wc2026_forecast.json public/forecast.json
 echo "===== [5/6] deterministic tournament walk ====="
 $VENVPY scripts/build_tournament.py
 
-echo "===== [6/6] real-results comparison (prediction vs actual) ====="
+echo "===== [6/7] real-results comparison (prediction vs actual) ====="
 $VENVPY scripts/build_actual.py
 
+echo "===== [7/7] live re-forecast (refit incl. 2026 results, re-walk real bracket) ====="
+$VENVPY scripts/build_live.py
+
 echo "===== rebuild complete ====="
-ls -la api/model.json public/forecast.json public/tournament.json public/actual.json
+ls -la api/model.json public/forecast.json public/tournament.json public/actual.json public/live.json

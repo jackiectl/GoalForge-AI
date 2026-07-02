@@ -20,6 +20,7 @@ Output: public/tournament.json (consumed by the site's tournament & honors pages
     python scripts/build_tournament.py [--host-scale 0.5] [--out public/tournament.json]
 """
 import argparse
+import hashlib
 import json
 import math
 from collections import defaultdict
@@ -207,6 +208,17 @@ def play_group_stage(M, groups, host_scale, xg, xa, conceded):
     return out
 
 
+# Realistic, decisive shootout tallies (winner-loser), used as an illustrative predicted result
+# when a knockout is level after 120'. Chosen deterministically per match so the walk stays
+# reproducible (Python's hash() is salted per process, so use a stable digest).
+PENS_PATTERNS = [(4, 3), (5, 4), (4, 2), (3, 1), (5, 3), (4, 3), (5, 4), (2, 1)]
+
+
+def _pens_tally(key):
+    r = int(hashlib.md5(key.encode()).hexdigest()[:8], 16)
+    return PENS_PATTERNS[r % len(PENS_PATTERNS)]        # (winner_pens, loser_pens)
+
+
 def play_knockout(M, slots, host_scale, xg, xa, conceded):
     """slots: match id -> (home, away). Returns list-of-rounds with winners; extends slots."""
     annex = json.load(open("configs/annex_c.json"))
@@ -216,17 +228,26 @@ def play_knockout(M, slots, host_scale, xg, xa, conceded):
     def ko_match(mid, a, b):
         (h, aw), neutral = _oriented(M, a, b)
         m = predict(M, h, aw, neutral, host_scale)
+        _, _, g = score_matrix(M, h, aw, neutral, host_scale)
         pw_cond = m["p_home"] / max(m["p_home"] + m["p_away"], 1e-9)
         m["winner"] = h if pw_cond >= 0.5 else aw
         m["p_win"] = round(pw_cond if m["winner"] == h else 1 - pw_cond, 4)
-        if (m["hg"] > m["ag"]) != (m["winner"] == h) and m["hg"] != m["ag"]:
-            # blended winner disagrees with the DC modal score: show the most likely score
-            # in which that winner actually wins (keeps score and outcome consistent)
-            _, _, g = score_matrix(M, h, aw, neutral, host_scale)
-            cells = [(i, j) for i in range(K + 1) for j in range(K + 1)
-                     if (i > j) == (m["winner"] == h) and i != j]
-            m["hg"], m["ag"] = max(cells, key=lambda c: g[c[0]][c[1]])
-        m["decided"] = "90min" if m["hg"] != m["ag"] else "et_pens"
+        # Send only genuine coin-flip ties to penalties (~20-25% of knockouts, as in real World
+        # Cups); using the modal exact score instead would call far too many draws. A level game
+        # shows the likeliest draw score (a.e.t.); the rest show the winner's likeliest decisive score.
+        if abs(pw_cond - 0.5) < 0.10:
+            i = max(range(K + 1), key=lambda k: g[k][k])
+            m["reg"] = [i, i]
+            wp, lp = _pens_tally(mid + h + aw)
+            m["pens"] = [wp, lp] if m["winner"] == h else [lp, wp]
+            m["decided"] = "pens"
+        else:
+            win_home = m["winner"] == h
+            cells = [(i, j) for i in range(K + 1) for j in range(K + 1) if (i > j) == win_home and i != j]
+            m["reg"] = list(max(cells, key=lambda c: g[c[0]][c[1]]))
+            m["pens"] = None
+            m["decided"] = "reg"
+        m["hg"], m["ag"] = m["reg"]
         m["id"] = mid
         credit(M, h, m["lh"], xg, xa)
         credit(M, aw, m["la"], xg, xa)
