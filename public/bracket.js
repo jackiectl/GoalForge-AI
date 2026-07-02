@@ -1,5 +1,8 @@
 // Shared visual knockout bracket. The 2026 FIFA tree is fixed (Regulations Art. 12.7-12.11);
 // listed top-to-bottom so adjacent pairs in each column merge into the next round.
+// Bilingual helper `t()` is the global window.t (i18n.js); we DON'T redeclare `const t` here because
+// bracket.js is always co-loaded with a page script (tournament/live/compare.js) that already declares
+// it, and classic scripts share one lexical scope — a second top-level `const t` throws a redeclaration.
 const BRACKET_ROUNDS = [
   ['r32', 'Round of 32', ['M74', 'M77', 'M73', 'M75', 'M83', 'M84', 'M81', 'M82',
                           'M76', 'M78', 'M79', 'M80', 'M86', 'M88', 'M85', 'M87']],
@@ -12,7 +15,7 @@ const BRACKET_ROUNDS = [
 function bkTeamRow(name, score, pens, win, lose) {
   const cls = !name ? 'tbd' : (win ? 'win' : (lose ? 'lose' : ''));
   const sc = score == null ? '' : `${score}${pens != null ? `<span class="bk-pk">(${pens})</span>` : ''}`;
-  return `<div class="bkteam ${cls}"><span class="bk-nm">${name || 'TBD'}</span>
+  return `<div class="bkteam ${cls}"><span class="bk-nm">${name || t('TBD')}</span>
     <span class="bk-sc">${sc}</span></div>`;
 }
 
@@ -25,8 +28,8 @@ function bkMatchBox(m, champ) {
   const pred = m.pred && (m.home || m.away);         // live re-forecast: a predicted future tie
   const penH = m.pens ? m.pens[0] : null, penA = m.pens ? m.pens[1] : null;
   let note = '';
-  if (m.decided === 'pens') note = m.pens ? 'a.e.t. · penalties' : 'a.e.t. · won on pens';
-  else if (m.decided === 'aet') note = 'after extra time';
+  if (m.decided === 'pens') note = m.pens ? t('a.e.t. · penalties') : t('a.e.t. · won on pens');
+  else if (m.decided === 'aet') note = t('after extra time');
   return `<div class="bkbox ${live ? 'bk-live' : ''} ${pred ? 'bk-pred' : ''} ${isChamp ? 'bk-champ' : ''}">
     ${bkTeamRow(m.home, m.hs, penH, hw, m.winner && aw)}
     ${bkTeamRow(m.away, m.as, penA, aw, m.winner && hw)}
@@ -40,14 +43,14 @@ function renderBracket(el, byMid, opts = {}) {
     if (key === 'final') {
       const m = byMid.M104 || {};
       const champ = opts.champion || m.winner;
-      return `<div class="bkcol"><div class="bkcol-h">${label}</div>
+      return `<div class="bkcol"><div class="bkcol-h">${t(label)}</div>
         <div class="bk-final-wrap">
           ${bkMatchBox(m, champ)}
           <div class="bk-trophy">🏆</div>
-          <div class="bk-champ-name"><span class="lbl">${opts.championLabel || 'Champion'}</span>${champ || 'TBD'}</div>
+          <div class="bk-champ-name"><span class="lbl">${opts.championLabel || t('Champion')}</span>${champ || t('TBD')}</div>
         </div></div>`;
     }
-    return `<div class="bkcol"><div class="bkcol-h">${label}</div>
+    return `<div class="bkcol"><div class="bkcol-h">${t(label)}</div>
       ${ids.map((id) => bkMatchBox(byMid[id], opts.champion)).join('')}</div>`;
   }).join('');
 }

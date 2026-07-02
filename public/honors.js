@@ -1,4 +1,5 @@
 const $ = (id) => document.getElementById(id);
+const t = window.t || ((s, p) => (p ? s.replace(/\{(\w+)\}/g, (m, k) => (p[k] != null ? p[k] : m)) : s));
 
 async function getJSON(url) {
   const r = await fetch(url);
@@ -6,8 +7,12 @@ async function getJSON(url) {
   return r.json();
 }
 
+// Fetched JSON is cached so a language toggle re-renders without re-fetching.
+let pathData = null;   // T.honors from /tournament.json
+let fcData = null;     // /forecast.json
+
 function boardTable(el, rows, unit) {
-  el.innerHTML = `<thead><tr><th></th><th>Player</th><th>Team</th><th>Pos</th>
+  el.innerHTML = `<thead><tr><th></th><th>${t('Player')}</th><th>${t('Team')}</th><th>${t('Pos')}</th>
       <th class="num">${unit}</th></tr></thead><tbody>` +
     rows.slice(0, 15).map((r, i) =>
       `<tr><td>${i + 1}</td><td>${r.player}</td><td class="mut">${r.team}</td>
@@ -15,23 +20,25 @@ function boardTable(el, rows, unit) {
     '</tbody>';
 }
 
-async function renderPath() {
-  const T = await getJSON('/tournament.json');
-  const h = T.honors;
-  $('pathMeta').textContent = `· ${h.total_goals} goals on the modal path`;
+function renderPath() {
+  const h = pathData;
+  if (!h) return;
+  $('pathMeta').textContent = '· ' + t('{n} goals on the modal path', { n: h.total_goals });
   boardTable($('bootTable'), h.golden_boot, 'xG');
   boardTable($('playTable'), h.playmaker, 'xA');
   if (h.golden_glove) {
     const g = h.golden_glove;
-    $('glove').innerHTML = `🧤 <b>Golden Glove pick:</b> ${g.player} (${g.team}) — deepest-run
-      defence, ${g.conceded} goals conceded in ${g.matches} predicted matches
-      (${g.per_match}/match).`;
+    $('glove').innerHTML = `🧤 <b>${t('Golden Glove pick:')}</b> ${g.player} (${g.team}) — ` +
+      t('deepest-run defence, {conceded} goals conceded in {matches} predicted matches ({perMatch}/match).',
+        { conceded: g.conceded, matches: g.matches, perMatch: g.per_match });
   }
 }
 
-async function renderForecast() {
-  const f = await getJSON('/forecast.json');
-  $('fcMeta').textContent = `· ${Math.round(f.sims / 1000)}k sims · ~${Math.round(f.exp_total_goals)} goals`;
+function renderForecast() {
+  const f = fcData;
+  if (!f) return;
+  $('fcMeta').textContent = '· ' + t('{n}k sims', { n: Math.round(f.sims / 1000) }) +
+    ' · ~' + t('{n} goals', { n: Math.round(f.exp_total_goals) });
   const bars = (el, obj, k) => {
     const entries = Object.entries(obj).slice(0, k);
     const max = Math.max(...entries.map((e) => e[1]), 0.01);
@@ -45,7 +52,25 @@ async function renderForecast() {
   bars($('fcPlay'), f.playmaker, 10);
 }
 
-Promise.allSettled([renderPath(), renderForecast()]).then((rs) => {
+async function loadPath() {
+  const T = await getJSON('/tournament.json');
+  pathData = T.honors;
+  renderPath();
+}
+
+async function loadForecast() {
+  fcData = await getJSON('/forecast.json');
+  renderForecast();
+}
+
+// Re-render both boards from cached JSON on a language toggle (no re-fetch).
+function rerender() {
+  renderPath();
+  renderForecast();
+}
+document.addEventListener('gf:langchange', rerender);
+
+Promise.allSettled([loadPath(), loadForecast()]).then((rs) => {
   const bad = rs.filter((r) => r.status === 'rejected');
-  if (bad.length) $('err').textContent = 'Error: ' + bad.map((b) => b.reason.message).join(' · ');
+  if (bad.length) $('err').textContent = t('Error:') + ' ' + bad.map((b) => b.reason.message).join(' · ');
 });

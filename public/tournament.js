@@ -1,4 +1,5 @@
 const $ = (id) => document.getElementById(id);
+const t = window.t || ((s, p) => (p ? s.replace(/\{(\w+)\}/g, (m, k) => (p[k] != null ? p[k] : m)) : s));
 let T, GROUPS;
 
 async function load() {
@@ -10,6 +11,7 @@ async function load() {
     b.onclick = () => { location.hash = b.dataset.view === 'bracket' ? 'bracket' : 'groups'; };
   });
   window.addEventListener('hashchange', route);
+  document.addEventListener('gf:langchange', route);
   route();
 }
 
@@ -35,7 +37,7 @@ function showBracket() {
       hs: m.reg ? m.reg[0] : m.hg, as: m.reg ? m.reg[1] : m.ag,
       winner: m.winner, pens: m.pens, decided: m.decided };
   }
-  renderBracket($('bracket'), byMid, { champion: T.bracket.champion, championLabel: 'Predicted champion' });
+  renderBracket($('bracket'), byMid, { champion: T.bracket.champion, championLabel: t('Predicted champion') });
 }
 
 function showGroups(g) {
@@ -45,10 +47,10 @@ function showGroups(g) {
   g ? renderGroupDetail(g) : renderOverview();
 }
 
-const pills = (active) => `<div class="gsel"><span class="gsel-lbl">Group</span>` +
+const pills = (active) => `<div class="gsel"><span class="gsel-lbl">${t('Group')}</span>` +
   GROUPS.map((g) => `<button class="gpill ${g === active ? 'active' : ''}"
     onclick="location.hash='group-${g}'">${g}</button>`).join('') +
-  (active ? `<button class="gpill" onclick="location.hash='groups'">All ▸</button>` : '') + `</div>`;
+  (active ? `<button class="gpill" onclick="location.hash='groups'">${t('All')} ▸</button>` : '') + `</div>`;
 
 const gdRow = (r, i, advSet) => {
   const cls = i < 2 ? 'adv' : (i === 2 && advSet.has(r.team) ? 'third-adv' : '');
@@ -62,23 +64,23 @@ function renderOverview() {
   const cards = GROUPS.map((g) => {
     const rows = T.groups[g].table.map((r, i) => gdRow(r, i, advSet)).join('');
     return `<div class="gcard clickable" onclick="location.hash='group-${g}'">
-      <div class="gc-head"><h3>Group ${g}</h3><span class="gc-go">details →</span></div>
+      <div class="gc-head"><h3>${t('Group {x}', { x: g })}</h3><span class="gc-go">${t('details')} →</span></div>
       <table class="gtable">
-        <thead><tr><th></th><th>Team</th><th>W-D-L</th><th>GF:GA</th><th>GD</th><th>Pts</th><th class="mut">xPts</th></tr></thead>
+        <thead><tr><th></th><th>${t('Team')}</th><th>${t('W-D-L')}</th><th>${t('GF:GA')}</th><th>${t('GD')}</th><th>${t('Pts')}</th><th class="mut">${t('xPts')}</th></tr></thead>
         <tbody>${rows}</tbody></table></div>`;
   }).join('');
-  const thirds = T.thirds.ranking.map((t, i) =>
-    `<span class="chip ${advSet.has(t.team) ? 'chip-adv' : 'chip-out'}"
-       title="pts ${t.pts} · gd ${t.gd} · gf ${t.gf}">${i + 1}. ${t.team} <em>(${t.group})</em></span>`).join('');
+  const thirds = T.thirds.ranking.map((tp, i) =>
+    `<span class="chip ${advSet.has(tp.team) ? 'chip-adv' : 'chip-out'}"
+       title="${t('pts {p} · gd {gd} · gf {gf}', { p: tp.pts, gd: tp.gd, gf: tp.gf })}">${i + 1}. ${tp.team} <em>(${tp.group})</em></span>`).join('');
   $('groupsPanel').innerHTML = `
-    <h2>📊 Group stage — all 12 groups</h2>
-    <p class="hint">Most likely score per match; standings use the official 2026 tiebreakers
-      (head-to-head first). <b>xPts</b> = expected points over all outcomes.
-      <span class="adv-key">■ top two advance</span> <span class="third-key">■ third (may advance)</span>.
-      Click a group for all six matches.</p>
+    <h2>📊 ${t('Group stage — all 12 groups')}</h2>
+    <p class="hint">${t('Most likely score per match; standings use the official 2026 tiebreakers (head-to-head first).')}
+      <b>${t('xPts')}</b> ${t('= expected points over all outcomes.')}
+      <span class="adv-key">■ ${t('top two advance')}</span> <span class="third-key">■ ${t('third (may advance)')}</span>.
+      ${t('Click a group for all six matches.')}</p>
     ${pills(null)}
     <div class="groups-grid" style="margin-top:14px">${cards}</div>
-    <h3 style="margin-top:22px">Third-place ranking — 8 of 12 advance</h3>
+    <h3 style="margin-top:22px">${t('Third-place ranking — 8 of 12 advance')}</h3>
     <div class="thirds-row">${thirds}</div>`;
 }
 
@@ -92,7 +94,7 @@ function mcardPred(m) {
       <span class="mc-team a">${m.away}</span>
     </div>
     <div class="mc-prob"><i class="ph" style="width:${ph}%"></i><i class="pd" style="width:${pd}%"></i><i class="pa" style="width:${pa}%"></i></div>
-    <div class="mc-plabels"><span>${pct(m.p_home)} win</span><span>${pct(m.p_draw)} draw</span><span>${pct(m.p_away)} win</span></div>
+    <div class="mc-plabels"><span>${pct(m.p_home)} ${t('win')}</span><span>${pct(m.p_draw)} ${t('draw')}</span><span>${pct(m.p_away)} ${t('win')}</span></div>
   </div>`;
 }
 
@@ -106,21 +108,21 @@ function renderGroupDetail(g) {
       <td class="s-pts">${r.pts}</td><td class="mut">${r.xpts.toFixed(1)}</td></tr>`;
   }).join('');
   $('groupsPanel').innerHTML = `
-    <button class="grp-back" onclick="location.hash='groups'">← All groups</button>
+    <button class="grp-back" onclick="location.hash='groups'">← ${t('All groups')}</button>
     ${pills(g)}
     <div class="grp-detail" style="margin-top:14px">
       <div>
-        <div class="grp-title">Group ${g}</div>
+        <div class="grp-title">${t('Group {x}', { x: g })}</div>
         <table class="standings">
-          <thead><tr><th></th><th>Team</th><th>W-D-L</th><th>GF:GA</th><th>GD</th><th>Pts</th><th>xPts</th></tr></thead>
+          <thead><tr><th></th><th>${t('Team')}</th><th>${t('W-D-L')}</th><th>${t('GF:GA')}</th><th>${t('GD')}</th><th>${t('Pts')}</th><th>${t('xPts')}</th></tr></thead>
           <tbody>${standings}</tbody></table>
-        <p class="hint">▲ predicted to advance to the round of 32.</p>
+        <p class="hint">▲ ${t('predicted to advance to the round of 32.')}</p>
       </div>
       <div>
-        <h3>All six matches — predicted</h3>
+        <h3>${t('All six matches — predicted')}</h3>
         <div class="match-grid">${blk.matches.map(mcardPred).join('')}</div>
       </div>
     </div>`;
 }
 
-load().catch((e) => ($('err').textContent = 'Error: ' + e.message));
+load().catch((e) => ($('err').textContent = t('Error:') + ' ' + e.message));

@@ -1,4 +1,5 @@
 const $ = (id) => document.getElementById(id);
+const t = window.t || ((s, p) => (p ? s.replace(/\{(\w+)\}/g, (m, k) => (p[k] != null ? p[k] : m)) : s));
 
 let META = {};
 let HOSTS = new Set();
@@ -41,10 +42,12 @@ function updateVenue() {
 function renderVenueNote() {
   const h = $('home').value, a = $('away').value;
   if ($('neutral').checked) {
-    $('venueNote').textContent = 'Neutral venue — World Cup default (no home advantage).';
+    $('venueNote').textContent = t('Neutral venue — World Cup default (no home advantage).');
   } else {
     const host = isHost(h) ? h : isHost(a) ? a : h;
-    $('venueNote').textContent = `🏠 Home advantage: ${host}${isHost(host) ? ' (2026 host)' : ''}`;
+    $('venueNote').textContent = isHost(host)
+      ? '🏠 ' + t('Home advantage: {host} (2026 host)', { host })
+      : '🏠 ' + t('Home advantage: {host}', { host });
   }
 }
 
@@ -57,14 +60,14 @@ async function loadXI(side) {
     const i = info && info[p];
     const xa = i && i.club_xa != null ? ` · xA ${i.club_xa}` : '';
     const meta = i && i.caps != null
-      ? `<span class="pmeta">${i.pos || ''} · ${i.caps} caps · ${i.goals} gls${xa}</span>` : '';
+      ? `<span class="pmeta">${i.pos || ''} · ${t('{n} caps', { n: i.caps })} · ${t('{n} gls', { n: i.goals })}${xa}</span>` : '';
     return `<label><input type="checkbox" value="${p}" ${def.has(p) ? 'checked' : ''}/>
       <span class="pname">${p}</span>${meta}</label>`;
   };
   const starters = players.slice(0, 11).map(row).join('');
   const bench = players.slice(11).map(row).join('');
   $(side === 'home' ? 'homeXI' : 'awayXI').innerHTML =
-    starters + (bench ? `<div class="benchsep">Bench</div>${bench}` : '');
+    starters + (bench ? `<div class="benchsep">${t('Bench')}</div>${bench}` : '');
 }
 
 const xiOf = (side) =>
@@ -80,10 +83,12 @@ function bars(el, arr) {
     .join('');
 }
 
+let lastPrediction = null;
+
 async function predict() {
   $('err').textContent = '';
   $('go').disabled = true;
-  $('go').textContent = 'Simulating…';
+  $('go').textContent = t('Simulating…');
   try {
     let homeTeam = $('home').value, awayTeam = $('away').value;
     let homeXI = xiOf('home'), awayXI = xiOf('away');
@@ -98,45 +103,55 @@ async function predict() {
       body: JSON.stringify({ home_team: homeTeam, away_team: awayTeam,
         home_xi: homeXI, away_xi: awayXI, neutral }),
     });
-    $('results').classList.remove('hidden');
-    $('matchTitle').textContent = `${p.home_team} vs ${p.away_team}`;
-    const rows = [
-      [p.home_team, p.prob_home], ['Draw', p.prob_draw], [p.away_team, p.prob_away],
-    ];
-    $('outcome').innerHTML = rows
-      .map(([n, v]) => `<div class="obar"><span class="oname">${n}</span>
-        <span class="track"><span class="fill" style="width:${(v * 100).toFixed(0)}%"></span></span>
-        <span class="pct">${pct(v)}</span></div>`)
-      .join('');
-    $('score').innerHTML = `<b>${p.projected_score[0]}–${p.projected_score[1]}</b> projected ·
-      expected goals ${p.exp_home_goals.toFixed(2)}–${p.exp_away_goals.toFixed(2)} ·
-      most likely exact: ${p.top_scores.map((s) => `${s.home}-${s.away} ${pct(s.prob)}`).join(', ')}`;
-    $('hsTitle').textContent = `${p.home_team} — scorers`;
-    $('asTitle').textContent = `${p.away_team} — scorers`;
-    $('haTitle').textContent = `${p.home_team} — assisters`;
-    $('aaTitle').textContent = `${p.away_team} — assisters`;
-    bars($('homeScorers'), p.home_scorers);
-    bars($('awayScorers'), p.away_scorers);
-    bars($('homeAssists'), p.home_assisters);
-    bars($('awayAssists'), p.away_assisters);
+    lastPrediction = p;
+    renderResult();
   } catch (e) {
-    $('err').textContent = 'Error: ' + e.message;
+    $('err').textContent = t('Error: {msg}', { msg: e.message });
   } finally {
     $('go').disabled = false;
-    $('go').textContent = 'Predict';
+    $('go').textContent = t('Predict');
   }
 }
+
+// Render the match result from the last prediction; re-runs on language toggle (no re-fetch).
+function renderResult() {
+  const p = lastPrediction;
+  if (!p) return;
+  $('results').classList.remove('hidden');
+  $('matchTitle').textContent = `${p.home_team} vs ${p.away_team}`;
+  const rows = [
+    [p.home_team, p.prob_home], [t('Draw'), p.prob_draw], [p.away_team, p.prob_away],
+  ];
+  $('outcome').innerHTML = rows
+    .map(([n, v]) => `<div class="obar"><span class="oname">${n}</span>
+      <span class="track"><span class="fill" style="width:${(v * 100).toFixed(0)}%"></span></span>
+      <span class="pct">${pct(v)}</span></div>`)
+    .join('');
+  const score = `${p.projected_score[0]}–${p.projected_score[1]}`;
+  const eg = `${p.exp_home_goals.toFixed(2)}–${p.exp_away_goals.toFixed(2)}`;
+  const likely = p.top_scores.map((s) => `${s.home}-${s.away} ${pct(s.prob)}`).join(', ');
+  $('score').innerHTML =
+    t('<b>{score}</b> projected · expected goals {eg} · most likely exact: {likely}', { score, eg, likely });
+  $('hsTitle').textContent = t('{team} — scorers', { team: p.home_team });
+  $('asTitle').textContent = t('{team} — scorers', { team: p.away_team });
+  $('haTitle').textContent = t('{team} — assisters', { team: p.home_team });
+  $('aaTitle').textContent = t('{team} — assisters', { team: p.away_team });
+  bars($('homeScorers'), p.home_scorers);
+  bars($('awayScorers'), p.away_scorers);
+  bars($('homeAssists'), p.home_assisters);
+  bars($('awayAssists'), p.away_assisters);
+}
+
+document.addEventListener('gf:langchange', renderResult);
 
 function renderMethod() {
   const m = META.method || {}, b = META.backtest || {};
   const li = (k, v) => (v ? `<li><b>${k}:</b> ${v}</li>` : '');
   $('methodBody').innerHTML =
     '<ul>' +
-    li('Scoreline', m.scoreline) + li('Scorers', m.scorer) + li('Assists', m.assist) +
-    li('Default XI', m.default_xi) + li('Venue', m.venue) + '</ul>' +
-    (b.test_rps ? `<p class="mnote">Team layer held-out backtest on international matches:
-       RPS ${b.test_rps} (lower is better — beats Elo &amp; base-rate). The scorer &amp; assist
-       layers are history/prior-based and are <b>not</b> validated on 2026 outcomes.</p>` : '') +
+    li(t('Scoreline'), m.scoreline) + li(t('Scorers'), m.scorer) + li(t('Assists'), m.assist) +
+    li(t('Default XI'), m.default_xi) + li(t('Venue'), m.venue) + '</ul>' +
+    (b.test_rps ? `<p class="mnote">` + t('Team layer held-out backtest on international matches: RPS {rps} (lower is better — beats Elo &amp; base-rate). The scorer &amp; assist layers are history/prior-based and are <b>not</b> validated on 2026 outcomes.', { rps: b.test_rps }) + `</p>` : '') +
     (META.note ? `<p class="mnote">${META.note}</p>` : '');
 }
 
@@ -145,7 +160,7 @@ async function renderForecast() {
   let f;
   try { f = await api('/forecast.json'); } catch { return; }   // not deployed yet -> skip quietly
   $('forecast').classList.remove('hidden');
-  $('fcMeta').textContent = `· ${Math.round(f.sims / 1000)}k sims · ~${Math.round(f.exp_total_goals)} goals`;
+  $('fcMeta').textContent = t('· {n}k sims · ~{g} goals', { n: Math.round(f.sims / 1000), g: Math.round(f.exp_total_goals) });
   const bars = (el, obj, k) => {
     const entries = Object.entries(obj).slice(0, k);
     const max = Math.max(...entries.map((e) => e[1]), 0.01);
@@ -159,4 +174,4 @@ async function renderForecast() {
   bars($('fcPlay'), f.playmaker, 10);
 }
 
-init().catch((e) => ($('err').textContent = 'Init error: ' + e.message));
+init().catch((e) => ($('err').textContent = t('Init error: {msg}', { msg: e.message })));
