@@ -1,0 +1,61 @@
+name: Daily live update
+
+# Rebuilds ONLY the two dynamic artifacts — public/actual.json (prediction-vs-actual) and
+# public/live.json (live re-forecast) — from the latest real 2026 results, then commits & pushes
+# so Vercel redeploys. The pre-tournament forecast (tournament.json / forecast.json / model.json /
+# odds.json) is frozen and never touched here. Self-contained: martj42 CSVs are fetched fresh each
+# run, so it needs no cluster and no cached data. Stops itself after the final (2026-07-19).
+
+on:
+  schedule:
+    - cron: '0 6 * * *'        # 06:00 UTC daily (after the previous day's matches are in martj42)
+  workflow_dispatch: {}         # allow a manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: write               # the built-in GITHUB_TOKEN needs write to push the refreshed JSON
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Refresh actual + live, then commit & push
+        env:
+          GOALFORGE_DATA_DIR: ${{ github.workspace }}/data
+        run: |
+          set -euo pipefail
+          # the World Cup final is 2026-07-19; keep one buffer day, then no-op forever after
+          if [ "$(date -u +%Y%m%d)" -gt 20260721 ]; then
+            echo "Tournament over — nothing to update."; exit 0
+          fi
+
+          python -m pip install --quiet --upgrade pip
+          python -m pip install --quiet numpy pandas scipy
+          python -m pip install --quiet -e . --no-deps          # the goalforge package (DC model)
+
+          # fetch the latest martj42 results (CC0) — build_actual reads results/shootouts,
+          # build_live's load_international reads results/goalscorers
+          mkdir -p "$GOALFORGE_DATA_DIR"
+          base=https://raw.githubusercontent.com/martj42/international_results/master
+          for f in results shootouts goalscorers; do
+            curl -sSL "$base/$f.csv" -o "$GOALFORGE_DATA_DIR/martj42_$f.csv"
+          done
+
+          python scripts/build_actual.py     # -> public/actual.json
+          python scripts/build_live.py        # -> public/live.json  (refit incl. 2026 games played)
+
+          if git diff --quiet -- public/actual.json public/live.json; then
+            echo "No change in the results since the last run."; exit 0
+          fi
+          git config user.name  "goalforge-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/actual.json public/live.json
+          git commit -m "Daily live update: real results through $(date -u +%F) [skip ci]"
+          git push
