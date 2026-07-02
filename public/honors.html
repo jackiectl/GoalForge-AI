@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Honors &amp; Leaderboards</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html" class="active">Honors</a>
+    </nav>
+    <h1>🏅 Honors &amp; Leaderboards</h1>
+    <p class="sub">Individual awards accumulated over the predicted tournament — two complementary views</p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+
+    <section class="results" id="pathSec">
+      <h2>Predicted-path leaderboards <span class="fcmeta" id="pathMeta"></span></h2>
+      <p class="hint">Expected goals / assists summed along each team's run in the
+        <a href="tournament.html">predicted tournament</a> — a team eliminated early stops
+        accumulating, exactly like a real scorer race. Values are expectations, not tallies.</p>
+      <div class="board-cols">
+        <div>
+          <h3>⚽ Golden Boot race (expected goals)</h3>
+          <table class="btable" id="bootTable"></table>
+        </div>
+        <div>
+          <h3>🅰️ Playmaker race (expected assists)</h3>
+          <table class="btable" id="playTable"></table>
+        </div>
+      </div>
+      <p id="glove" class="score"></p>
+    </section>
+
+    <section class="forecast" id="forecast">
+      <h2>🏆 Monte-Carlo probabilities <span id="fcMeta" class="fcmeta"></span></h2>
+      <p class="hint">Thousands of full-tournament simulations — the probability each team/player
+        finishes top. Different question than the boards above: “how likely is it”, not “how much”.</p>
+      <div class="fccols">
+        <div><h3>Champion odds</h3><div id="fcChampion" class="bars"></div></div>
+        <div><h3>Golden Boot (top scorer)</h3><div id="fcBoot" class="bars"></div></div>
+        <div><h3>Playmaker (top assists)</h3><div id="fcPlay" class="bars"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Expectations come from the same player layer as the match predictor (international record +
+    club xG/xA + position priors). Pre-tournament research forecast — not betting advice.
+  </footer>
+  <script src="honors.js"></script>
+</body>
+</html>

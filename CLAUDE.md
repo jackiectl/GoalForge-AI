@@ -82,6 +82,8 @@ python scripts/scrape_wc2026.py        # scrape 48 real 2026 squads (Wikipedia) 
 python scripts/fetch_understat.py      # club xG/xA per player (5 leagues; free Understat mirror)
 python scripts/build_player_form.py    # match club form onto 2026 squads -> player_form.parquet
 python scripts/build_wc2026_model.py   # combine -> api/model.json (xA assists + club-enriched scorers)
+python scripts/build_tournament.py     # deterministic full-tournament walk -> public/tournament.json
+python scripts/simulate_wc2026.py      # 20k Monte-Carlo tournaments -> reports/ (copy to public/forecast.json)
 
 # (planned) pipeline entry points — see docs/workflow.md
 python -m goalforge.data.download       --config configs/default.yaml   # fetch & cache data

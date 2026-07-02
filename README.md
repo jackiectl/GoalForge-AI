@@ -35,6 +35,16 @@ The default XI is the most-capped player per position (4-3-3), editable per matc
 layer is validated on match outcomes; the scorer/assist layers are history/prior-based. Pipeline:
 `scripts/build_wc2026_model.py` → `api/model.json`; see [DEPLOY.md](DEPLOY.md).
 
+The site has three pages (hub at `/`):
+- **Match Predictor** (`match.html`) — any two teams + editable XIs → score, scorers, assisters.
+- **Full Tournament** (`tournament.html`) — the whole 2026 World Cup on the most-likely path:
+  all 72 group matches with standings (official Art. 13 tiebreakers), third-place ranking, and
+  the real knockout bracket (FIFA Annex C third-place slotting, M73–M104 incl. the third-place
+  match). Built offline by `scripts/build_tournament.py` → `public/tournament.json`.
+- **Honors** (`honors.html`) — Golden Boot / Playmaker races accumulated along the predicted
+  path + Golden Glove, alongside Monte-Carlo probabilities from 20k simulated tournaments
+  (`scripts/simulate_wc2026.py` → `public/forecast.json`).
+
 ## Why an "agent"?
 The end goal is an automated agent: hand it two lineups, and it fetches the required
 historical data, builds features, runs the simulation, and returns a structured prediction
