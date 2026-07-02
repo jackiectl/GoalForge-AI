@@ -2,6 +2,7 @@
    State lives in localStorage; odds are computed client-side from public/odds.json with the same
    Dixon-Coles + GBM ensemble blend the site's API uses; bets settle against public/actual.json. */
 const $ = (id) => document.getElementById(id);
+const t = window.t || ((s, p) => (p ? s.replace(/\{(\w+)\}/g, (m, k) => (p[k] != null ? p[k] : m)) : s));
 const INIT = 1000;
 const STORE = 'gf_game_v1';
 
@@ -93,7 +94,7 @@ const slotsUsed = () => Object.keys(S.bets).length;
 function realLine(m) {
   const reg = m.reg || m.actual || [];
   let s = `${m.home} ${reg[0]}–${reg[1]} ${m.away}`;
-  if (m.decided === 'pens' && m.pens) s += ` <span class="gm-pk">(pens ${m.pens[0]}–${m.pens[1]})</span>`;
+  if (m.decided === 'pens' && m.pens) s += ` <span class="gm-pk">(${t('pens {a}–{b}', { a: m.pens[0], b: m.pens[1] })})</span>`;
   return s + ` → <b>${m.winner}</b>`;
 }
 
@@ -103,21 +104,21 @@ function renderWallet() {
   for (const mid in S.bets) if (settleBet(mid, S.bets[mid]).status !== 'pending') settled++;
   $('wallet').innerHTML = `
     <div class="tile tile-violet"><div class="tile-emoji">💰</div><div class="tile-big">${fmt(bk)}</div>
-      <div class="tile-label">Coins</div><div class="tile-sub">started with ${fmt(INIT)}</div></div>
+      <div class="tile-label">Coins</div><div class="tile-sub">${t('started with {n}', { n: fmt(INIT) })}</div></div>
     <div class="tile tile-sky"><div class="tile-emoji">🎟️</div><div class="tile-big">${used}/${tot}</div>
-      <div class="tile-label">Calls used</div><div class="tile-sub">${tot - used} left</div></div>
+      <div class="tile-label">${t('Calls used')}</div><div class="tile-sub">${t('{n} left', { n: tot - used })}</div></div>
     <div class="tile tile-green"><div class="tile-emoji">✅</div><div class="tile-big">${settled}</div>
-      <div class="tile-label">Settled</div><div class="tile-sub">${used - settled} pending</div></div>
+      <div class="tile-label">${t('Settled')}</div><div class="tile-sub">${t('{n} pending', { n: used - settled })}</div></div>
     <div class="tile ${net >= 0 ? 'tile-green' : 'tile-amber'}"><div class="tile-emoji">${net >= 0 ? '📈' : '📉'}</div>
-      <div class="tile-big">${net >= 0 ? '+' : ''}${fmt(net)}</div><div class="tile-label">Net P/L</div>
-      <div class="tile-sub">vs start</div></div>`;
+      <div class="tile-big">${net >= 0 ? '+' : ''}${fmt(net)}</div><div class="tile-label">${t('Net P/L')}</div>
+      <div class="tile-sub">${t('vs start')}</div></div>`;
 }
 
 function renderBoard() {
   const you = bankroll(), bot = baseline();
   const rows = [
-    { who: '🧑 You', coins: you, sub: `${slotsUsed()}/${slotsTotal()} calls placed` },
-    { who: '🤖 Model', coins: bot.coins, sub: `backs its pick every tie · ${bot.settled} settled` },
+    { who: `🧑 ${t('You')}`, coins: you, sub: t('{n}/{m} calls placed', { n: slotsUsed(), m: slotsTotal() }) },
+    { who: `🤖 ${t('Model')}`, coins: bot.coins, sub: t('backs its pick every tie · {n} settled', { n: bot.settled }) },
   ].sort((x, y) => y.coins - x.coins);
   $('board').innerHTML = rows.map((r, i) =>
     `<div class="gm-rank ${i === 0 ? 'gm-lead' : ''}">
@@ -138,34 +139,37 @@ function tieCard(mid) {
 
   if (bet) {
     const r = settleBet(mid, bet);
-    const label = { pending: '⏳ Pending', outcome: '✅ Won · outcome', exact: '🎯 Won · exact score!', lost: '❌ Lost' }[r.status];
+    const label = { pending: t('⏳ Pending'), outcome: t('✅ Won · outcome'), exact: t('🎯 Won · exact score!'), lost: t('❌ Lost') }[r.status];
     const cls = { pending: 'gm-pending', outcome: 'gm-won', exact: 'gm-won gm-exact', lost: 'gm-lost' }[r.status];
     const delta = r.payout ? ` · +${fmt(r.payout)}` : (r.status === 'lost' ? ` · −${fmt(bet.stake)}` : '');
+    const line = bet.score
+      ? t('Stake {n} · outcome ×{o} · score ×{s}', { n: fmt(bet.stake), o: bet.wOdds.toFixed(2), s: bet.sOdds.toFixed(1) })
+      : t('Stake {n} · outcome ×{o}', { n: fmt(bet.stake), o: bet.wOdds.toFixed(2) });
     body = `<div class="gm-slip ${cls}">
-        <div><b>Backed:</b> ${bet.pick} to advance${bet.score ? ` · exact ${bet.score[0]}–${bet.score[1]}` : ''}</div>
-        <div class="gm-fine">Stake ${fmt(bet.stake)} · outcome ×${bet.wOdds.toFixed(2)}${bet.score ? ` · score ×${bet.sOdds.toFixed(1)}` : ''}</div>
+        <div><b>${t('Backed:')}</b> ${t('{team} to advance', { team: bet.pick })}${bet.score ? ' · ' + t('exact {h}–{a}', { h: bet.score[0], a: bet.score[1] }) : ''}</div>
+        <div class="gm-fine">${line}</div>
         <div class="gm-badge">${label}${delta}</div>
-        ${m.played ? `<div class="gm-fine">Real: ${realLine(m)}</div>` : ''}
-        ${r.status === 'pending' ? `<button class="gm-mini" data-act="cancel" data-mid="${mid}">Cancel (refund)</button>` : ''}
+        ${m.played ? `<div class="gm-fine">${t('Real: {line}', { line: realLine(m) })}</div>` : ''}
+        ${r.status === 'pending' ? `<button class="gm-mini" data-act="cancel" data-mid="${mid}">${t('Cancel (refund)')}</button>` : ''}
       </div>`;
   } else if (!known) {
-    body = `<div class="gm-lock">🔒 Waiting on the teams for this tie</div>`;
+    body = `<div class="gm-lock">🔒 ${t('Waiting on the teams for this tie')}</div>`;
   } else if (m.played) {
     const o = tieOdds(m.home, m.away), pick = o.ph >= 0.5 ? m.home : m.away;
-    body = `<div class="gm-ref">Already played — ${realLine(m)}
-       <div class="gm-fine">Model backed <b>${pick}</b> ${m.winner === pick ? '<span class="tag tag-adv">✓ hit</span>' : '<span class="tag gm-miss">✗ miss</span>'}</div></div>`;
+    body = `<div class="gm-ref">${t('Already played — {line}', { line: realLine(m) })}
+       <div class="gm-fine">${t('Model backed {team}', { team: `<b>${pick}</b>` })} ${m.winner === pick ? `<span class="tag tag-adv">${t('✓ hit')}</span>` : `<span class="tag gm-miss">${t('✗ miss')}</span>`}</div></div>`;
   } else if (!bettableRound) {
     const o = tieOdds(m.home, m.away);
-    body = `<div class="gm-lock">Before you joined · reference odds ${(o.ph * 100).toFixed(0)}% / ${(o.pa * 100).toFixed(0)}%</div>`;
+    body = `<div class="gm-lock">${t('Before you joined · reference odds {a}% / {b}%', { a: (o.ph * 100).toFixed(0), b: (o.pa * 100).toFixed(0) })}</div>`;
   } else if (slotsUsed() >= slotsTotal()) {
-    body = `<div class="gm-lock">All ${slotsTotal()} calls used — reset to play again</div>`;
+    body = `<div class="gm-lock">${t('All {n} calls used — reset to play again', { n: slotsTotal() })}</div>`;
   } else {
     const o = tieOdds(m.home, m.away);
     body = `<div class="gm-form">
         <div class="gm-stakerow">
-          <label class="gm-lbl">Stake
+          <label class="gm-lbl">${t('Stake')}
             <input type="number" class="gm-stake" data-mid="${mid}" value="100" min="10" step="10"></label>
-          <label class="gm-lbl">Exact 120' score <span class="gm-opt">(optional — pays more)</span>
+          <label class="gm-lbl">${t("Exact 120' score")} <span class="gm-opt">${t('(optional — pays more)')}</span>
             <span class="gm-scorein">
               <input type="number" class="gm-sh" data-mid="${mid}" min="0" max="9" placeholder="${m.home.slice(0, 3)}">
               <span class="gm-dash">–</span>
@@ -173,10 +177,10 @@ function tieCard(mid) {
             </span></label>
         </div>
         <div class="gm-picks">
-          <button class="gm-pick" data-act="bet" data-mid="${mid}" data-team="H">Back ${m.home}
-            <small>advance ${(o.ph * 100).toFixed(0)}% · pays ×${o.oh.toFixed(2)}</small></button>
-          <button class="gm-pick" data-act="bet" data-mid="${mid}" data-team="A">Back ${m.away}
-            <small>advance ${(o.pa * 100).toFixed(0)}% · pays ×${o.oa.toFixed(2)}</small></button>
+          <button class="gm-pick" data-act="bet" data-mid="${mid}" data-team="H">${t('Back {team}', { team: m.home })}
+            <small>${t('advance {p}% · pays ×{o}', { p: (o.ph * 100).toFixed(0), o: o.oh.toFixed(2) })}</small></button>
+          <button class="gm-pick" data-act="bet" data-mid="${mid}" data-team="A">${t('Back {team}', { team: m.away })}
+            <small>${t('advance {p}% · pays ×{o}', { p: (o.pa * 100).toFixed(0), o: o.oa.toFixed(2) })}</small></button>
         </div>
       </div>`;
   }
@@ -188,7 +192,7 @@ function renderRounds() {
   $('rounds').innerHTML = ROUNDS.map((r, ri) => {
     const before = ri < ENTRY_IDX[S.entryRound];
     return `<section class="card reveal${before ? ' gm-dim' : ''}">
-        <h2>${r.emoji} ${r.name}${before ? ' <span class="hint">(before you joined)</span>' : ''}</h2>
+        <h2>${r.emoji} ${t(r.name)}${before ? ` <span class="hint">${t('(before you joined)')}</span>` : ''}</h2>
         <div class="gm-grid">${r.mids.map(tieCard).join('')}</div>
       </section>`;
   }).join('');
@@ -197,8 +201,10 @@ function renderRounds() {
 function renderAll() {
   $('entry').value = S.entryRound;
   $('entry').disabled = slotsUsed() > 0;
-  $('slots').innerHTML = `You joined from <b>${ROUNDS[ENTRY_IDX[S.entryRound]].name}</b> → <b>${slotsTotal()}</b> calls total, <b>${slotsTotal() - slotsUsed()}</b> left.` +
-    (slotsUsed() > 0 ? ' <span class="hint">(reset to change the join round)</span>' : '');
+  $('slots').innerHTML = t('You joined from {name} → {tot} calls total, {left} left.', {
+    name: `<b>${t(ROUNDS[ENTRY_IDX[S.entryRound]].name)}</b>`,
+    tot: `<b>${slotsTotal()}</b>`, left: `<b>${slotsTotal() - slotsUsed()}</b>` }) +
+    (slotsUsed() > 0 ? ` <span class="hint">${t('(reset to change the join round)')}</span>` : '');
   renderWallet(); renderBoard(); renderRounds();
 }
 
@@ -209,8 +215,8 @@ function placeBet(mid, teamCode) {
   const m = A.bracket[mid];
   const pick = teamCode === 'H' ? m.home : m.away;
   const stake = Math.round(Number(document.querySelector(`.gm-stake[data-mid="${mid}"]`).value) || 0);
-  if (stake < 10) return flash('Minimum stake is 10 Coins.');
-  if (stake > bankroll()) return flash(`You only have ${fmt(bankroll())} Coins.`);
+  if (stake < 10) return flash(t('Minimum stake is 10 Coins.'));
+  if (stake > bankroll()) return flash(t('You only have {n} Coins.', { n: fmt(bankroll()) }));
   const shv = document.querySelector(`.gm-sh[data-mid="${mid}"]`).value;
   const sav = document.querySelector(`.gm-sa[data-mid="${mid}"]`).value;
   let score = null, sOdds = 0;
@@ -233,13 +239,14 @@ function boot() {
     else if (btn.dataset.act === 'bet') placeBet(mid, btn.dataset.team);
   });
   $('entry').addEventListener('change', (e) => {
-    if (slotsUsed() > 0) { e.target.value = S.entryRound; return flash('Reset the game first to change the join round.'); }
+    if (slotsUsed() > 0) { e.target.value = S.entryRound; return flash(t('Reset the game first to change the join round.')); }
     S.entryRound = e.target.value; save(); renderAll();
   });
   $('reset').addEventListener('click', () => {
-    if (slotsUsed() > 0 && !confirm('Reset the game? Your calls and Coins will be cleared.')) return;
+    if (slotsUsed() > 0 && !confirm(t('Reset the game? Your calls and Coins will be cleared.'))) return;
     S = { entryRound: S.entryRound, bets: {} }; save(); renderAll();
   });
+  document.addEventListener('gf:langchange', renderAll);   // re-render dynamic text on language switch
   renderAll();
 }
 

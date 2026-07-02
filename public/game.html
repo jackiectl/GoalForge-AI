@@ -32,15 +32,15 @@
       <h2>🎯 How it works</h2>
       <div class="mnote">
         <ul>
-          <li>You start with <b>1,000 Coins</b>. For a tie, back the team you think <b>goes through</b>,
+          <li data-i18n="game.how1">You start with <b>1,000 Coins</b>. For a tie, back the team you think <b>goes through</b>,
             and optionally call the exact 120' score for a much bigger reward.</li>
-          <li><b>Odds come straight from the GoalForge model</b> (fair odds = 1 ÷ probability): longer
+          <li data-i18n="game.how2"><b>Odds come straight from the GoalForge model</b> (fair odds = 1 ÷ probability): longer
             odds pay more, because the model thinks it's less likely.</li>
-          <li>Right on <b>who advances</b> → paid at the outcome odds. Also nail the <b>exact score</b>
+          <li data-i18n="game.how3">Right on <b>who advances</b> → paid at the outcome odds. Also nail the <b>exact score</b>
             → paid at the (much longer) score odds.</li>
-          <li>How many calls you get depends on when you join: <b>Round of 32 → 4</b>, Round of 16 → 3,
+          <li data-i18n="game.how4">How many calls you get depends on when you join: <b>Round of 32 → 4</b>, Round of 16 → 3,
             Quarter-finals → 2, Semi-finals → 1. Spend them well.</li>
-          <li>Calls settle automatically against real results as they come in (the daily Live update).
+          <li data-i18n="game.how5">Calls settle automatically against real results as they come in (the daily Live update).
             The <b>🤖 Model</b> plays too, backing its own pick on every tie, as a benchmark.</li>
         </ul>
       </div>
@@ -49,15 +49,15 @@
     <section class="card reveal">
       <h2>⚙️ Your game</h2>
       <div class="gm-controls">
-        <label class="gm-lbl">Join from
+        <label class="gm-lbl"><span data-i18n="game.joinfrom">Join from</span>
           <select id="entry">
-            <option value="r32">Round of 32 — 4 calls</option>
-            <option value="r16">Round of 16 — 3 calls</option>
-            <option value="qf">Quarter-finals — 2 calls</option>
-            <option value="sf">Semi-finals — 1 call</option>
+            <option value="r32" data-i18n="game.opt.r32">Round of 32 — 4 calls</option>
+            <option value="r16" data-i18n="game.opt.r16">Round of 16 — 3 calls</option>
+            <option value="qf" data-i18n="game.opt.qf">Quarter-finals — 2 calls</option>
+            <option value="sf" data-i18n="game.opt.sf">Semi-finals — 1 call</option>
           </select>
         </label>
-        <button id="reset" class="gm-reset">↺ Reset game</button>
+        <button id="reset" class="gm-reset" data-i18n="game.reset">↺ Reset game</button>
       </div>
       <p class="hint" id="slots"></p>
     </section>
@@ -70,7 +70,7 @@
     <div id="rounds"></div>
   </main>
 
-  <footer>
+  <footer data-i18n="game.footer">
     A virtual-Coin game for entertainment and to illustrate the model — no real-money wagering of any
     kind. Odds are the GoalForge model's fair odds; fixtures &amp; results from martj42 (CC0). Your
     game is saved only in this browser (localStorage).
