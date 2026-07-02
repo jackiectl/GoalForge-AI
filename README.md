@@ -75,48 +75,7 @@ src/goalforge/   Main Python package
 tests/           test suite
 ```
 
-## Quickstart (UMich Great Lakes)
-See [CLAUDE.md](CLAUDE.md) for the full command reference. In short:
-```bash
-# one-time: env = anaconda module (scientific stack) + project .venv, then install goalforge
-module load python3.11-anaconda/2024.02
-python -m venv --system-site-packages .venv && source .venv/bin/activate
-pip install -e . && pip install statsbombpy      # statsbombpy = real-data path
-# (alternative, self-contained: conda env create -f environment.yml && conda activate goalforge && pip install -e .)
 
-# per-session
-source slurm/env_setup.sh
-
-# --- run Phase 0 ---
-python scripts/run_pipeline.py                   # synthetic, offline: fit -> backtest -> predict
-pytest -q                                        # test suite (11 tests)
-python scripts/run_worldcup.py Argentina France  # real StatsBomb WC2022 data
-
-# train a checkpoint (team model on martj42 internationals + player rates on StatsBomb)
-python scripts/train.py
-
-# build the deployed 2026 World Cup model (48 real squads via Wikipedia -> api/model.json)
-python scripts/scrape_wc2026.py && python scripts/build_wc2026_model.py
-
-# --- web app ---
-python -m streamlit run app/streamlit_app.py                    # Streamlit UI
-python -m uvicorn goalforge.api.app:app --host 127.0.0.1 --port 8000   # FastAPI + web/ frontend
-
-# GPU work runs through Slurm — never on the login node
-sbatch slurm/train_gpu.sbatch
-```
-
-**What Phase 0 does:** generate/load matches → fit a Dixon–Coles scoreline model → estimate
-per-player scoring/assist rates (empirical-Bayes shrinkage) → Monte-Carlo simulate the match
-→ output scoreline probabilities, per-player anytime-scorer and assist probabilities, with a
-walk-forward RPS backtest. Real data flows through [statsbomb.py](src/goalforge/data/statsbomb.py);
-synthetic data through [synthetic.py](src/goalforge/data/synthetic.py).
-
-## Hardware
-Development happens on Great Lakes. GPUs are requested via Slurm (see [slurm/](slurm/)) and
-are used where they genuinely help — large vectorized Monte-Carlo simulation, neural /
-player-embedding models, and (optionally) GPU Bayesian inference. Classical statistical
-models (Dixon–Coles, Poisson) run fine on CPU.
 
 ## License
 TBD.
