@@ -26,7 +26,10 @@ A deployed build predicts the **48-team 2026 FIFA World Cup** end-to-end (static
 stdlib serverless API on Vercel), from **real data**:
 - **Squads** — the official 26-man rosters (48 teams) with each player's caps and international
   goals, scraped from Wikipedia (`scripts/scrape_wc2026.py`).
-- **Team strength** — Dixon–Coles fit on martj42 international results (honest held-out backtest).
+- **Team strength** — Dixon–Coles fit on martj42 international results (honest held-out backtest);
+  win/draw/loss odds blend it 50/50 with a LightGBM outcome model — the winner of a walk-forward
+  bake-off over 11 major tournaments (`scripts/team_bakeoff.py`, RPS 0.1980 vs 0.2000 DC-alone).
+  All layers are cut off at the 2026 WC kick-off (2026-06-11): a genuine pre-tournament forecast.
 - **Scorers** — each player's real international goals-per-cap, shrunk to a position prior.
 - **Assists** — a position-based *estimate* (no public international assist dataset — the weakest layer).
 - **Venue** — neutral by default; the three hosts (USA / Canada / Mexico) get home advantage.

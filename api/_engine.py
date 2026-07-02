@@ -72,6 +72,21 @@ def _players(M, team_lambda, xi, kind, pen_fraction=0.10, assisted_rate=0.78):
     return out[:8]
 
 
+def _blend_outcome(M, home, away, neutral, p_dc):
+    """Bake-off winner: 50/50 blend of DC outcome probs with the precomputed GBM table
+    (scripts/build_ens_layer.py). Falls back to pure DC when the pair is missing."""
+    ens = M.get("ens")
+    if not ens:
+        return p_dc
+    p_gbm = ens["probs"].get(f"{home}|{away}|{int(not neutral)}")
+    if not p_gbm:
+        return p_dc
+    w = float(ens.get("w", 0.5))
+    p = [w * a + (1 - w) * b for a, b in zip(p_dc, p_gbm)]
+    s = sum(p)
+    return [x / s for x in p]
+
+
 def predict_dict(M, home, away, home_xi, away_xi, neutral, K=10):
     lh, la = _expected_goals(M, home, away, neutral)
     ph = [_pois(i, lh) for i in range(K + 1)]
@@ -79,9 +94,10 @@ def predict_dict(M, home, away, home_xi, away_xi, neutral, K=10):
     grid = [[ph[i] * pa[j] for j in range(K + 1)] for i in range(K + 1)]
     tot = sum(sum(r) for r in grid)
     grid = [[c / tot for c in r] for r in grid]
-    prob_home = sum(grid[i][j] for i in range(K + 1) for j in range(K + 1) if i > j)
-    prob_draw = sum(grid[i][i] for i in range(K + 1))
-    prob_away = sum(grid[i][j] for i in range(K + 1) for j in range(K + 1) if i < j)
+    p_dc = [sum(grid[i][j] for i in range(K + 1) for j in range(K + 1) if i > j),
+            sum(grid[i][i] for i in range(K + 1)),
+            sum(grid[i][j] for i in range(K + 1) for j in range(K + 1) if i < j)]
+    prob_home, prob_draw, prob_away = _blend_outcome(M, home, away, neutral, p_dc)
     cells = sorted(((grid[i][j], i, j) for i in range(K + 1) for j in range(K + 1)), reverse=True)
     top = [{"home": i, "away": j, "prob": p} for p, i, j in cells[:6]]
     return {

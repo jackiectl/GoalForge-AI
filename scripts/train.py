@@ -50,10 +50,18 @@ def main():
     ap.add_argument("--out", default=os.path.join(
         os.environ.get("GOALFORGE_MODELS_DIR", "models"), "agent_intl.pkl"))
     ap.add_argument("--l2-grid", default="0.03,0.1,0.3,1.0")
+    ap.add_argument("--cutoff", default=None,
+                    help="drop matches on/after this date (e.g. 2026-06-11, the WC kick-off) "
+                         "so the checkpoint stays a genuine pre-tournament model")
     args = ap.parse_args()
 
     print("[1/5] loading international results (martj42)...")
     d = load_international(start_year=args.start_year)
+    if args.cutoff:
+        cut = pd.to_datetime(args.cutoff)
+        before = len(d.matches)
+        d.matches = d.matches[pd.to_datetime(d.matches.date) < cut].reset_index(drop=True)
+        print(f"   cutoff {args.cutoff}: {before} -> {len(d.matches)} matches")
     train, val, test = temporal_split(d.matches, 0.15, 0.15)
     print(f"   {len(d.matches)} matches, {len(d.teams)} teams | "
           f"split train {len(train)} / val {len(val)} / test {len(test)}")

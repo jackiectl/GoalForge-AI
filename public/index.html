@@ -46,12 +46,15 @@
     <details class="method">
       <summary>ℹ️ How it works &amp; what to trust</summary>
       <div class="mnote">
-        <p>Team strength is a time-decayed <b>Dixon-Coles</b> model fit on international results
-        (held-out backtest beats Elo). Player scoring/assist rates blend international records,
-        club xG/xA, and position priors. The full-tournament page walks the single <b>most likely
-        path</b> through the real 2026 format; the honors page adds <b>Monte-Carlo</b> probabilities
-        from thousands of simulated tournaments. Hosts get a deliberately down-weighted home edge.
-        A pre-tournament research forecast — not betting advice.</p>
+        <p>Win/draw/loss odds come from a 50/50 blend of a time-decayed <b>Dixon-Coles</b> model and a
+        <b>gradient-boosting</b> outcome model — the lowest-error combination in a walk-forward
+        bake-off over 11 major tournaments (2014-2024). Scorelines and player scoring/assist
+        attribution stay Dixon-Coles, with player rates blending international records, club xG/xA,
+        and position priors. The full-tournament page walks the single <b>most likely path</b>
+        through the real 2026 format; the honors page adds <b>Monte-Carlo</b> probabilities from
+        thousands of simulated tournaments. Hosts get a deliberately down-weighted home edge.
+        Every layer is trained only on data from before the tournament kicked off (2026-06-11) —
+        a genuine pre-tournament forecast, not betting advice.</p>
       </div>
     </details>
   </main>

@@ -4,7 +4,8 @@ Unlike scripts/simulate_wc2026.py (Monte-Carlo *probabilities* over thousands of
 this walks ONE tournament — the modal path — exactly as a fan would fill in a bracket:
 
   1. all 72 group matches: Dixon-Coles score matrix (tau low-score correction) -> most likely
-     score + W/D/L probs; hosts get a down-weighted home edge (HOST_ADV_SCALE, see simulate);
+     score; W/D/L probs use the bake-off winner (50/50 DC + GBM blend from model.json "ens",
+     see scripts/team_bakeoff.py); hosts get a down-weighted home edge (HOST_ADV_SCALE);
   2. group tables from those scores with the REAL FIFA 2026 tiebreakers (Art. 13: head-to-head
      first among tied teams, then overall GD/GF; conduct-points & FIFA-ranking steps are not
      modellable, so expected points then expected GD stand in — documented honestly);
@@ -66,13 +67,37 @@ def score_matrix(M, home, away, neutral, host_scale):
     return lh, la, [[c / tot for c in r] for r in g]
 
 
+def _blend(M, home, away, neutral, p_dc, host_scale):
+    """Outcome probs from the bake-off winner: 50/50 DC + precomputed GBM table (model.json
+    "ens"). A scaled host edge sits between the table's neutral/full-home entries, so those
+    two GBM rows are averaged with the same scale. Falls back to DC if the table is absent."""
+    ens = M.get("ens")
+    if not ens:
+        return p_dc
+    tab = ens["probs"]
+    if neutral:
+        p_gbm = tab.get(f"{home}|{away}|0")
+    else:
+        p0, p1 = tab.get(f"{home}|{away}|0"), tab.get(f"{home}|{away}|1")
+        p_gbm = ([(1 - host_scale) * a + host_scale * b for a, b in zip(p0, p1)]
+                 if p0 and p1 else (p1 or p0))
+    if not p_gbm:
+        return p_dc
+    w = float(ens.get("w", 0.5))
+    p = [w * a + (1 - w) * b for a, b in zip(p_dc, p_gbm)]
+    s = sum(p)
+    return [x / s for x in p]
+
+
 def predict(M, home, away, neutral, host_scale=HOST_ADV_SCALE):
     lh, la, g = score_matrix(M, home, away, neutral, host_scale)
-    pw = sum(g[i][j] for i in range(K + 1) for j in range(K + 1) if i > j)
-    pd = sum(g[i][i] for i in range(K + 1))
+    p_dc = [sum(g[i][j] for i in range(K + 1) for j in range(K + 1) if i > j),
+            sum(g[i][i] for i in range(K + 1)), 0.0]
+    p_dc[2] = 1 - p_dc[0] - p_dc[1]
+    pw, pd, pa = _blend(M, home, away, neutral, p_dc, host_scale)
     hg, ag = max(((i, j) for i in range(K + 1) for j in range(K + 1)), key=lambda c: g[c[0]][c[1]])
     return {"home": home, "away": away, "hg": hg, "ag": ag,
-            "p_home": round(pw, 4), "p_draw": round(pd, 4), "p_away": round(1 - pw - pd, 4),
+            "p_home": round(pw, 4), "p_draw": round(pd, 4), "p_away": round(pa, 4),
             "lh": round(lh, 3), "la": round(la, 3), "neutral": neutral}
 
 
@@ -194,6 +219,13 @@ def play_knockout(M, slots, host_scale, xg, xa, conceded):
         pw_cond = m["p_home"] / max(m["p_home"] + m["p_away"], 1e-9)
         m["winner"] = h if pw_cond >= 0.5 else aw
         m["p_win"] = round(pw_cond if m["winner"] == h else 1 - pw_cond, 4)
+        if (m["hg"] > m["ag"]) != (m["winner"] == h) and m["hg"] != m["ag"]:
+            # blended winner disagrees with the DC modal score: show the most likely score
+            # in which that winner actually wins (keeps score and outcome consistent)
+            _, _, g = score_matrix(M, h, aw, neutral, host_scale)
+            cells = [(i, j) for i in range(K + 1) for j in range(K + 1)
+                     if (i > j) == (m["winner"] == h) and i != j]
+            m["hg"], m["ag"] = max(cells, key=lambda c: g[c[0]][c[1]])
         m["decided"] = "90min" if m["hg"] != m["ag"] else "et_pens"
         m["id"] = mid
         credit(M, h, m["lh"], xg, xa)
