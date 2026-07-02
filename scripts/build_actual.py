@@ -24,7 +24,7 @@ from collections import defaultdict
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_tournament import rank_group  # noqa: E402  (FIFA Art. 13 tiebreakers)
+from build_tournament import LATER, R32, rank_group  # noqa: E402  (FIFA bracket + Art. 13)
 
 OUTCOMES = ("home", "draw", "away")
 
@@ -136,7 +136,7 @@ def main():
         atable = [{"team": t, "w": wdl[t][0], "d": wdl[t][1], "l": wdl[t][2],
                    "gf": gf[t], "ga": ga[t], "gd": gf[t] - ga[t], "pts": pts[t]} for t in order]
         groups_out[g] = {"matches": matches, "actual_table": atable,
-                         "pred_table": blk["table"]}
+                         "pred_table": blk["table"], "order": order if have_all else None}
 
     # ---- who actually advanced: ground truth = teams appearing in the real round-of-32 ----
     ko_rows = wc[~wc.same_group].reset_index(drop=True)
@@ -170,6 +170,52 @@ def main():
             item["pred_winner"] = pm.get("winner")
         knockout.append(item)
 
+    # ---- actual knockout bracket: the fixed FIFA tree, filled as far as real results allow ----
+    annex = json.load(open("configs/annex_c.json"))
+    order_by_g = {g: groups_out[g]["order"] for g in groups_out if groups_out[g]["order"]}
+    third_grp_adv = "".join(sorted(g for g in order_by_g if order_by_g[g][2] in set(actual_adv)))
+    assign = (dict(zip(annex["hosts"], annex["table"][third_grp_adv]))
+              if third_grp_adv in annex["table"] else {})
+    pos = {f"{i}{g}": order_by_g[g][i - 1] for g in order_by_g for i in (1, 2)}
+    third_team = {g: order_by_g[g][2] for g in order_by_g}
+    advanced_beyond = set(ko_rows.iloc[16:].home_team) | set(ko_rows.iloc[16:].away_team)
+
+    def decide(home, away):
+        m = {"home": home, "away": away, "actual": None, "winner": None, "played": False}
+        if not home or not away:
+            return m
+        pair = frozenset((home, away))
+        if pair in actual:
+            ah, _, hs, as_ = actual[pair]
+            if ah != home:
+                hs, as_ = as_, hs
+            m.update(actual=[hs, as_], played=True)
+            m["winner"] = (home if hs > as_ else away) if hs != as_ else (
+                home if home in advanced_beyond else (away if away in advanced_beyond else None))
+        else:                                                # not played yet; winner only if one side is seen deeper
+            m["winner"] = (home if home in advanced_beyond and away not in advanced_beyond
+                           else (away if away in advanced_beyond and home not in advanced_beyond else None))
+        return m
+
+    bracket_actual, won = {}, {}
+    for mid, sa, sb in R32:
+        if sb == "3rd":
+            tg = assign.get(sa[1])
+            home, away = pos.get(sa), (third_team.get(tg) if tg else None)
+        else:
+            home, away = pos.get(sa), pos.get(sb)
+        m = decide(home, away)
+        m["id"] = mid
+        bracket_actual[mid] = m
+        won[mid] = m["winner"]
+    for rnd, tpl in LATER.items():
+        for mid, fa, fb in tpl:
+            m = decide(won.get(fa), won.get(fb))
+            m["id"] = mid
+            bracket_actual[mid] = m
+            won[mid] = m["winner"]
+    champion_actual = won.get("M104")
+
     champ = T["bracket"]["champion"]
     champ_alive = champ in actual_adv                       # still in (reached R32 at least)
 
@@ -187,7 +233,9 @@ def main():
     out = {"as_of": str(wc[wc.played].date.max().date()),
            "groups": groups_out,
            "advancers": {"actual": actual_adv, "predicted": pred_adv},
-           "knockout": knockout, "metrics": metrics}
+           "knockout": knockout,
+           "bracket": bracket_actual, "champion_actual": champion_actual,
+           "metrics": metrics}
     json.dump(out, open(args.out, "w"), ensure_ascii=False, indent=0)
 
     print(f"as of {out['as_of']} | {n_group} group games scored")
