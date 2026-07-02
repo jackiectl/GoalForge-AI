@@ -38,6 +38,24 @@ def _pois(k, lam):
     return math.exp(-lam) * lam ** k / math.factorial(k)
 
 
+def _rg(lam):
+    """Nearest-integer expected goals -> projected (mean) scoreline; the modal exact cell is
+    biased low (Poisson mode < mean, tau inflates 0-0/1-1), so favourites read 3-0 not 2-0."""
+    return int(lam + 0.5)
+
+
+def _score(lh, la, pw, pd, pa):
+    """Rounded expected goals; a level rounding stays a draw only for a genuinely open game
+    (neither side reaches a 45% win probability), else the favourite takes it by one goal."""
+    hg, ag = _rg(lh), _rg(la)
+    if hg == ag and max(pw, pa) >= 0.45:
+        if pw >= pa:
+            hg += 1
+        else:
+            ag += 1
+    return hg, ag
+
+
 def _expected_goals(M, home, away, neutral):
     s = M["score"]
     att, dfc = s["attack"], s["defence"]
@@ -104,6 +122,7 @@ def predict_dict(M, home, away, home_xi, away_xi, neutral, K=10):
         "home_team": home, "away_team": away,
         "prob_home": prob_home, "prob_draw": prob_draw, "prob_away": prob_away,
         "exp_home_goals": lh, "exp_away_goals": la,
+        "projected_score": list(_score(lh, la, prob_home, prob_draw, prob_away)),
         "most_likely_score": [top[0]["home"], top[0]["away"]], "top_scores": top,
         "home_scorers": _players(M, lh, home_xi, "scoring"),
         "away_scorers": _players(M, la, away_xi, "scoring"),

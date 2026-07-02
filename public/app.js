@@ -108,9 +108,9 @@ async function predict() {
         <span class="track"><span class="fill" style="width:${(v * 100).toFixed(0)}%"></span></span>
         <span class="pct">${pct(v)}</span></div>`)
       .join('');
-    $('score').innerHTML = `<b>${p.most_likely_score[0]}–${p.most_likely_score[1]}</b> most likely ·
+    $('score').innerHTML = `<b>${p.projected_score[0]}–${p.projected_score[1]}</b> projected ·
       expected goals ${p.exp_home_goals.toFixed(2)}–${p.exp_away_goals.toFixed(2)} ·
-      top: ${p.top_scores.map((s) => `${s.home}-${s.away} ${pct(s.prob)}`).join(', ')}`;
+      most likely exact: ${p.top_scores.map((s) => `${s.home}-${s.away} ${pct(s.prob)}`).join(', ')}`;
     $('hsTitle').textContent = `${p.home_team} — scorers`;
     $('asTitle').textContent = `${p.away_team} — scorers`;
     $('haTitle').textContent = `${p.home_team} — assisters`;

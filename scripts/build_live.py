@@ -16,53 +16,42 @@ alongside the original frozen champion for side-by-side comparison on the Live R
 """
 import argparse
 import json
-import math
 import os
 import sys
 
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_tournament import LATER, R32, _pens_tally  # noqa: E402
+from build_tournament import LATER, R32, _pens_tally, _rg  # noqa: E402
 
 from goalforge.data.international import load_international  # noqa: E402
 from goalforge.models.scoreline import DixonColesModel  # noqa: E402
 
-K = 10
 HALF_LIFE = 730
 
 
-def _grid(dc, home, away):
-    lh, la = dc.expected_goals(home, away, neutral=True)
-    rho = float(dc.rho_)
-    fact = [math.factorial(k) for k in range(K + 1)]
-    ph = [math.exp(-lh) * lh ** i / fact[i] for i in range(K + 1)]
-    pa = [math.exp(-la) * la ** j / fact[j] for j in range(K + 1)]
-    g = [[ph[i] * pa[j] for j in range(K + 1)] for i in range(K + 1)]
-    g[0][0] *= 1 - lh * la * rho
-    g[0][1] *= 1 + lh * rho
-    g[1][0] *= 1 + la * rho
-    g[1][1] *= 1 - rho
-    tot = sum(map(sum, g))
-    return [[c / tot for c in r] for r in g]
-
-
 def predict_live(dc, mid, home, away):
+    """Same rule as the modal bracket (build_tournament.ko_match): winner by conditional win
+    prob, coin-flip ties (~within 0.10 of 50%) to penalties; scoreline is the *expected* one
+    (rounded mean goals) — level games 1-1 a.e.t., decisive games the winner's rounded mean."""
     p = dc.predict_proba(home, away, neutral=True)
     ph, pa = p["home_win"], p["away_win"]
-    g = _grid(dc, home, away)
+    lh, la = dc.expected_goals(home, away, neutral=True)
     pw_cond = ph / max(ph + pa, 1e-9)
     winner = home if pw_cond >= 0.5 else away
     m = {"home": home, "away": away, "winner": winner, "id": mid, "pred": True, "played": False}
-    if abs(pw_cond - 0.5) < 0.10:                       # coin-flip tie -> penalties (see build_tournament)
-        i = max(range(K + 1), key=lambda k: g[k][k])
+    if abs(pw_cond - 0.5) < 0.10:                       # coin-flip tie -> penalties
+        lvl = _rg((lh + la) / 2)
         wp, lp = _pens_tally(mid + home + away)
-        m.update(reg=[i, i], hs=i, as_=i, pens=([wp, lp] if winner == home else [lp, wp]), decided="pens")
+        m.update(reg=[lvl, lvl], hs=lvl, as_=lvl,
+                 pens=([wp, lp] if winner == home else [lp, wp]), decided="pens")
     else:
-        win_home = winner == home
-        cells = [(i, j) for i in range(K + 1) for j in range(K + 1) if (i > j) == win_home and i != j]
-        i, j = max(cells, key=lambda c: g[c[0]][c[1]])
-        m.update(reg=[i, j], hs=i, as_=j, pens=None, decided="reg")
+        hg, ag = _rg(lh), _rg(la)
+        if winner == home and hg <= ag:
+            hg = ag + 1
+        elif winner == away and ag <= hg:
+            ag = hg + 1
+        m.update(reg=[hg, ag], hs=hg, as_=ag, pens=None, decided="reg")
     return m
 
 

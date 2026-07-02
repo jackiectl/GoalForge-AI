@@ -53,6 +53,28 @@ def _pois(k, lam):
     return math.exp(-lam) * lam ** k / math.factorial(k)
 
 
+def _rg(lam):
+    """Round expected goals to the nearest integer -> the *projected* (mean) scoreline.
+    The modal exact cell is biased low (Poisson mode < mean) and the tau correction inflates
+    0-0/1-1, so the mode reads as 0-0/1-0 even for clear favourites. Reporting round(mean)
+    instead gives the honest expected score: heavy favourites 3-0/3-1, even sides 1-1/2-2."""
+    return int(lam + 0.5)
+
+
+def _score(lh, la, pw, pd, pa):
+    """Projected scoreline = rounded expected goals. A level rounding stays a draw only for a
+    genuinely open game (neither side reaches a 45% win probability); otherwise the favourite
+    takes it by a one-goal edge. Yields a realistic ~1/4 draws with 1-1/2-1/1-2 variety and no
+    0-0 pile-up, instead of the modal exact cell that read 0-0/1-0 for almost every even game."""
+    hg, ag = _rg(lh), _rg(la)
+    if hg == ag and max(pw, pa) >= 0.45:
+        if pw >= pa:
+            hg += 1
+        else:
+            ag += 1
+    return hg, ag
+
+
 def score_matrix(M, home, away, neutral, host_scale):
     s = M["score"]
     ha = 0.0 if neutral else s["home_adv"] * host_scale
@@ -96,7 +118,7 @@ def predict(M, home, away, neutral, host_scale=HOST_ADV_SCALE):
             sum(g[i][i] for i in range(K + 1)), 0.0]
     p_dc[2] = 1 - p_dc[0] - p_dc[1]
     pw, pd, pa = _blend(M, home, away, neutral, p_dc, host_scale)
-    hg, ag = max(((i, j) for i in range(K + 1) for j in range(K + 1)), key=lambda c: g[c[0]][c[1]])
+    hg, ag = _score(lh, la, pw, pd, pa)
     return {"home": home, "away": away, "hg": hg, "ag": ag,
             "p_home": round(pw, 4), "p_draw": round(pd, 4), "p_away": round(pa, 4),
             "lh": round(lh, 3), "la": round(la, 3), "neutral": neutral}
@@ -228,23 +250,27 @@ def play_knockout(M, slots, host_scale, xg, xa, conceded):
     def ko_match(mid, a, b):
         (h, aw), neutral = _oriented(M, a, b)
         m = predict(M, h, aw, neutral, host_scale)
-        _, _, g = score_matrix(M, h, aw, neutral, host_scale)
         pw_cond = m["p_home"] / max(m["p_home"] + m["p_away"], 1e-9)
         m["winner"] = h if pw_cond >= 0.5 else aw
         m["p_win"] = round(pw_cond if m["winner"] == h else 1 - pw_cond, 4)
         # Send only genuine coin-flip ties to penalties (~20-25% of knockouts, as in real World
-        # Cups); using the modal exact score instead would call far too many draws. A level game
-        # shows the likeliest draw score (a.e.t.); the rest show the winner's likeliest decisive score.
+        # Cups). The scoreline is the *expected* one (rounded mean goals), not the modal exact
+        # cell (biased low): a level game shows the round(mean) draw a.e.t. (1-1, not 0-0); the
+        # rest the winner's rounded-mean score, nudged to a one-goal edge if the means round level.
+        lh, la = m["lh"], m["la"]
         if abs(pw_cond - 0.5) < 0.10:
-            i = max(range(K + 1), key=lambda k: g[k][k])
-            m["reg"] = [i, i]
+            lvl = _rg((lh + la) / 2)
+            m["reg"] = [lvl, lvl]
             wp, lp = _pens_tally(mid + h + aw)
             m["pens"] = [wp, lp] if m["winner"] == h else [lp, wp]
             m["decided"] = "pens"
         else:
-            win_home = m["winner"] == h
-            cells = [(i, j) for i in range(K + 1) for j in range(K + 1) if (i > j) == win_home and i != j]
-            m["reg"] = list(max(cells, key=lambda c: g[c[0]][c[1]]))
+            hg, ag = _rg(lh), _rg(la)
+            if m["winner"] == h and hg <= ag:
+                hg = ag + 1
+            elif m["winner"] == aw and ag <= hg:
+                ag = hg + 1
+            m["reg"] = [hg, ag]
             m["pens"] = None
             m["decided"] = "reg"
         m["hg"], m["ag"] = m["reg"]

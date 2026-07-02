@@ -75,12 +75,12 @@
 "played": false,
 "reg": [
 2,
-0
+1
 ],
 "hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M78": {
 "home": "Ivory Coast",
@@ -90,16 +90,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 4,
 2
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M79": {
 "home": "Mexico",
@@ -109,16 +109,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 4,
 5
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M80": {
 "home": "England",
@@ -145,12 +145,12 @@
 "played": false,
 "reg": [
 2,
-0
+1
 ],
 "hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M82": {
 "home": "Belgium",
@@ -179,13 +179,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M84": {
 "home": "Spain",
@@ -195,13 +195,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M85": {
 "home": "Switzerland",
@@ -230,10 +230,10 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
+2,
 0
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
 "as": 0
@@ -246,13 +246,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M88": {
 "home": "Australia",
@@ -262,16 +262,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 2,
 1
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M89": {
 "home": "Paraguay",
@@ -281,13 +281,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M90": {
 "home": "Canada",
@@ -297,13 +297,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M91": {
 "home": "Brazil",
@@ -313,13 +313,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M92": {
 "home": "Ecuador",
@@ -345,13 +345,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M94": {
 "home": "United States",
@@ -361,13 +361,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M95": {
 "home": "Argentina",
@@ -377,13 +377,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M96": {
 "home": "Algeria",
@@ -393,13 +393,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M97": {
 "home": "France",
@@ -409,16 +409,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 4,
 5
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M98": {
 "home": "Spain",
@@ -428,13 +428,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M99": {
 "home": "Brazil",
@@ -444,16 +444,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 4,
 3
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M100": {
 "home": "Argentina",
@@ -463,13 +463,13 @@
 "pred": true,
 "played": false,
 "reg": [
-1,
-0
+2,
+1
 ],
-"hs": 1,
+"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 0
+"as": 1
 },
 "M101": {
 "home": "Morocco",
@@ -479,16 +479,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 1,
 2
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 },
 "M102": {
 "home": "Brazil",
@@ -498,13 +498,13 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-1
+1,
+2
 ],
-"hs": 0,
+"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 1
+"as": 2
 },
 "M104": {
 "home": "Spain",
@@ -514,16 +514,16 @@
 "pred": true,
 "played": false,
 "reg": [
-0,
-0
+1,
+1
 ],
-"hs": 0,
+"hs": 1,
 "pens": [
 3,
 5
 ],
 "decided": "pens",
-"as": 0
+"as": 1
 }
 },
 "champion_live": "Argentina",
