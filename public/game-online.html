@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Prediction Game (Multiplayer)</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+      <a href="compare.html">Prediction vs Actual</a>
+      <a href="live.html">Live Re-forecast</a>
+      <a href="game.html" class="active">Prediction Game</a>
+    </nav>
+    <h1><span class="grad-text">🎮 Prediction Game — Multiplayer</span></h1>
+    <p class="sub">Sign in to play with virtual <b>Coins</b> against everyone else — no real money.
+      Your calls and the leaderboard are shared and settle automatically against real results.
+      <a href="game.html">Solo (no sign-in) version →</a></p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+    <div id="app"></div>
+  </main>
+
+  <footer>
+    A virtual-Coin game for entertainment and to illustrate the model — no real-money wagering. Odds
+    are the GoalForge model's fair odds; results from martj42 (CC0). Accounts &amp; leaderboard via
+    Supabase. See <a href="https://github.com/aevum-orrin/GoalForge-AI/blob/main/docs/game-online-setup.md">setup</a>.
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="game-online.js"></script>
+</body>
+</html>

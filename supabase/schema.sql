@@ -164,7 +164,7 @@ begin
   end if;
 end; $$;
 
-revoke execute on function public.settle_bet(uuid, text, integer) from anon, authenticated;
+revoke execute on function public.settle_bet(uuid, text, integer) from public, anon, authenticated;
 
 -- ---------- public leaderboard (handle + coins only; no emails) --------------------------------
 create or replace view public.leaderboard as

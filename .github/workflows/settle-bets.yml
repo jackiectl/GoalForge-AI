@@ -1,0 +1,29 @@
+name: Settle bets
+
+# Settles the multi-user Prediction Game's pending bets against the latest real results, once a day
+# just after the results refresh (daily-update.yml runs at 06:00 UTC). No-ops until Supabase secrets
+# are set, so it is safe to have in the repo before the backend is configured.
+
+on:
+  schedule:
+    - cron: '30 6 * * *'        # 30 min after the daily results refresh
+  workflow_dispatch: {}
+
+jobs:
+  settle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4       # brings the freshly-pushed public/actual.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'            # global fetch; settle_bets.mjs has no npm deps
+      - name: Settle pending bets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "${SUPABASE_URL}" ] || [ -z "${SUPABASE_SERVICE_KEY}" ]; then
+            echo "Supabase secrets not set — nothing to settle. (See docs/game-online-setup.md.)"
+            exit 0
+          fi
+          node scripts/settle_bets.mjs public/actual.json

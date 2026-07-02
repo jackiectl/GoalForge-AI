@@ -91,6 +91,11 @@ python scripts/build_actual.py         # real 2026 results vs forecast -> public
 python scripts/build_live.py           # DAILY: refit incl. 2026 results, re-walk real bracket -> public/live.json
 # daily update: python scripts/build_actual.py && python scripts/build_live.py  (frozen forecast stays put)
 
+# multiplayer Prediction Game (Supabase; needs a free project — see docs/game-online-setup.md)
+node scripts/seed_virtual_users.mjs    # create AI virtual users + random bets to test storage/leaderboard
+node scripts/settle_bets.mjs           # DAILY (Action): settle pending bets vs public/actual.json (service_role key)
+# schema: supabase/schema.sql ; public front end: public/game-online.html + game-online.js + supabase-config.js
+
 # (planned) pipeline entry points — see docs/workflow.md
 python -m goalforge.data.download       --config configs/default.yaml   # fetch & cache data
 python -m goalforge.models.train        --config configs/default.yaml   # train models
