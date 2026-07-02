@@ -28,6 +28,7 @@ async function init() {
   $('neutral').onchange = renderVenueNote;
   $('go').onclick = predict;
   renderMethod();
+  renderForecast();
 }
 
 // --- venue: neutral by default; a single 2026 host gets home advantage ---------------
@@ -137,6 +138,24 @@ function renderMethod() {
        RPS ${b.test_rps} (lower is better — beats Elo &amp; base-rate). The scorer &amp; assist
        layers are history/prior-based and are <b>not</b> validated on 2026 outcomes.</p>` : '') +
     (META.note ? `<p class="mnote">${META.note}</p>` : '');
+}
+
+async function renderForecast() {
+  let f;
+  try { f = await api('/forecast.json'); } catch { return; }   // not deployed yet -> skip quietly
+  $('forecast').classList.remove('hidden');
+  $('fcMeta').textContent = `· ${Math.round(f.sims / 1000)}k sims · ~${Math.round(f.exp_total_goals)} goals`;
+  const bars = (el, obj, k) => {
+    const entries = Object.entries(obj).slice(0, k);
+    const max = Math.max(...entries.map((e) => e[1]), 0.01);
+    el.innerHTML = entries.map(([n, v]) =>
+      `<div class="bar"><span class="lbl">${n}</span>
+        <span class="track"><span class="fill" style="width:${(v / max * 100).toFixed(0)}%"></span></span>
+        <span class="pct">${(v * 100).toFixed(0)}%</span></div>`).join('');
+  };
+  bars($('fcChampion'), f.champion, 12);
+  bars($('fcBoot'), f.golden_boot, 10);
+  bars($('fcPlay'), f.playmaker, 10);
 }
 
 init().catch((e) => ($('err').textContent = 'Init error: ' + e.message));

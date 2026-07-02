@@ -40,6 +40,11 @@ button:disabled { opacity:.6; cursor:default; }
 .score { color:var(--mut); }
 .cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
 .err { color:#ff6b6b; }
+.forecast { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-top:16px; }
+.forecast.hidden { display:none; }
+.fcmeta { font-size:13px; color:var(--mut); font-weight:400; }
+.fccols { display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; }
+@media (max-width:720px){ .fccols{grid-template-columns:1fr;} }
 .method { margin-top:16px; background:var(--card); border:1px solid var(--line);
           border-radius:12px; padding:4px 16px; color:var(--mut); }
 .method summary { cursor:pointer; padding:10px 0; font-size:13px; color:var(--fg); }
