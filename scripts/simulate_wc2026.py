@@ -15,8 +15,10 @@ Aggregated over N runs it yields a rich forecast:
     python scripts/simulate_wc2026.py [--sims 20000]
 
 Honest caveats: pre-tournament forecast (ignores results already played); the knockout bracket is
-a seeded approximation, not FIFA's exact slotting; scorer/assist attribution uses the (history/
-prior-based) player layer. It is a forecast, not a prediction of certainty.
+a standard seeded bracket (strongest vs weakest, top seeds split across halves), an approximation
+of FIFA's exact slotting; host advantage is deliberately down-weighted (HOST_ADV_SCALE) because the
+fitted home edge comes from competitive qualifiers and over-rates a tournament host; scorer/assist
+attribution uses the (history/prior-based) player layer. It is a forecast, not a certainty.
 """
 import argparse
 import json
@@ -26,6 +28,12 @@ from collections import defaultdict
 import numpy as np
 
 HOST_ADV = True
+# The Dixon-Coles home_adv is fit on *all* international matches (incl. competitive qualifiers,
+# where home edge is strongest). A World Cup host does play at home, but fans of both sides travel
+# and the tie is tournament-neutral in spirit — so full qualifier-strength home advantage over-
+# rates the hosts. We deliberately apply only a *fraction* of it. 0.5 is a conservative middle
+# (see --host-scale for a sensitivity knob); 1.0 = full home game, 0.0 = fully neutral.
+HOST_ADV_SCALE = 0.5
 
 
 def _team_lambdas(M):
@@ -33,9 +41,9 @@ def _team_lambdas(M):
     return s["mu"], s["home_adv"], s["attack"], s["defence"]
 
 
-def expected_goals(M, home, away, neutral):
+def expected_goals(M, home, away, neutral, host_scale=1.0):
     mu, ha, att, dfc = _team_lambdas(M)
-    lh = np.exp(mu + (0.0 if neutral else ha) + att.get(home, 0.0) + dfc.get(away, 0.0))
+    lh = np.exp(mu + (0.0 if neutral else ha * host_scale) + att.get(home, 0.0) + dfc.get(away, 0.0))
     la = np.exp(mu + att.get(away, 0.0) + dfc.get(home, 0.0))
     return lh, la
 
@@ -48,9 +56,9 @@ def _xi_weights(M, team, kind):
     return xi, w / w.sum()
 
 
-def sim_match(M, home, away, rng, neutral, goals_tally, assist_tally, allow_draw=True):
+def sim_match(M, home, away, rng, neutral, goals_tally, assist_tally, allow_draw=True, host_scale=1.0):
     """Return (hg, ag, winner) and attribute goals/assists to players."""
-    lh, la = expected_goals(M, home, away, neutral)
+    lh, la = expected_goals(M, home, away, neutral, host_scale)
     hg, ag = int(rng.poisson(lh)), int(rng.poisson(la))
     for team, n in ((home, hg), (away, ag)):
         if n == 0:
@@ -74,7 +82,20 @@ def _host(M, t):
     return t in M["meta"].get("hosts", [])
 
 
-def run_once(M, groups, rng, stats):
+def _seed_bracket(n):
+    """Bracket-position order of seeds so #1..#n are maximally separated (1 vs n, ... top two meet
+    only in the final). Adjacent pairs of the returned list are the first-round matchups."""
+    order = [1]
+    while len(order) < n:
+        m = len(order) * 2
+        nxt = []
+        for s in order:
+            nxt += [s, m + 1 - s]
+        order = nxt
+    return order
+
+
+def run_once(M, groups, rng, stats, host_scale=HOST_ADV_SCALE):
     goals, assists = defaultdict(int), defaultdict(int)
     conceded = defaultdict(int)
     # ---- group stage ----
@@ -90,7 +111,7 @@ def run_once(M, groups, rng, stats):
                 neutral = not (HOST_ADV and (_host(M, a) or _host(M, b)))
                 home = a if (_host(M, a) or not _host(M, b)) else b
                 away = b if home == a else a
-                hg, ag, _ = sim_match(M, home, away, rng, neutral, goals, assists)
+                hg, ag, _ = sim_match(M, home, away, rng, neutral, goals, assists, host_scale=host_scale)
                 conceded[home] += ag
                 conceded[away] += hg
                 res = {home: (hg, ag), away: (ag, hg)}
@@ -111,12 +132,13 @@ def run_once(M, groups, rng, stats):
     for t in best_thirds:
         stats["advance"][t] += 1
 
-    # ---- knockout: seed 32 qualifiers, fixed standard bracket ----
+    # ---- knockout: seed 32 qualifiers into a standard bracket (strongest vs weakest, top seeds
+    #      in opposite halves so they can meet only late) — a seeded approximation of FIFA's slotting
     quals = ([standings[g][0] for g in groups] + [standings[g][1] for g in groups] + best_thirds)
     _, _, att, dfc = _team_lambdas(M)
-    quals = sorted(quals, key=lambda t: att.get(t, 0) - dfc.get(t, 0), reverse=True)[:32]
+    seeded = sorted(quals, key=lambda t: att.get(t, 0) - dfc.get(t, 0), reverse=True)[:32]
     round_names = ["r32", "r16", "qf", "sf", "final"]
-    field = quals[:]
+    field = [seeded[s - 1] for s in _seed_bracket(len(seeded))]   # bracket-position order
     finalists = None
     for rnd in round_names:
         for t in field:
@@ -154,6 +176,9 @@ def main():
     ap.add_argument("--model", default="api/model.json")
     ap.add_argument("--sims", type=int, default=20000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--host-scale", type=float, default=HOST_ADV_SCALE,
+                    help="fraction of the fitted home advantage the 2026 hosts get in group games "
+                         "(0=neutral, 1=full home game; default halves it)")
     ap.add_argument("--out", default="reports/wc2026_forecast.json")
     args = ap.parse_args()
     M = json.load(open(args.model))
@@ -168,7 +193,7 @@ def main():
     stats = {k: defaultdict(int) for k in keys}
     stats["total_goals"] = []
     for _ in range(args.sims):
-        run_once(M, groups, rng, stats)
+        run_once(M, groups, rng, stats, host_scale=args.host_scale)
 
     N = args.sims
     info = M.get("player_info", {})
@@ -176,7 +201,7 @@ def main():
     def top(counter, k=12, pct=True):
         return [(t, (c / N if pct else c / N)) for t, c in sorted(counter.items(), key=lambda x: -x[1])[:k]]
 
-    print(f"\n===== 2026 WORLD CUP FORECAST ({N:,} simulations) =====")
+    print(f"\n===== 2026 WORLD CUP FORECAST ({N:,} simulations, host-scale {args.host_scale}) =====")
     print("\n-- CHAMPION --")
     for t, p in top(stats["champion"]):
         print(f"  {t:16s} {p:5.1%}   (final {stats['final'][t]/N:4.0%} · semi {stats['sf'][t]/N:4.0%})")
