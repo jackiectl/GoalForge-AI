@@ -39,8 +39,11 @@ echo "===== [4/5] 20k Monte-Carlo forecast ====="
 $VENVPY scripts/simulate_wc2026.py --sims 20000 --host-scale 0.5
 cp reports/wc2026_forecast.json public/forecast.json
 
-echo "===== [5/5] deterministic tournament walk ====="
+echo "===== [5/6] deterministic tournament walk ====="
 $VENVPY scripts/build_tournament.py
 
+echo "===== [6/6] real-results comparison (prediction vs actual) ====="
+$VENVPY scripts/build_actual.py
+
 echo "===== rebuild complete ====="
-ls -la api/model.json public/forecast.json public/tournament.json
+ls -la api/model.json public/forecast.json public/tournament.json public/actual.json

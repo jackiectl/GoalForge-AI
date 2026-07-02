@@ -1,0 +1,2666 @@
+{
+"as_of": "2026-06-29",
+"groups": {
+"A": {
+"matches": [
+{
+"home": "Mexico",
+"away": "Czech Republic",
+"pred": [
+1,
+0
+],
+"probs": [
+0.604,
+0.275,
+0.121
+],
+"actual": [
+3,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "South Africa",
+"away": "South Korea",
+"pred": [
+0,
+1
+],
+"probs": [
+0.128,
+0.267,
+0.605
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Czech Republic",
+"away": "South Africa",
+"pred": [
+1,
+1
+],
+"probs": [
+0.411,
+0.321,
+0.268
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": true,
+"exact_hit": true
+},
+{
+"home": "Mexico",
+"away": "South Korea",
+"pred": [
+1,
+1
+],
+"probs": [
+0.436,
+0.304,
+0.26
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "South Korea",
+"away": "Czech Republic",
+"pred": [
+1,
+1
+],
+"probs": [
+0.556,
+0.269,
+0.175
+],
+"actual": [
+2,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Mexico",
+"away": "South Africa",
+"pred": [
+1,
+0
+],
+"probs": [
+0.639,
+0.251,
+0.11
+],
+"actual": [
+2,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Mexico",
+"w": 3,
+"d": 0,
+"l": 0,
+"gf": 6,
+"ga": 0,
+"gd": 6,
+"pts": 9
+},
+{
+"team": "South Africa",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 4
+},
+{
+"team": "South Korea",
+"w": 1,
+"d": 0,
+"l": 2,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 3
+},
+{
+"team": "Czech Republic",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 2,
+"ga": 6,
+"gd": -4,
+"pts": 1
+}
+],
+"pred_table": [
+{
+"team": "Mexico",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 7,
+"xpts": 5.87
+},
+{
+"team": "South Korea",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 3,
+"ga": 2,
+"gd": 1,
+"pts": 5,
+"xpts": 5.1
+},
+{
+"team": "Czech Republic",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 2,
+"xpts": 2.99
+},
+{
+"team": "South Africa",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 3,
+"gd": -2,
+"pts": 1,
+"xpts": 2.36
+}
+]
+},
+"B": {
+"matches": [
+{
+"home": "Canada",
+"away": "Bosnia and Herzegovina",
+"pred": [
+2,
+0
+],
+"probs": [
+0.766,
+0.174,
+0.06
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Qatar",
+"away": "Switzerland",
+"pred": [
+0,
+2
+],
+"probs": [
+0.2,
+0.229,
+0.571
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Bosnia and Herzegovina",
+"away": "Qatar",
+"pred": [
+1,
+1
+],
+"probs": [
+0.247,
+0.285,
+0.468
+],
+"actual": [
+3,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Canada",
+"away": "Switzerland",
+"pred": [
+1,
+1
+],
+"probs": [
+0.366,
+0.31,
+0.324
+],
+"actual": [
+1,
+2
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Switzerland",
+"away": "Bosnia and Herzegovina",
+"pred": [
+2,
+0
+],
+"probs": [
+0.687,
+0.222,
+0.092
+],
+"actual": [
+4,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Canada",
+"away": "Qatar",
+"pred": [
+2,
+0
+],
+"probs": [
+0.682,
+0.199,
+0.118
+],
+"actual": [
+6,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Switzerland",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 7,
+"ga": 3,
+"gd": 4,
+"pts": 7
+},
+{
+"team": "Canada",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 8,
+"ga": 3,
+"gd": 5,
+"pts": 4
+},
+{
+"team": "Bosnia and Herzegovina",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 5,
+"ga": 6,
+"gd": -1,
+"pts": 4
+},
+{
+"team": "Qatar",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 2,
+"ga": 10,
+"gd": -8,
+"pts": 1
+}
+],
+"pred_table": [
+{
+"team": "Canada",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 5,
+"ga": 1,
+"gd": 4,
+"pts": 7,
+"xpts": 6.13
+},
+{
+"team": "Switzerland",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 5,
+"ga": 1,
+"gd": 4,
+"pts": 7,
+"xpts": 5.51
+},
+{
+"team": "Qatar",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 5,
+"gd": -4,
+"pts": 1,
+"xpts": 3.07
+},
+{
+"team": "Bosnia and Herzegovina",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 5,
+"gd": -4,
+"pts": 1,
+"xpts": 1.87
+}
+]
+},
+"C": {
+"matches": [
+{
+"home": "Brazil",
+"away": "Haiti",
+"pred": [
+2,
+0
+],
+"probs": [
+0.836,
+0.107,
+0.057
+],
+"actual": [
+3,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Morocco",
+"away": "Scotland",
+"pred": [
+1,
+0
+],
+"probs": [
+0.626,
+0.267,
+0.107
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": true,
+"exact_hit": true
+},
+{
+"home": "Brazil",
+"away": "Morocco",
+"pred": [
+0,
+0
+],
+"probs": [
+0.487,
+0.301,
+0.211
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Scotland",
+"away": "Haiti",
+"pred": [
+1,
+1
+],
+"probs": [
+0.415,
+0.262,
+0.323
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Scotland",
+"away": "Brazil",
+"pred": [
+0,
+2
+],
+"probs": [
+0.072,
+0.178,
+0.75
+],
+"actual": [
+0,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Haiti",
+"away": "Morocco",
+"pred": [
+0,
+1
+],
+"probs": [
+0.096,
+0.221,
+0.683
+],
+"actual": [
+2,
+4
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Brazil",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 7,
+"ga": 1,
+"gd": 6,
+"pts": 7
+},
+{
+"team": "Morocco",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 6,
+"ga": 3,
+"gd": 3,
+"pts": 7
+},
+{
+"team": "Scotland",
+"w": 1,
+"d": 0,
+"l": 2,
+"gf": 1,
+"ga": 4,
+"gd": -3,
+"pts": 3
+},
+{
+"team": "Haiti",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 2,
+"ga": 8,
+"gd": -6,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "Brazil",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 4,
+"ga": 0,
+"gd": 4,
+"pts": 7,
+"xpts": 6.8
+},
+{
+"team": "Morocco",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 2,
+"ga": 0,
+"gd": 2,
+"pts": 7,
+"xpts": 5.35
+},
+{
+"team": "Scotland",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 4,
+"gd": -3,
+"pts": 1,
+"xpts": 2.49
+},
+{
+"team": "Haiti",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 4,
+"gd": -3,
+"pts": 1,
+"xpts": 2.02
+}
+]
+},
+"D": {
+"matches": [
+{
+"home": "Australia",
+"away": "Paraguay",
+"pred": [
+0,
+0
+],
+"probs": [
+0.442,
+0.357,
+0.201
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": true,
+"exact_hit": true
+},
+{
+"home": "United States",
+"away": "Turkey",
+"pred": [
+1,
+1
+],
+"probs": [
+0.435,
+0.227,
+0.338
+],
+"actual": [
+2,
+3
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Australia",
+"away": "Turkey",
+"pred": [
+1,
+0
+],
+"probs": [
+0.525,
+0.24,
+0.235
+],
+"actual": [
+2,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "United States",
+"away": "Paraguay",
+"pred": [
+1,
+1
+],
+"probs": [
+0.425,
+0.282,
+0.293
+],
+"actual": [
+4,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "United States",
+"away": "Australia",
+"pred": [
+1,
+1
+],
+"probs": [
+0.333,
+0.292,
+0.374
+],
+"actual": [
+2,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Paraguay",
+"away": "Turkey",
+"pred": [
+1,
+0
+],
+"probs": [
+0.412,
+0.281,
+0.307
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": true,
+"exact_hit": true
+}
+],
+"actual_table": [
+{
+"team": "United States",
+"w": 2,
+"d": 0,
+"l": 1,
+"gf": 8,
+"ga": 4,
+"gd": 4,
+"pts": 6
+},
+{
+"team": "Australia",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 2,
+"gd": 0,
+"pts": 4
+},
+{
+"team": "Paraguay",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 4,
+"gd": -2,
+"pts": 4
+},
+{
+"team": "Turkey",
+"w": 1,
+"d": 0,
+"l": 2,
+"gf": 3,
+"ga": 5,
+"gd": -2,
+"pts": 3
+}
+],
+"pred_table": [
+{
+"team": "Australia",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 2,
+"ga": 1,
+"gd": 1,
+"pts": 5,
+"xpts": 4.91
+},
+{
+"team": "Paraguay",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 2,
+"ga": 1,
+"gd": 1,
+"pts": 5,
+"xpts": 3.64
+},
+{
+"team": "United States",
+"w": 0,
+"d": 3,
+"l": 0,
+"gf": 3,
+"ga": 3,
+"gd": 0,
+"pts": 3,
+"xpts": 4.38
+},
+{
+"team": "Turkey",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 3,
+"gd": -2,
+"pts": 1,
+"xpts": 3.39
+}
+]
+},
+"E": {
+"matches": [
+{
+"home": "Curaçao",
+"away": "Ecuador",
+"pred": [
+0,
+2
+],
+"probs": [
+0.06,
+0.219,
+0.721
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Germany",
+"away": "Ivory Coast",
+"pred": [
+1,
+0
+],
+"probs": [
+0.529,
+0.283,
+0.188
+],
+"actual": [
+2,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Curaçao",
+"away": "Germany",
+"pred": [
+0,
+2
+],
+"probs": [
+0.059,
+0.137,
+0.804
+],
+"actual": [
+1,
+7
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Ivory Coast",
+"away": "Ecuador",
+"pred": [
+0,
+0
+],
+"probs": [
+0.239,
+0.353,
+0.408
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Ivory Coast",
+"away": "Curaçao",
+"pred": [
+1,
+0
+],
+"probs": [
+0.567,
+0.284,
+0.148
+],
+"actual": [
+2,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Ecuador",
+"away": "Germany",
+"pred": [
+1,
+1
+],
+"probs": [
+0.349,
+0.289,
+0.362
+],
+"actual": [
+2,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Germany",
+"w": 2,
+"d": 0,
+"l": 1,
+"gf": 10,
+"ga": 4,
+"gd": 6,
+"pts": 6
+},
+{
+"team": "Ivory Coast",
+"w": 2,
+"d": 0,
+"l": 1,
+"gf": 4,
+"ga": 2,
+"gd": 2,
+"pts": 6
+},
+{
+"team": "Ecuador",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 2,
+"gd": 0,
+"pts": 4
+},
+{
+"team": "Curaçao",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 9,
+"gd": -8,
+"pts": 1
+}
+],
+"pred_table": [
+{
+"team": "Germany",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 4,
+"ga": 1,
+"gd": 3,
+"pts": 7,
+"xpts": 5.79
+},
+{
+"team": "Ecuador",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 5,
+"xpts": 5.29
+},
+{
+"team": "Ivory Coast",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 1,
+"ga": 1,
+"gd": 0,
+"pts": 4,
+"xpts": 3.91
+},
+{
+"team": "Curaçao",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 0,
+"ga": 5,
+"gd": -5,
+"pts": 0,
+"xpts": 1.44
+}
+]
+},
+"F": {
+"matches": [
+{
+"home": "Japan",
+"away": "Netherlands",
+"pred": [
+1,
+1
+],
+"probs": [
+0.386,
+0.249,
+0.365
+],
+"actual": [
+2,
+2
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Sweden",
+"away": "Tunisia",
+"pred": [
+1,
+1
+],
+"probs": [
+0.315,
+0.337,
+0.348
+],
+"actual": [
+5,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Japan",
+"away": "Sweden",
+"pred": [
+2,
+0
+],
+"probs": [
+0.698,
+0.185,
+0.117
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Tunisia",
+"away": "Netherlands",
+"pred": [
+0,
+1
+],
+"probs": [
+0.158,
+0.256,
+0.586
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Tunisia",
+"away": "Japan",
+"pred": [
+0,
+1
+],
+"probs": [
+0.121,
+0.227,
+0.652
+],
+"actual": [
+0,
+4
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Netherlands",
+"away": "Sweden",
+"pred": [
+2,
+1
+],
+"probs": [
+0.614,
+0.226,
+0.16
+],
+"actual": [
+5,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Netherlands",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 10,
+"ga": 4,
+"gd": 6,
+"pts": 7
+},
+{
+"team": "Japan",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 7,
+"ga": 3,
+"gd": 4,
+"pts": 5
+},
+{
+"team": "Sweden",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 7,
+"ga": 7,
+"gd": 0,
+"pts": 4
+},
+{
+"team": "Tunisia",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 2,
+"ga": 12,
+"gd": -10,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "Japan",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 4,
+"ga": 1,
+"gd": 3,
+"pts": 7,
+"xpts": 5.87
+},
+{
+"team": "Netherlands",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 4,
+"ga": 2,
+"gd": 2,
+"pts": 7,
+"xpts": 5.43
+},
+{
+"team": "Tunisia",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 3,
+"gd": -2,
+"pts": 1,
+"xpts": 2.7
+},
+{
+"team": "Sweden",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 2,
+"ga": 5,
+"gd": -3,
+"pts": 1,
+"xpts": 2.52
+}
+]
+},
+"G": {
+"matches": [
+{
+"home": "Belgium",
+"away": "Egypt",
+"pred": [
+1,
+0
+],
+"probs": [
+0.571,
+0.279,
+0.15
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Iran",
+"away": "New Zealand",
+"pred": [
+1,
+0
+],
+"probs": [
+0.561,
+0.259,
+0.18
+],
+"actual": [
+2,
+2
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Belgium",
+"away": "Iran",
+"pred": [
+1,
+1
+],
+"probs": [
+0.434,
+0.254,
+0.311
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "New Zealand",
+"away": "Egypt",
+"pred": [
+0,
+0
+],
+"probs": [
+0.376,
+0.327,
+0.297
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "New Zealand",
+"away": "Belgium",
+"pred": [
+1,
+1
+],
+"probs": [
+0.19,
+0.23,
+0.58
+],
+"actual": [
+1,
+5
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Egypt",
+"away": "Iran",
+"pred": [
+0,
+0
+],
+"probs": [
+0.244,
+0.345,
+0.411
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Belgium",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 6,
+"ga": 2,
+"gd": 4,
+"pts": 5
+},
+{
+"team": "Egypt",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 5,
+"ga": 3,
+"gd": 2,
+"pts": 5
+},
+{
+"team": "Iran",
+"w": 0,
+"d": 3,
+"l": 0,
+"gf": 3,
+"ga": 3,
+"gd": 0,
+"pts": 3
+},
+{
+"team": "New Zealand",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 4,
+"ga": 10,
+"gd": -6,
+"pts": 1
+}
+],
+"pred_table": [
+{
+"team": "Belgium",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 3,
+"ga": 2,
+"gd": 1,
+"pts": 5,
+"xpts": 5.52
+},
+{
+"team": "Iran",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 2,
+"ga": 1,
+"gd": 1,
+"pts": 5,
+"xpts": 4.71
+},
+{
+"team": "New Zealand",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 1,
+"ga": 2,
+"gd": -1,
+"pts": 2,
+"xpts": 3.05
+},
+{
+"team": "Egypt",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 0,
+"ga": 1,
+"gd": -1,
+"pts": 2,
+"xpts": 3.02
+}
+]
+},
+"H": {
+"matches": [
+{
+"home": "Cape Verde",
+"away": "Saudi Arabia",
+"pred": [
+0,
+0
+],
+"probs": [
+0.265,
+0.35,
+0.385
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": true,
+"exact_hit": true
+},
+{
+"home": "Spain",
+"away": "Uruguay",
+"pred": [
+1,
+1
+],
+"probs": [
+0.514,
+0.295,
+0.191
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Cape Verde",
+"away": "Spain",
+"pred": [
+0,
+2
+],
+"probs": [
+0.052,
+0.113,
+0.835
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Uruguay",
+"away": "Saudi Arabia",
+"pred": [
+1,
+0
+],
+"probs": [
+0.687,
+0.216,
+0.098
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Uruguay",
+"away": "Cape Verde",
+"pred": [
+1,
+0
+],
+"probs": [
+0.777,
+0.158,
+0.065
+],
+"actual": [
+2,
+2
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Saudi Arabia",
+"away": "Spain",
+"pred": [
+0,
+2
+],
+"probs": [
+0.078,
+0.166,
+0.756
+],
+"actual": [
+0,
+4
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Spain",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 5,
+"ga": 0,
+"gd": 5,
+"pts": 7
+},
+{
+"team": "Cape Verde",
+"w": 0,
+"d": 3,
+"l": 0,
+"gf": 2,
+"ga": 2,
+"gd": 0,
+"pts": 3
+},
+{
+"team": "Uruguay",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 3,
+"ga": 4,
+"gd": -1,
+"pts": 2
+},
+{
+"team": "Saudi Arabia",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 1,
+"ga": 5,
+"gd": -4,
+"pts": 2
+}
+],
+"pred_table": [
+{
+"team": "Spain",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 5,
+"ga": 1,
+"gd": 4,
+"pts": 7,
+"xpts": 6.89
+},
+{
+"team": "Uruguay",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 7,
+"xpts": 5.63
+},
+{
+"team": "Saudi Arabia",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 0,
+"ga": 3,
+"gd": -3,
+"pts": 1,
+"xpts": 2.41
+},
+{
+"team": "Cape Verde",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 0,
+"ga": 3,
+"gd": -3,
+"pts": 1,
+"xpts": 1.76
+}
+]
+},
+"I": {
+"matches": [
+{
+"home": "France",
+"away": "Iraq",
+"pred": [
+1,
+0
+],
+"probs": [
+0.622,
+0.265,
+0.113
+],
+"actual": [
+3,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Norway",
+"away": "Senegal",
+"pred": [
+1,
+1
+],
+"probs": [
+0.297,
+0.312,
+0.391
+],
+"actual": [
+3,
+2
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "France",
+"away": "Norway",
+"pred": [
+1,
+1
+],
+"probs": [
+0.61,
+0.216,
+0.174
+],
+"actual": [
+4,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Senegal",
+"away": "Iraq",
+"pred": [
+0,
+0
+],
+"probs": [
+0.476,
+0.358,
+0.166
+],
+"actual": [
+5,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Senegal",
+"away": "France",
+"pred": [
+0,
+1
+],
+"probs": [
+0.204,
+0.314,
+0.482
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Iraq",
+"away": "Norway",
+"pred": [
+0,
+1
+],
+"probs": [
+0.24,
+0.309,
+0.452
+],
+"actual": [
+1,
+4
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "France",
+"w": 3,
+"d": 0,
+"l": 0,
+"gf": 10,
+"ga": 2,
+"gd": 8,
+"pts": 9
+},
+{
+"team": "Norway",
+"w": 2,
+"d": 0,
+"l": 1,
+"gf": 8,
+"ga": 7,
+"gd": 1,
+"pts": 6
+},
+{
+"team": "Senegal",
+"w": 1,
+"d": 0,
+"l": 2,
+"gf": 8,
+"ga": 6,
+"gd": 2,
+"pts": 3
+},
+{
+"team": "Iraq",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 1,
+"ga": 12,
+"gd": -11,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "France",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 7,
+"xpts": 5.94
+},
+{
+"team": "Norway",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 3,
+"ga": 2,
+"gd": 1,
+"pts": 5,
+"xpts": 3.61
+},
+{
+"team": "Senegal",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 1,
+"ga": 2,
+"gd": -1,
+"pts": 2,
+"xpts": 4.2
+},
+{
+"team": "Iraq",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 0,
+"ga": 2,
+"gd": -2,
+"pts": 1,
+"xpts": 2.49
+}
+]
+},
+"J": {
+"matches": [
+{
+"home": "Algeria",
+"away": "Argentina",
+"pred": [
+0,
+1
+],
+"probs": [
+0.128,
+0.281,
+0.591
+],
+"actual": [
+0,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Austria",
+"away": "Jordan",
+"pred": [
+1,
+1
+],
+"probs": [
+0.445,
+0.279,
+0.276
+],
+"actual": [
+3,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Algeria",
+"away": "Austria",
+"pred": [
+1,
+1
+],
+"probs": [
+0.439,
+0.296,
+0.265
+],
+"actual": [
+3,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Jordan",
+"away": "Argentina",
+"pred": [
+0,
+2
+],
+"probs": [
+0.046,
+0.145,
+0.809
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Jordan",
+"away": "Algeria",
+"pred": [
+1,
+1
+],
+"probs": [
+0.182,
+0.211,
+0.607
+],
+"actual": [
+1,
+2
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Argentina",
+"away": "Austria",
+"pred": [
+1,
+0
+],
+"probs": [
+0.739,
+0.179,
+0.082
+],
+"actual": [
+2,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Argentina",
+"w": 3,
+"d": 0,
+"l": 0,
+"gf": 8,
+"ga": 1,
+"gd": 7,
+"pts": 9
+},
+{
+"team": "Austria",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 6,
+"ga": 6,
+"gd": 0,
+"pts": 4
+},
+{
+"team": "Algeria",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 5,
+"ga": 7,
+"gd": -2,
+"pts": 4
+},
+{
+"team": "Jordan",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 3,
+"ga": 8,
+"gd": -5,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "Argentina",
+"w": 3,
+"d": 0,
+"l": 0,
+"gf": 4,
+"ga": 0,
+"gd": 4,
+"pts": 9,
+"xpts": 7.02
+},
+{
+"team": "Algeria",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 2,
+"xpts": 4.31
+},
+{
+"team": "Austria",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 2,
+"xpts": 3.13
+},
+{
+"team": "Jordan",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 2,
+"ga": 4,
+"gd": -2,
+"pts": 2,
+"xpts": 2.15
+}
+]
+},
+"K": {
+"matches": [
+{
+"home": "Colombia",
+"away": "DR Congo",
+"pred": [
+1,
+0
+],
+"probs": [
+0.638,
+0.267,
+0.095
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": true,
+"exact_hit": true
+},
+{
+"home": "Portugal",
+"away": "Uzbekistan",
+"pred": [
+1,
+0
+],
+"probs": [
+0.57,
+0.294,
+0.136
+],
+"actual": [
+5,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Colombia",
+"away": "Portugal",
+"pred": [
+1,
+1
+],
+"probs": [
+0.339,
+0.255,
+0.406
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Uzbekistan",
+"away": "DR Congo",
+"pred": [
+0,
+0
+],
+"probs": [
+0.402,
+0.389,
+0.209
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Uzbekistan",
+"away": "Colombia",
+"pred": [
+0,
+1
+],
+"probs": [
+0.125,
+0.255,
+0.62
+],
+"actual": [
+1,
+3
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "DR Congo",
+"away": "Portugal",
+"pred": [
+0,
+1
+],
+"probs": [
+0.158,
+0.273,
+0.569
+],
+"actual": [
+1,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "Colombia",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 4,
+"ga": 1,
+"gd": 3,
+"pts": 7
+},
+{
+"team": "Portugal",
+"w": 1,
+"d": 2,
+"l": 0,
+"gf": 6,
+"ga": 1,
+"gd": 5,
+"pts": 5
+},
+{
+"team": "DR Congo",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 4,
+"ga": 3,
+"gd": 1,
+"pts": 4
+},
+{
+"team": "Uzbekistan",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 2,
+"ga": 11,
+"gd": -9,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "Colombia",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 7,
+"xpts": 5.57
+},
+{
+"team": "Portugal",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 3,
+"ga": 1,
+"gd": 2,
+"pts": 7,
+"xpts": 5.46
+},
+{
+"team": "Uzbekistan",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 0,
+"ga": 2,
+"gd": -2,
+"pts": 1,
+"xpts": 2.93
+},
+{
+"team": "DR Congo",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 0,
+"ga": 2,
+"gd": -2,
+"pts": 1,
+"xpts": 2.31
+}
+]
+},
+"L": {
+"matches": [
+{
+"home": "Croatia",
+"away": "England",
+"pred": [
+0,
+1
+],
+"probs": [
+0.259,
+0.296,
+0.446
+],
+"actual": [
+2,
+4
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Ghana",
+"away": "Panama",
+"pred": [
+1,
+1
+],
+"probs": [
+0.237,
+0.311,
+0.452
+],
+"actual": [
+1,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "Croatia",
+"away": "Ghana",
+"pred": [
+1,
+0
+],
+"probs": [
+0.563,
+0.283,
+0.154
+],
+"actual": [
+2,
+1
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Panama",
+"away": "England",
+"pred": [
+0,
+1
+],
+"probs": [
+0.128,
+0.263,
+0.61
+],
+"actual": [
+0,
+2
+],
+"outcome_hit": true,
+"exact_hit": false
+},
+{
+"home": "Panama",
+"away": "Croatia",
+"pred": [
+1,
+1
+],
+"probs": [
+0.238,
+0.303,
+0.459
+],
+"actual": [
+0,
+1
+],
+"outcome_hit": false,
+"exact_hit": false
+},
+{
+"home": "England",
+"away": "Ghana",
+"pred": [
+1,
+0
+],
+"probs": [
+0.72,
+0.19,
+0.09
+],
+"actual": [
+0,
+0
+],
+"outcome_hit": false,
+"exact_hit": false
+}
+],
+"actual_table": [
+{
+"team": "England",
+"w": 2,
+"d": 1,
+"l": 0,
+"gf": 6,
+"ga": 2,
+"gd": 4,
+"pts": 7
+},
+{
+"team": "Croatia",
+"w": 2,
+"d": 0,
+"l": 1,
+"gf": 5,
+"ga": 5,
+"gd": 0,
+"pts": 6
+},
+{
+"team": "Ghana",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 2,
+"gd": 0,
+"pts": 4
+},
+{
+"team": "Panama",
+"w": 0,
+"d": 0,
+"l": 3,
+"gf": 0,
+"ga": 4,
+"gd": -4,
+"pts": 0
+}
+],
+"pred_table": [
+{
+"team": "England",
+"w": 3,
+"d": 0,
+"l": 0,
+"gf": 3,
+"ga": 0,
+"gd": 3,
+"pts": 9,
+"xpts": 6.07
+},
+{
+"team": "Croatia",
+"w": 1,
+"d": 1,
+"l": 1,
+"gf": 2,
+"ga": 2,
+"gd": 0,
+"pts": 4,
+"xpts": 4.72
+},
+{
+"team": "Panama",
+"w": 0,
+"d": 2,
+"l": 1,
+"gf": 2,
+"ga": 3,
+"gd": -1,
+"pts": 2,
+"xpts": 3.33
+},
+{
+"team": "Ghana",
+"w": 0,
+"d": 1,
+"l": 2,
+"gf": 1,
+"ga": 3,
+"gd": -2,
+"pts": 1,
+"xpts": 2.23
+}
+]
+}
+},
+"advancers": {
+"actual": [
+"Algeria",
+"Argentina",
+"Australia",
+"Austria",
+"Belgium",
+"Bosnia and Herzegovina",
+"Brazil",
+"Canada",
+"Cape Verde",
+"Colombia",
+"Croatia",
+"DR Congo",
+"Ecuador",
+"Egypt",
+"England",
+"France",
+"Germany",
+"Ghana",
+"Ivory Coast",
+"Japan",
+"Mexico",
+"Morocco",
+"Netherlands",
+"Norway",
+"Paraguay",
+"Portugal",
+"Senegal",
+"South Africa",
+"Spain",
+"Sweden",
+"Switzerland",
+"United States"
+],
+"predicted": [
+"Algeria",
+"Argentina",
+"Australia",
+"Austria",
+"Belgium",
+"Brazil",
+"Canada",
+"Colombia",
+"Croatia",
+"Czech Republic",
+"Ecuador",
+"England",
+"France",
+"Germany",
+"Iran",
+"Ivory Coast",
+"Japan",
+"Mexico",
+"Morocco",
+"Netherlands",
+"New Zealand",
+"Norway",
+"Panama",
+"Paraguay",
+"Portugal",
+"Senegal",
+"South Korea",
+"Spain",
+"Switzerland",
+"Tunisia",
+"United States",
+"Uruguay"
+]
+},
+"knockout": [
+{
+"home": "South Africa",
+"away": "Canada",
+"actual": [
+0,
+1
+]
+},
+{
+"home": "Brazil",
+"away": "Japan",
+"actual": [
+2,
+1
+]
+},
+{
+"home": "Germany",
+"away": "Paraguay",
+"actual": [
+1,
+1
+]
+},
+{
+"home": "Netherlands",
+"away": "Morocco",
+"actual": [
+1,
+1
+]
+},
+{
+"home": "Ivory Coast",
+"away": "Norway",
+"actual": null
+},
+{
+"home": "France",
+"away": "Sweden",
+"actual": null
+},
+{
+"home": "Mexico",
+"away": "Ecuador",
+"actual": null
+},
+{
+"home": "England",
+"away": "DR Congo",
+"actual": null
+},
+{
+"home": "Belgium",
+"away": "Senegal",
+"actual": null
+},
+{
+"home": "United States",
+"away": "Bosnia and Herzegovina",
+"actual": null
+},
+{
+"home": "Switzerland",
+"away": "Algeria",
+"actual": null
+},
+{
+"home": "Spain",
+"away": "Austria",
+"actual": null
+},
+{
+"home": "Portugal",
+"away": "Croatia",
+"actual": null,
+"we_predicted_this_tie": true,
+"pred": [
+1,
+1
+],
+"pred_winner": "Portugal"
+},
+{
+"home": "Argentina",
+"away": "Cape Verde",
+"actual": null
+},
+{
+"home": "Colombia",
+"away": "Ghana",
+"actual": null
+},
+{
+"home": "Australia",
+"away": "Egypt",
+"actual": null
+},
+{
+"home": "Canada",
+"away": "Morocco",
+"actual": null
+}
+],
+"metrics": {
+"group_matches_scored": 72,
+"outcome_acc": 0.5278,
+"exact_acc": 0.0833,
+"rps": 0.1706,
+"rps_baserate": 0.232,
+"log_loss": 0.9172,
+"advancers_correct": 25,
+"advancers_total": 32,
+"top2_correct": 18,
+"top2_total": 24,
+"champion": "Argentina",
+"champion_alive": true
+}
+}

@@ -84,6 +84,9 @@ python scripts/build_player_form.py    # match club form onto 2026 squads -> pla
 python scripts/build_wc2026_model.py   # combine -> api/model.json (xA assists + club-enriched scorers)
 python scripts/build_tournament.py     # deterministic full-tournament walk -> public/tournament.json
 python scripts/simulate_wc2026.py      # 20k Monte-Carlo tournaments -> reports/ (copy to public/forecast.json)
+python scripts/team_bakeoff.py         # walk-forward DC vs GBM vs NN vs ensemble (winner: DC+GBM blend)
+python scripts/build_ens_layer.py      # precompute GBM outcome table -> api/model.json["ens"] (deployed blend)
+python scripts/build_actual.py         # real 2026 results vs forecast -> public/actual.json (compare page)
 
 # (planned) pipeline entry points — see docs/workflow.md
 python -m goalforge.data.download       --config configs/default.yaml   # fetch & cache data

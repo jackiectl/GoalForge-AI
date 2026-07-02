@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Prediction vs Actual</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+      <a href="compare.html" class="active">Prediction vs Actual</a>
+    </nav>
+    <h1 class="grad-text">🎯 Prediction vs Actual</h1>
+    <p class="sub">How the <b>pre-tournament</b> forecast (frozen at kick-off, 2026-06-11) is holding up
+      against the <b>real 2026 World Cup</b> — a genuine out-of-sample scorecard
+      <span id="asof" class="pill pill-soft"></span></p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+
+    <section class="statstrip" id="stats"></section>
+
+    <section class="card reveal" id="champSec">
+      <h2>🏆 Predicted champion tracker</h2>
+      <div id="champ"></div>
+    </section>
+
+    <section class="card reveal">
+      <h2>📊 Group stage — predicted vs actual (all 72 matches)</h2>
+      <p class="hint">Left table = our pre-tournament prediction, right = reality.
+        <span class="tag tag-adv">advanced</span> teams that really made the round of 32.
+        Each match shows our score (faint) and the real score, with a hit badge.</p>
+      <div id="groups" class="groups-grid"></div>
+    </section>
+
+    <section class="card reveal" id="koSec">
+      <h2>🔥 Knockout so far</h2>
+      <p class="hint">Round of 32 onward as it happens. A ✓ marks a tie whose two teams we also
+        had meeting here on our modal bracket.</p>
+      <div id="knockout"></div>
+    </section>
+  </main>
+
+  <footer>
+    Real results: martj42 international results (CC0), 2026 FIFA World Cup. The model was frozen at
+    kick-off, so every match here is out-of-sample. Research demo — not betting advice.
+  </footer>
+  <script src="compare.js"></script>
+</body>
+</html>
