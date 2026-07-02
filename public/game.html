@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Prediction Game</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+      <a href="compare.html">Prediction vs Actual</a>
+      <a href="live.html">Live Re-forecast</a>
+      <a href="game.html" class="active">Prediction Game</a>
+    </nav>
+    <h1><span class="grad-text">🎮 Prediction Game</span></h1>
+    <p class="sub">A just-for-fun game with virtual <b>Coins</b> — no real money, nothing at stake.
+      Call the knockout ties using the model's own odds and see how your bracket does against reality
+      and against the model itself. <span id="asof" class="pill pill-soft"></span></p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+
+    <section class="statstrip gm-wallet" id="wallet"></section>
+
+    <section class="card reveal">
+      <h2>🎯 How it works</h2>
+      <div class="mnote">
+        <ul>
+          <li>You start with <b>1,000 Coins</b>. For a tie, back the team you think <b>goes through</b>,
+            and optionally call the exact 120' score for a much bigger reward.</li>
+          <li><b>Odds come straight from the GoalForge model</b> (fair odds = 1 ÷ probability): longer
+            odds pay more, because the model thinks it's less likely.</li>
+          <li>Right on <b>who advances</b> → paid at the outcome odds. Also nail the <b>exact score</b>
+            → paid at the (much longer) score odds.</li>
+          <li>How many calls you get depends on when you join: <b>Round of 32 → 4</b>, Round of 16 → 3,
+            Quarter-finals → 2, Semi-finals → 1. Spend them well.</li>
+          <li>Calls settle automatically against real results as they come in (the daily Live update).
+            The <b>🤖 Model</b> plays too, backing its own pick on every tie, as a benchmark.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card reveal">
+      <h2>⚙️ Your game</h2>
+      <div class="gm-controls">
+        <label class="gm-lbl">Join from
+          <select id="entry">
+            <option value="r32">Round of 32 — 4 calls</option>
+            <option value="r16">Round of 16 — 3 calls</option>
+            <option value="qf">Quarter-finals — 2 calls</option>
+            <option value="sf">Semi-finals — 1 call</option>
+          </select>
+        </label>
+        <button id="reset" class="gm-reset">↺ Reset game</button>
+      </div>
+      <p class="hint" id="slots"></p>
+    </section>
+
+    <section class="card reveal">
+      <h2>🏆 Leaderboard</h2>
+      <div id="board" class="gm-board"></div>
+    </section>
+
+    <div id="rounds"></div>
+  </main>
+
+  <footer>
+    A virtual-Coin game for entertainment and to illustrate the model — no real-money wagering of any
+    kind. Odds are the GoalForge model's fair odds; fixtures &amp; results from martj42 (CC0). Your
+    game is saved only in this browser (localStorage).
+  </footer>
+  <script src="game.js"></script>
+</body>
+</html>

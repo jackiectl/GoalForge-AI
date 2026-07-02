@@ -26,27 +26,30 @@ GPUPY=/home/ctlang/envs/goalforge-gpu/bin/python       # lightgbm+sklearn
 
 module load python3.11-anaconda/2024.02 2>/dev/null || true
 
-echo "===== [1/5] refit DC checkpoint (cutoff $CUTOFF) ====="
+echo "===== [1/8] refit DC checkpoint (cutoff $CUTOFF) ====="
 $VENVPY scripts/train.py --cutoff $CUTOFF
 
-echo "===== [2/5] rebuild api/model.json (48 squads + player layer) ====="
+echo "===== [2/8] rebuild api/model.json (48 squads + player layer) ====="
 $VENVPY scripts/build_wc2026_model.py
 
-echo "===== [3/5] ensemble outcome table (GBM, cutoff $CUTOFF) ====="
+echo "===== [3/8] ensemble outcome table (GBM, cutoff $CUTOFF) ====="
 $GPUPY scripts/build_ens_layer.py --cutoff $CUTOFF
 
-echo "===== [4/5] 20k Monte-Carlo forecast ====="
+echo "===== [4/8] public odds table for the Prediction Game (-> public/odds.json) ====="
+$VENVPY scripts/build_odds_public.py
+
+echo "===== [5/8] 20k Monte-Carlo forecast ====="
 $VENVPY scripts/simulate_wc2026.py --sims 20000 --host-scale 0.5
 cp reports/wc2026_forecast.json public/forecast.json
 
-echo "===== [5/6] deterministic tournament walk ====="
+echo "===== [6/8] deterministic tournament walk ====="
 $VENVPY scripts/build_tournament.py
 
-echo "===== [6/7] real-results comparison (prediction vs actual) ====="
+echo "===== [7/8] real-results comparison (prediction vs actual) ====="
 $VENVPY scripts/build_actual.py
 
-echo "===== [7/7] live re-forecast (refit incl. 2026 results, re-walk real bracket) ====="
+echo "===== [8/8] live re-forecast (refit incl. 2026 results, re-walk real bracket) ====="
 $VENVPY scripts/build_live.py
 
 echo "===== rebuild complete ====="
-ls -la api/model.json public/forecast.json public/tournament.json public/actual.json public/live.json
+ls -la api/model.json public/forecast.json public/tournament.json public/actual.json public/live.json public/odds.json

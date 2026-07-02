@@ -86,6 +86,7 @@ python scripts/build_tournament.py     # deterministic full-tournament walk -> p
 python scripts/simulate_wc2026.py      # 20k Monte-Carlo tournaments -> reports/ (copy to public/forecast.json)
 python scripts/team_bakeoff.py         # walk-forward DC vs GBM vs NN vs ensemble (winner: DC+GBM blend)
 python scripts/build_ens_layer.py      # precompute GBM outcome table -> api/model.json["ens"] (deployed blend)
+python scripts/build_odds_public.py    # slim client-side odds table for the Prediction Game -> public/odds.json
 python scripts/build_actual.py         # real 2026 results vs forecast -> public/actual.json (compare page)
 python scripts/build_live.py           # DAILY: refit incl. 2026 results, re-walk real bracket -> public/live.json
 # daily update: python scripts/build_actual.py && python scripts/build_live.py  (frozen forecast stays put)
