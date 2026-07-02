@@ -28,7 +28,8 @@ from evaluate_players import KS, TOURN, _order, _recall_at_k  # noqa: E402
 from goalforge.data.statsbomb import load_competition  # noqa: E402
 from goalforge.models.player import PlayerRatings  # noqa: E402
 
-CLUB = ["goals", "xG", "npxG", "assists", "xA", "key_passes", "shots"]   # summed -> per 90
+CLUB = ["goals", "xG", "npxG", "assists", "xA", "key_passes", "shots",
+        "xGChain", "xGBuildup"]                                          # summed -> per 90
 FEATS = [f"club_{c}" for c in CLUB] + ["has_club", "intl_rate", "caps",
                                        "pos_GK", "pos_DF", "pos_MF", "pos_FW"]
 
@@ -112,7 +113,7 @@ def main():
     mlp_fn = _make_mlp(args.device)
 
     for kind in ("scoring", "assist"):
-        methods = ["position", "intl_rate", "club_xa"] + (["gbm"] if have_gbm else []) + \
+        methods = ["position", "intl_rate", "club_xa"] + (["gbm", "ranker"] if have_gbm else []) + \
                   (["mlp"] if mlp_fn else [])
         agg = {m: {k: 0 for k in KS} for m in methods}
         ntot = 0
@@ -137,6 +138,14 @@ def main():
                 clf.fit(train[FEATS], train.y)
                 test["gbm"] = clf.predict_proba(test[FEATS])[:, 1]
                 preds["gbm"] = "gbm"
+                # learning-to-rank: optimize within-(match,team) ordering directly (the recall@k task)
+                ts = train.sort_values(["match_id", "team"])
+                grp = ts.groupby(["match_id", "team"], sort=False).size().to_numpy()
+                rnk = lgb.LGBMRanker(n_estimators=200, num_leaves=15, learning_rate=0.05,
+                                     min_child_samples=30, subsample=0.8, verbose=-1)
+                rnk.fit(ts[FEATS], ts.y, group=grp)
+                test["ranker"] = rnk.predict(test[FEATS])
+                preds["ranker"] = "ranker"
             if mlp_fn:
                 test["mlp"] = mlp_fn(train[FEATS].values, train.y.values, test[FEATS].values)
                 preds["mlp"] = "mlp"
