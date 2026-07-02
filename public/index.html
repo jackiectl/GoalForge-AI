@@ -3,72 +3,63 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>GoalForge ⚽ — 2026 World Cup</title>
+  <title>GoalForge ⚽ — 2026 World Cup Predictions</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+    </nav>
     <h1>⚽ GoalForge</h1>
-    <p class="sub">Predict the scoreline, scorers &amp; assisters for the <b>2026 FIFA World Cup</b> from two starting lineups</p>
+    <p class="sub">Data-driven predictions for the <b>2026 FIFA World Cup</b> — scorelines, scorers, assisters, and the whole tournament</p>
   </header>
 
   <main>
-    <section class="controls">
-      <div class="teampick">
-        <label>Home<select id="home"></select></label>
-        <span class="vs">vs</span>
-        <label>Away<select id="away"></select></label>
-      </div>
-      <div class="opts">
-        <label class="chk"><input type="checkbox" id="neutral" checked/> Neutral venue</label>
-        <span id="venueNote" class="venue"></span>
-        <button id="go">Predict</button>
-      </div>
-      <div class="xis">
-        <div class="xicol"><h3 id="homeName">Home</h3><div id="homeXI" class="xi"></div></div>
-        <div class="xicol"><h3 id="awayName">Away</h3><div id="awayXI" class="xi"></div></div>
-      </div>
-      <p class="hint">The ticked 11 are a suggested XI (most-capped player per position, 4-3-3). Tick/untick to set your own lineup.</p>
-    </section>
-
-    <section id="results" class="results hidden">
-      <h2 id="matchTitle"></h2>
-      <div class="outcome" id="outcome"></div>
-      <p class="score" id="score"></p>
-      <div class="cols">
-        <div class="col">
-          <h3 id="hsTitle"></h3><div id="homeScorers" class="bars"></div>
-          <h3 id="haTitle"></h3><div id="homeAssists" class="bars"></div>
-        </div>
-        <div class="col">
-          <h3 id="asTitle"></h3><div id="awayScorers" class="bars"></div>
-          <h3 id="aaTitle"></h3><div id="awayAssists" class="bars"></div>
-        </div>
-      </div>
-    </section>
-    <p id="err" class="err"></p>
-
-    <section class="forecast hidden" id="forecast">
-      <h2>🏆 2026 tournament forecast <span id="fcMeta" class="fcmeta"></span></h2>
-      <p class="hint">Whole-tournament Monte-Carlo (group stage → final), thousands of runs. A forecast, not a certainty.</p>
-      <div class="fccols">
-        <div><h3>Champion odds</h3><div id="fcChampion" class="bars"></div></div>
-        <div><h3>Golden Boot (top scorer)</h3><div id="fcBoot" class="bars"></div></div>
-        <div><h3>Playmaker (top assists)</h3><div id="fcPlay" class="bars"></div></div>
-      </div>
-    </section>
+    <div class="home-cards">
+      <a class="home-card" href="match.html">
+        <div class="hc-emoji">⚔️</div>
+        <h2>Match Predictor</h2>
+        <p>Pick any two of the 48 qualified teams and a starting XI. Get the most likely score,
+           win/draw/loss odds, and each player's probability to score or assist.</p>
+        <span class="hc-go">Predict a match →</span>
+      </a>
+      <a class="home-card" href="tournament.html">
+        <div class="hc-emoji">🗓️</div>
+        <h2>Full Tournament</h2>
+        <p>Every match predicted, group stage to final: all 72 group games with standings, the
+           real FIFA bracket rules (Annex C third-place slotting), and the knockout road to the title.</p>
+        <span class="hc-go">See the whole bracket →</span>
+      </a>
+      <a class="home-card" href="honors.html">
+        <div class="hc-emoji">🏅</div>
+        <h2>Honors</h2>
+        <p>Accumulated over the predicted tournament: the Golden Boot and Playmaker leaderboards,
+           Golden Glove, plus Monte-Carlo title odds from 20,000 simulated tournaments.</p>
+        <span class="hc-go">View the boards →</span>
+      </a>
+    </div>
 
     <details class="method">
       <summary>ℹ️ How it works &amp; what to trust</summary>
-      <div id="methodBody"></div>
+      <div class="mnote">
+        <p>Team strength is a time-decayed <b>Dixon-Coles</b> model fit on international results
+        (held-out backtest beats Elo). Player scoring/assist rates blend international records,
+        club xG/xA, and position priors. The full-tournament page walks the single <b>most likely
+        path</b> through the real 2026 format; the honors page adds <b>Monte-Carlo</b> probabilities
+        from thousands of simulated tournaments. Hosts get a deliberately down-weighted home edge.
+        A pre-tournament research forecast — not betting advice.</p>
+      </div>
     </details>
   </main>
 
   <footer>
     Squads &amp; caps/goals: Wikipedia (2026 World Cup squads, CC BY-SA). Team strength: martj42
     international results. Club xG/xA: Understat (5 leagues). Player events: StatsBomb open data.
-    Research demo — not betting advice.
+    Bracket rules: FIFA WC2026 Regulations (Annex C). Research demo — not betting advice.
   </footer>
-  <script src="app.js"></script>
 </body>
 </html>

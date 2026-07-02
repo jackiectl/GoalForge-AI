@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — 2026 World Cup</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html" class="active">Match Predictor</a>
+      <a href="tournament.html">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+    </nav>
+    <h1>⚔️ Match Predictor</h1>
+    <p class="sub">Predict the scoreline, scorers &amp; assisters for any <b>2026 FIFA World Cup</b> match from two starting lineups</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <div class="teampick">
+        <label>Home<select id="home"></select></label>
+        <span class="vs">vs</span>
+        <label>Away<select id="away"></select></label>
+      </div>
+      <div class="opts">
+        <label class="chk"><input type="checkbox" id="neutral" checked/> Neutral venue</label>
+        <span id="venueNote" class="venue"></span>
+        <button id="go">Predict</button>
+      </div>
+      <div class="xis">
+        <div class="xicol"><h3 id="homeName">Home</h3><div id="homeXI" class="xi"></div></div>
+        <div class="xicol"><h3 id="awayName">Away</h3><div id="awayXI" class="xi"></div></div>
+      </div>
+      <p class="hint">The ticked 11 are a suggested XI (most-capped player per position, 4-3-3). Tick/untick to set your own lineup.</p>
+    </section>
+
+    <section id="results" class="results hidden">
+      <h2 id="matchTitle"></h2>
+      <div class="outcome" id="outcome"></div>
+      <p class="score" id="score"></p>
+      <div class="cols">
+        <div class="col">
+          <h3 id="hsTitle"></h3><div id="homeScorers" class="bars"></div>
+          <h3 id="haTitle"></h3><div id="homeAssists" class="bars"></div>
+        </div>
+        <div class="col">
+          <h3 id="asTitle"></h3><div id="awayScorers" class="bars"></div>
+          <h3 id="aaTitle"></h3><div id="awayAssists" class="bars"></div>
+        </div>
+      </div>
+    </section>
+    <p id="err" class="err"></p>
+
+    <details class="method">
+      <summary>ℹ️ How it works &amp; what to trust</summary>
+      <div id="methodBody"></div>
+    </details>
+  </main>
+
+  <footer>
+    Squads &amp; caps/goals: Wikipedia (2026 World Cup squads, CC BY-SA). Team strength: martj42
+    international results. Club xG/xA: Understat (5 leagues). Player events: StatsBomb open data.
+    Research demo — not betting advice.
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

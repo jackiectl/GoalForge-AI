@@ -141,6 +141,7 @@ function renderMethod() {
 }
 
 async function renderForecast() {
+  if (!$('forecast')) return;                                  // page without the forecast section
   let f;
   try { f = await api('/forecast.json'); } catch { return; }   // not deployed yet -> skip quietly
   $('forecast').classList.remove('hidden');

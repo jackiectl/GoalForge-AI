@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GoalForge ⚽ — Full Tournament Prediction</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">⚽ GoalForge</a>
+      <a href="match.html">Match Predictor</a>
+      <a href="tournament.html" class="active">Full Tournament</a>
+      <a href="honors.html">Honors</a>
+    </nav>
+    <h1>🗓️ Full Tournament Prediction</h1>
+    <p class="sub">Every 2026 World Cup match on the single <b>most likely path</b> — 72 group games,
+      real FIFA advancement rules, and the knockout bracket to the final</p>
+  </header>
+
+  <main>
+    <p id="err" class="err"></p>
+
+    <section class="results" id="groupsSec">
+      <h2>Group stage — all 72 matches</h2>
+      <p class="hint">Most likely score per match (Dixon-Coles, hosts get a reduced home edge).
+        Standings use the official 2026 tiebreakers (head-to-head first); <b>xPts</b> = expected
+        points over all outcomes, shown because a modal score hides the uncertainty.
+        <span class="adv-key">■ top two advance</span> <span class="third-key">■ third (may advance)</span></p>
+      <div id="groups" class="groups-grid"></div>
+    </section>
+
+    <section class="results" id="thirdsSec">
+      <h2>Third-place ranking — 8 of 12 advance</h2>
+      <p class="hint">Ranked by points, goal difference, goals scored (FIFA Art. 13). The best 8
+        join the round of 32 via FIFA's official Annex C allocation table.</p>
+      <div id="thirds"></div>
+    </section>
+
+    <section class="results" id="bracketSec">
+      <h2>Knockout bracket — round of 32 to the final</h2>
+      <p class="hint">Slotting follows the official bracket (M73–M104). A drawn most-likely score
+        means the tie goes to extra time / penalties — the likelier side is advanced.</p>
+      <div id="bracket"></div>
+    </section>
+  </main>
+
+  <footer>
+    Bracket rules: FIFA WC2026 Regulations Art. 12–13 &amp; Annex C. A pre-tournament forecast —
+    the modal path is one plausible tournament, not a certainty. Research demo, not betting advice.
+  </footer>
+  <script src="tournament.js"></script>
+</body>
+</html>

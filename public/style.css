@@ -53,3 +53,52 @@ button:disabled { opacity:.6; cursor:default; }
 .mnote { font-size:12px; line-height:1.55; }
 footer { max-width:980px; margin:0 auto; padding:0 24px 30px; color:var(--mut); font-size:12px; }
 @media (max-width:720px){ .xis,.cols{grid-template-columns:1fr;} .obar,.bar{grid-template-columns:110px 1fr 40px;} }
+
+/* ---- site nav & home hub ---- */
+.nav { display:flex; gap:18px; align-items:center; margin-bottom:14px; font-size:14px; }
+.nav a { color:var(--mut); text-decoration:none; padding:4px 2px; }
+.nav a:hover, .nav a.active { color:var(--fg); border-bottom:2px solid var(--accent); }
+.nav .brand { color:var(--fg); font-weight:700; font-size:16px; margin-right:8px; border:0; }
+.home-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:10px; }
+.home-card { display:block; background:var(--card); border:1px solid var(--line); border-radius:14px;
+             padding:22px; color:var(--fg); text-decoration:none; transition:border-color .15s, transform .15s; }
+.home-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.home-card p { color:var(--mut); font-size:13.5px; line-height:1.55; }
+.hc-emoji { font-size:30px; }
+.hc-go { color:var(--accent); font-size:13.5px; font-weight:600; }
+@media (max-width:860px){ .home-cards{grid-template-columns:1fr;} }
+
+/* ---- tournament page ---- */
+.groups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.gcard { background:#0d141b; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+.gcard h3 { margin:0 0 8px; }
+.gtable { width:100%; border-collapse:collapse; font-size:12.5px; }
+.gtable th { color:var(--mut); font-weight:500; text-align:left; padding:2px 5px; }
+.gtable td { padding:3px 5px; border-top:1px solid var(--line); }
+.gtable .tname { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:120px; }
+.gtable tr.adv td { background:rgba(46,204,113,.10); }
+.gtable tr.third-adv td { background:rgba(58,123,213,.14); }
+.gtable .mut, .mut { color:var(--mut); }
+.adv-key { color:#2ecc71; font-size:12px; margin-left:8px; }
+.third-key { color:#6ea8e8; font-size:12px; margin-left:6px; }
+.gmatches { margin-top:8px; display:flex; flex-direction:column; gap:2px; }
+.mrow, .krow { display:grid; grid-template-columns:1fr 52px 1fr auto; gap:6px; font-size:12.5px;
+               padding:2px 0; align-items:baseline; }
+.mteam.h { text-align:right; } .mteam.a { text-align:left; }
+.mscore { text-align:center; color:var(--fg); font-variant-numeric:tabular-nums; font-weight:600; }
+.thirds-row { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:12.5px; }
+.chip em { color:var(--mut); font-style:normal; }
+.chip-adv { border-color:var(--accent); }
+.chip-out { opacity:.45; }
+.kround { margin:14px 0; }
+.krow { max-width:560px; }
+.kwin { color:var(--accent); font-weight:700; }
+.kid { font-size:11px; }
+.champ { margin-top:16px; font-size:18px; }
+.board-cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+@media (max-width:720px){ .board-cols{grid-template-columns:1fr;} }
+.btable { width:100%; border-collapse:collapse; font-size:13px; }
+.btable th { color:var(--mut); font-weight:500; text-align:left; padding:3px 6px; }
+.btable td { padding:4px 6px; border-top:1px solid var(--line); }
+.btable td.num { text-align:right; font-variant-numeric:tabular-nums; }
