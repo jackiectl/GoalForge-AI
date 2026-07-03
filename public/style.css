@@ -432,6 +432,32 @@ footer { max-width: var(--maxw); margin: 0 auto; padding: 8px 32px 40px; color: 
   padding: 10px 13px; font-size: 13.5px; line-height: 1.2; }
 .gm-pick small { font-weight: 600; opacity: .92; font-size: 11px; }
 
+/* ---- sign up / log in card ---- */
+.gm-auth { max-width: 460px; margin: 22px auto; padding: 34px 34px 30px; }
+.gm-auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px;
+  background: var(--wash, #f1f2f7); border-radius: 14px; margin-bottom: 22px; }
+.gm-tab { border: 0; background: transparent; padding: 11px 0; border-radius: 10px; cursor: pointer;
+  font-weight: 800; font-size: 15px; color: var(--mut); transition: all .15s; }
+.gm-tab-on { background: #fff; color: var(--violet); box-shadow: 0 1px 4px rgba(15,23,42,.1); }
+.gm-auth-h { margin: 0 0 4px; font-size: 26px; }
+.gm-auth-sub { color: var(--mut); font-size: 13.5px; margin: 0 0 22px; }
+.gm-auth-lbl { display: block; font-weight: 700; font-size: 13px; color: var(--ink-soft); margin: 0 0 7px; }
+.gm-auth-input { width: 100%; box-sizing: border-box; padding: 15px 16px; font-size: 16px;
+  border: 1.5px solid var(--line); border-radius: 12px; background: #fff; transition: border-color .15s; }
+.gm-auth-input:focus { outline: none; border-color: var(--violet); }
+.gm-auth-btn { width: 100%; box-sizing: border-box; margin-top: 12px; padding: 15px; border-radius: 12px;
+  border: 0; cursor: pointer; font-weight: 800; font-size: 15.5px; display: flex; align-items: center;
+  justify-content: center; gap: 10px; }
+.gm-auth-primary { color: #fff; background: linear-gradient(120deg, var(--violet), #4f8cff); }
+.gm-auth-primary:hover { filter: brightness(1.05); }
+.gm-auth-google { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+.gm-auth-google:hover { background: #fafbff; }
+.gm-g { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px;
+  border-radius: 50%; background: conic-gradient(#ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0);
+  color: #fff; font-weight: 900; font-size: 12px; }
+.gm-auth-alt { text-align: center; color: var(--mut); font-size: 13.5px; margin: 20px 0 0; }
+.gm-auth-alt a { color: var(--violet); font-weight: 800; text-decoration: none; }
+
 .gm-slip { border-radius: 12px; padding: 11px 13px; display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--ink); }
 .gm-pending { background: rgba(31,162,255,.09); border: 1px solid rgba(31,162,255,.25); }
 .gm-won { background: rgba(31,201,138,.11); border: 1px solid rgba(31,201,138,.3); }

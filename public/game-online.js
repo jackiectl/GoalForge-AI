@@ -20,6 +20,7 @@ const midIdx = {};
 ROUNDS.forEach((r, ri) => r.mids.forEach((m) => (midIdx[m] = ri)));
 
 let M, A, sb, session = null, profile = null, myBets = [], board = [];
+let authMode = 'signup';                                        // 'signup' (first time) | 'login' (returning)
 
 /* ---- odds engine: identical neutral Dixon-Coles + ensemble blend as game.js ---- */
 function pois(k, l) { let f = 1; for (let i = 2; i <= k; i++) f *= i; return Math.exp(-l) * Math.pow(l, k) / f; }
@@ -85,24 +86,35 @@ function renderNotConfigured() {
 }
 
 function renderSignedOut() {
-  $('app').innerHTML = `<section class="card reveal" style="max-width:520px">
-      <h2>${t('🔑 Sign in to play')}</h2>
-      <p class="hint">${t('Free, no real money. We only store a display name and your Coins.')}</p>
-      <div class="gm-form">
-        <label class="gm-lbl">${t('Email (magic link)')}
-          <input type="email" id="email" placeholder="you@example.com" style="min-width:240px"></label>
-        <div class="gm-picks">
-          <button class="gm-pick" id="magic">${t('Email me a sign-in link')}</button>
-          <button class="gm-pick" id="google">${t('Sign in with Google')}</button>
-        </div>
-      </div></section>`;
+  const signup = authMode === 'signup';
+  const googleBtn = cfg.enableGoogle
+    ? `<button class="gm-auth-btn gm-auth-google" id="google">
+         <span class="gm-g">G</span>${signup ? t('Sign up with Google') : t('Log in with Google')}</button>`
+    : '';
+  $('app').innerHTML = `<section class="card reveal gm-auth">
+      <div class="gm-auth-tabs" role="tablist">
+        <button class="gm-tab ${signup ? 'gm-tab-on' : ''}" data-mode="signup">${t('Sign up')}</button>
+        <button class="gm-tab ${signup ? '' : 'gm-tab-on'}" data-mode="login">${t('Log in')}</button>
+      </div>
+      <h2 class="gm-auth-h">${signup ? t('Create your account') : t('Welcome back')}</h2>
+      <p class="gm-auth-sub">${t('Free, no real money. We only store a display name and your Coins.')}</p>
+      <label class="gm-auth-lbl" for="email">${t('Email address')}</label>
+      <input type="email" id="email" class="gm-auth-input" placeholder="you@example.com" autocomplete="email" inputmode="email">
+      <button class="gm-auth-btn gm-auth-primary" id="magic">
+        ${signup ? t('Email me a sign-up link') : t('Email me a login link')}</button>
+      ${googleBtn}
+      <p class="gm-auth-alt">${signup ? t('Already have an account?') : t('New here?')}
+        <a href="#" id="swap">${signup ? t('Log in') : t('Sign up')}</a></p>
+    </section>`;
+  $('app').querySelectorAll('.gm-tab').forEach((b) => (b.onclick = () => { authMode = b.dataset.mode; renderSignedOut(); }));
+  $('swap').onclick = (e) => { e.preventDefault(); authMode = signup ? 'login' : 'signup'; renderSignedOut(); };
   $('magic').onclick = async () => {
     const email = $('email').value.trim();
     if (!email) return flash(t('Enter your email first.'));
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href } });
-    flash(error ? error.message : t('Check your inbox for the sign-in link.'));
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href, shouldCreateUser: signup } });
+    flash(error ? error.message : (signup ? t('Check your inbox to confirm and start playing.') : t('Check your inbox for the sign-in link.')));
   };
-  $('google').onclick = async () => {
+  if (cfg.enableGoogle) $('google').onclick = async () => {
     const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.href } });
     if (error) flash(error.message);
   };

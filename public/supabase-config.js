@@ -6,4 +6,7 @@
 window.GF_SUPABASE = {
   url: 'https://uhthcypzyybtostflsof.supabase.co',       // <-- Project URL
   anonKey: 'sb_publishable_6kSu02yepKdJY2PIWO8ApQ_WZ2JiJML', // <-- anon (publishable) public key
+  // Set to true ONLY after you enable the Google provider in Supabase (Auth -> Providers -> Google,
+  // with a Google Cloud OAuth client). Until then the Google button is hidden so it can't error.
+  enableGoogle: false,
 };
