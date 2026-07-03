@@ -4,6 +4,6 @@
    docs/game-online-setup.md. Until they are set, game-online.html shows a friendly "not configured"
    notice and the single-player game.html keeps working unchanged. */
 window.GF_SUPABASE = {
-  url: 'https://YOUR-PROJECT.supabase.co',   // <-- Project URL
-  anonKey: 'YOUR-ANON-PUBLIC-KEY',           // <-- anon public key
+  url: 'https://uhthcypzyybtostflsof.supabase.co',       // <-- Project URL
+  anonKey: 'sb_publishable_6kSu02yepKdJY2PIWO8ApQ_WZ2JiJML', // <-- anon (publishable) public key
 };
