@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-01",
-"cutoff": "2026-07-02",
+"as_of": "2026-07-02",
+"cutoff": "2026-07-03",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -165,53 +165,50 @@
 "M83": {
 "home": "Portugal",
 "away": "Croatia",
-"winner": "Portugal",
-"id": "M83",
-"pred": true,
-"played": false,
+"hs": 2,
 "reg": [
 2,
 1
 ],
-"hs": 2,
 "pens": null,
 "decided": "reg",
+"winner": "Portugal",
+"played": true,
+"pred": false,
+"id": "M83",
 "as": 1
 },
 "M84": {
 "home": "Spain",
 "away": "Austria",
-"winner": "Spain",
-"id": "M84",
-"pred": true,
-"played": false,
+"hs": 3,
 "reg": [
-2,
-1
+3,
+0
 ],
-"hs": 2,
 "pens": null,
 "decided": "reg",
-"as": 1
+"winner": "Spain",
+"played": true,
+"pred": false,
+"id": "M84",
+"as": 0
 },
 "M85": {
 "home": "Switzerland",
 "away": "Algeria",
-"winner": "Switzerland",
-"id": "M85",
-"pred": true,
-"played": false,
+"hs": 2,
 "reg": [
-1,
-1
+2,
+0
 ],
-"hs": 1,
-"pens": [
-4,
-3
-],
-"decided": "pens",
-"as": 1
+"pens": null,
+"decided": "reg",
+"winner": "Switzerland",
+"played": true,
+"pred": false,
+"id": "M85",
+"as": 0
 },
 "M86": {
 "home": "Argentina",
@@ -542,5 +539,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-01; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-02; the real bracket walked forward with actual results where played."
 }

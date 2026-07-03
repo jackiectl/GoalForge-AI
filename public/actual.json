@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-01",
+"as_of": "2026-07-02",
 "groups": {
 "A": {
 "matches": [
@@ -2650,14 +2650,6 @@
 ]
 },
 {
-"home": "Mexico",
-"away": "Ecuador",
-"actual": [
-2,
-0
-]
-},
-{
 "home": "Ivory Coast",
 "away": "Norway",
 "actual": [
@@ -2674,19 +2666,19 @@
 ]
 },
 {
-"home": "United States",
-"away": "Bosnia and Herzegovina",
+"home": "Mexico",
+"away": "Ecuador",
 "actual": [
 2,
 0
 ]
 },
 {
-"home": "England",
-"away": "DR Congo",
+"home": "United States",
+"away": "Bosnia and Herzegovina",
 "actual": [
 2,
-1
+0
 ]
 },
 {
@@ -2698,14 +2690,28 @@
 ]
 },
 {
+"home": "England",
+"away": "DR Congo",
+"actual": [
+2,
+1
+]
+},
+{
 "home": "Spain",
 "away": "Austria",
-"actual": null
+"actual": [
+3,
+0
+]
 },
 {
 "home": "Portugal",
 "away": "Croatia",
-"actual": null,
+"actual": [
+2,
+1
+],
 "we_predicted_this_tie": true,
 "pred": [
 2,
@@ -2716,16 +2722,19 @@
 {
 "home": "Switzerland",
 "away": "Algeria",
+"actual": [
+2,
+0
+]
+},
+{
+"home": "Australia",
+"away": "Egypt",
 "actual": null
 },
 {
 "home": "Argentina",
 "away": "Cape Verde",
-"actual": null
-},
-{
-"home": "Australia",
-"away": "Egypt",
 "actual": null
 },
 {
@@ -2750,6 +2759,11 @@
 "pred_winner": "France"
 },
 {
+"home": "Brazil",
+"away": "Norway",
+"actual": null
+},
+{
 "home": "Mexico",
 "away": "England",
 "actual": null,
@@ -2761,9 +2775,15 @@
 "pred_winner": "England"
 },
 {
-"home": "Brazil",
-"away": "Norway",
-"actual": null
+"home": "Portugal",
+"away": "Spain",
+"actual": null,
+"we_predicted_this_tie": true,
+"pred": [
+1,
+2
+],
+"pred_winner": "Spain"
 },
 {
 "home": "United States",
@@ -2945,34 +2965,52 @@
 "M83": {
 "home": "Portugal",
 "away": "Croatia",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+2,
+1
+],
+"winner": "Portugal",
+"played": true,
+"reg": [
+2,
+1
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M83"
 },
 "M84": {
 "home": "Spain",
 "away": "Austria",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+3,
+0
+],
+"winner": "Spain",
+"played": true,
+"reg": [
+3,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M84"
 },
 "M85": {
 "home": "Switzerland",
 "away": "Algeria",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+2,
+0
+],
+"winner": "Switzerland",
+"played": true,
+"reg": [
+2,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M85"
 },
 "M86": {
@@ -3053,8 +3091,8 @@
 "id": "M92"
 },
 "M93": {
-"home": null,
-"away": null,
+"home": "Portugal",
+"away": "Spain",
 "actual": null,
 "winner": null,
 "played": false,
@@ -3086,7 +3124,7 @@
 "id": "M95"
 },
 "M96": {
-"home": null,
+"home": "Switzerland",
 "away": null,
 "actual": null,
 "winner": null,
