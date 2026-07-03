@@ -122,7 +122,7 @@ function renderGame() {
       <div class="tile tile-sky"><div class="tile-emoji">🎟️</div><div class="tile-big">${used}/${quota}</div>
         <div class="tile-label">${t('Calls used')}</div><div class="tile-sub">${t('{n} left', { n: quota - used })}</div></div>
       <div class="tile tile-amber"><div class="tile-emoji">🏆</div><div class="tile-big" style="font-size:22px">${boardRank()}</div>
-        <div class="tile-label">${t('Your rank')}</div><div class="tile-sub">${t('of {n}', { n: board.length })}</div></div>
+        <div class="tile-label">${t('Your rank')}</div><div class="tile-sub">${t('of {n}', { n: mergedBoard().length })}</div></div>
     </section>`;
 
   const rounds = ROUNDS.map((r) => {
@@ -130,7 +130,14 @@ function renderGame() {
     return cards ? `<section class="card reveal"><h2>${r.emoji} ${t(r.name)}</h2><div class="gm-grid">${cards}</div></section>` : '';
   }).join('');
 
+  // First-timer onboarding: only while they still have every call and there are ties to place them on.
+  const welcome = (used === 0 && rounds)
+    ? `<section class="card reveal gm-guide"><h2>${t('👋 Welcome, {handle}', { handle: profile.handle })}</h2>
+        <div class="mnote"><p>${t('You have {n} calls this tournament. Back a team to go through in any open tie below — longer odds pay more, and calling the exact score lands a much bigger bonus. Picks settle automatically as results come in.', { n: quota })}</p></div></section>`
+    : '';
+
   $('app').innerHTML = wallet
+    + welcome
     + `<section class="card reveal"><h2>${t('🏆 Leaderboard')}</h2><div class="gm-board">${leaderboardHtml()}</div></section>`
     + (rounds || `<section class="card reveal"><p class="hint">${t('No open ties to call right now — check back as the bracket fills in.')}</p></section>`);
 
@@ -138,19 +145,35 @@ function renderGame() {
   bindActions();
 }
 
+const INIT = 1000;                                              // starting coins — same as every player
+function baseline() {                                           // 🤖 model: backs its pick, flat 100, on every PLAYED tie
+  let b = INIT, settled = 0;
+  for (const r of ROUNDS) for (const mid of r.mids) {
+    const m = (A.bracket || {})[mid];
+    if (!m || !m.home || !m.away || !m.played) continue;
+    const p = advProb(m.home, m.away), pick = p >= 0.5 ? m.home : m.away, stake = 100;
+    b -= stake; if (m.winner === pick) b += stake * dec(Math.max(p, 1 - p)); settled++;
+  }
+  return { coins: Math.round(b), settled };
+}
+function mergedBoard() {                                        // DB players + the deterministic model benchmark, ranked
+  const bot = baseline();
+  const model = { id: '__model__', handle: '🤖 ' + t('Model'), coins: bot.coins, bets_settled: bot.settled, bets_placed: bot.settled, __model: true };
+  return [...board, model].sort((a, c) => c.coins - a.coins);
+}
+
 function boardRank() {
   if (!profile) return '—';
-  const i = board.findIndex((r) => r.id === profile.id);
+  const i = mergedBoard().findIndex((r) => r.id === profile.id);
   return i >= 0 ? '#' + (i + 1) : '—';
 }
 
 function leaderboardHtml() {
-  return board.map((r, i) => `<div class="gm-rank ${profile && r.id === profile.id ? 'gm-lead' : ''}">
+  return mergedBoard().map((r, i) => `<div class="gm-rank ${r.__model ? 'gm-model' : ''} ${profile && r.id === profile.id ? 'gm-lead' : ''}">
       <span class="gm-medal">${i === 0 ? '👑' : '#' + (i + 1)}</span>
       <span class="gm-who">${r.handle}</span>
-      <span class="gm-rsub">${t('{n}/{m} settled', { n: r.bets_settled, m: r.bets_placed })}</span>
-      <span class="gm-coins">${fmt(r.coins)} <small>Coins</small></span></div>`).join('')
-    || `<p class="hint">${t('No players yet — be the first.')}</p>`;
+      <span class="gm-rsub">${r.__model ? t('backs its pick every tie · {n} settled', { n: r.bets_settled }) : t('{n}/{m} settled', { n: r.bets_settled, m: r.bets_placed })}</span>
+      <span class="gm-coins">${fmt(r.coins)} <small>Coins</small></span></div>`).join('');
 }
 
 function tieCard(mid, bet, used, quota, prof) {

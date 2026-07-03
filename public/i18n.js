@@ -192,6 +192,9 @@
     '🎯 Won · exact!': '🎯 命中 · 精确!',
     '✖ Cancelled': '✖ 已撤单',
     '(optional)': '(可选)',
+    '👋 Welcome, {handle}': '👋 欢迎,{handle}',
+    'You have {n} calls this tournament. Back a team to go through in any open tie below — longer odds pay more, and calling the exact score lands a much bigger bonus. Picks settle automatically as results come in.':
+      '本届你有 {n} 次竞猜机会。在下方任意未开赛对阵中押一支晋级球队 —— 赔率越长赔得越多,猜中精确比分还能拿到大得多的奖励。竞猜会随真实结果自动结算。',
   };
   const KEYS = {                                 // markup subtitles carry data-i18n="..."
     'sub.index': {
