@@ -1,10 +1,15 @@
 // Seed a handful of AI virtual users to test storage + the leaderboard end-to-end.
-// Creates users via the Admin API, signs each in, and places random bets through the real place_bet
-// RPC (so it exercises the exact server-side path: profile trigger, coin deduction, quota). Safe to
-// re-run (existing users are reused). Needs the service_role key (env) + the public url/anon key
-// (read from public/supabase-config.js, or SUPABASE_URL / SUPABASE_ANON_KEY env).
+// Creates users, signs each in, and places random bets through the real place_bet RPC (so it
+// exercises the exact server-side path: profile trigger, coin deduction, quota). Safe to re-run
+// (existing users are reused). Reads the public url/anon key from public/supabase-config.js
+// (or SUPABASE_URL / SUPABASE_ANON_KEY env).
+//
+// Two creation modes:
+//   * with SUPABASE_SERVICE_KEY set  -> Admin API create + email_confirm (works regardless of settings)
+//   * without it                     -> public /auth/v1/signup (needs "Confirm email" turned OFF)
 //
 //   SUPABASE_SERVICE_KEY=... node scripts/seed_virtual_users.mjs [numUsers=6] [betsEach=3]
+//   node scripts/seed_virtual_users.mjs [numUsers=6] [betsEach=3]   # confirm-email-off mode
 import { readFileSync } from 'node:fs';
 
 function config() {
@@ -14,9 +19,8 @@ function config() {
     url = url || (c.match(/url:\s*'([^']+)'/) || [])[1];
     anon = anon || (c.match(/anonKey:\s*'([^']+)'/) || [])[1];
   } catch { /* ignore */ }
-  const svc = process.env.SUPABASE_SERVICE_KEY;
+  const svc = process.env.SUPABASE_SERVICE_KEY;   // optional: enables Admin-API creation
   if (!url || !anon || /YOUR-/.test(url) || /YOUR-/.test(anon)) throw new Error('Set url + anonKey in public/supabase-config.js first');
-  if (!svc) throw new Error('Set SUPABASE_SERVICE_KEY (service_role) in the environment');
   return { url, anon, svc };
 }
 
@@ -58,15 +62,22 @@ async function main() {
     .map(([mid, m]) => ({ mid, ...m }));
   if (!open.length) { console.log('No open ties to bet on right now.'); return; }
 
-  const admin = { apikey: svc, Authorization: `Bearer ${svc}`, 'Content-Type': 'application/json' };
+  const admin = svc ? { apikey: svc, Authorization: `Bearer ${svc}`, 'Content-Type': 'application/json' } : null;
+  const pub = { apikey: anon, 'Content-Type': 'application/json' };
+  console.log(admin ? 'creating users via Admin API (service key)' : 'creating users via public signup (Confirm email must be OFF)');
   let made = 0, placed = 0;
   for (let i = 1; i <= N; i++) {
     const email = `vu${i}@goalforge.test`, password = `Passw0rd!vu${i}`;
-    // create (ignore "already exists")
-    const cr = await fetch(`${url}/auth/v1/admin/users`, {
-      method: 'POST', headers: admin,
-      body: JSON.stringify({ email, password, email_confirm: true, user_metadata: { handle: `bot_${i}` } }),
-    });
+    // create (ignore "already exists" — we sign in below either way)
+    const cr = admin
+      ? await fetch(`${url}/auth/v1/admin/users`, {
+          method: 'POST', headers: admin,
+          body: JSON.stringify({ email, password, email_confirm: true, user_metadata: { handle: `bot_${i}` } }),
+        })
+      : await fetch(`${url}/auth/v1/signup`, {
+          method: 'POST', headers: pub,
+          body: JSON.stringify({ email, password, data: { handle: `bot_${i}` } }),
+        });
     if (cr.ok) made++;
     // sign in for a user JWT
     const si = await fetch(`${url}/auth/v1/token?grant_type=password`, {
