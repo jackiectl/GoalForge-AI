@@ -165,6 +165,7 @@ begin
 end; $$;
 
 revoke execute on function public.settle_bet(uuid, text, integer) from public, anon, authenticated;
+grant  execute on function public.settle_bet(uuid, text, integer) to service_role;
 
 -- ---------- public leaderboard (handle + coins only; no emails) --------------------------------
 create or replace view public.leaderboard as
