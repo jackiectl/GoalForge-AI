@@ -170,6 +170,28 @@
     'Both models share the same player layer and Dixon-Coles machinery; the difference is <b>information</b>. The original is a true pre-tournament forecast — it was fit only on data before 2026-06-11 and predicts its own bracket from predicted qualifiers. The <b>live</b> model is refit on every international match through <b>{d}</b>, so team ratings now carry 2026 form, and it walks the <b>real</b> bracket — the actual qualifiers and round-of-32 pairings — using real results where they exist.': '两个模型共享同一套球员层与 Dixon-Coles 机制;差别在于<b>信息</b>。原始版本是真正的赛前预测 —— 只用 2026-06-11 之前的数据拟合,并从预测的出线球队推演出自己的对阵图。<b>动态</b>模型则用截至 <b>{d}</b> 的每场国际比赛重新拟合,因此球队评分已纳入 2026 年状态,并沿<b>真实</b>对阵图 —— 实际的出线球队与 32 强对阵 —— 推进,在已有真实结果处采用真实结果。',
     'Right now the live projection has <b>{fin}</b> reaching the final and <b>{champ}</b> lifting the trophy{tail}. {n} of the projected ties are coin-flip shootouts. As more games are played, re-running the daily refresh will keep re-drawing this bracket from reality.': '目前动态推演显示 <b>{fin}</b> 闯入决赛,<b>{champ}</b> 捧杯{tail}。推演的对阵中有 {n} 场是点球对决。随着更多比赛进行,每日刷新会持续依据现实重绘这张对阵图。',
     'Error: {m}': '错误:{m}',
+    // game-online.js (multiplayer) — most vocabulary is shared with game.js above
+    '🎮 Prediction Game — Multiplayer': '🎮 竞猜游戏 — 多人版',
+    '🔌 Not configured yet': '🔌 尚未配置',
+    '🔑 Sign in to play': '🔑 登录后开玩',
+    'Free, no real money. We only store a display name and your Coins.': '免费,不涉及真钱。我们只保存一个显示名和你的 Coins。',
+    'Email (magic link)': '邮箱(魔法链接)',
+    'Email me a sign-in link': '给我发登录链接',
+    'Sign in with Google': '用 Google 登录',
+    'Enter your email first.': '请先输入邮箱。',
+    'Check your inbox for the sign-in link.': '登录链接已发送,请查收邮箱。',
+    'Setting up your profile…': '正在创建你的档案…',
+    'Signed in': '已登录',
+    'sign out': '退出',
+    'start 1,000': '初始 1,000',
+    'Your rank': '你的排名',
+    'of {n}': '共 {n}',
+    '{n}/{m} settled': '{n}/{m} 已结算',
+    'No players yet — be the first.': '还没有玩家 —— 来当第一个。',
+    'No open ties to call right now — check back as the bracket fills in.': '暂时没有可竞猜的对阵 —— 对阵图逐步明朗后再来看看。',
+    '🎯 Won · exact!': '🎯 命中 · 精确!',
+    '✖ Cancelled': '✖ 已撤单',
+    '(optional)': '(可选)',
   };
   const KEYS = {                                 // markup subtitles carry data-i18n="..."
     'sub.index': {
@@ -197,6 +219,9 @@
     'game.opt.sf': { zh: '半决赛 — 1 次预测' },
     'game.reset': { zh: '↺ 重置游戏' },
     'game.footer': { zh: '一个用虚拟 Coins 的趣味游戏,仅供娱乐与演示模型,不涉及任何真钱下注。赔率为 GoalForge 模型的公平赔率;赛程与结果来自 martj42(CC0)。游戏仅保存在此浏览器(localStorage)。' },
+    // --- Multiplayer game (game-online.html); zh only, English restored from the DOM ---
+    'sub.game-online': { zh: '登录后用虚拟 <b>Coins</b> 与所有人同场竞技 —— 不涉及真钱。你的竞猜与排行榜是共享的,并会随真实结果自动结算。<a href="game.html">单机(免登录)版 →</a>' },
+    'game-online.footer': { zh: '一个用虚拟 Coins 的趣味游戏,仅供娱乐与演示模型,不涉及任何真钱下注。赔率为 GoalForge 模型的公平赔率;结果来自 martj42(CC0)。账号与排行榜由 Supabase 提供。参见 <a href="https://github.com/aevum-orrin/GoalForge-AI/blob/main/docs/game-online-setup.md">setup</a>。' },
   };
 
   // ---- apply ---------------------------------------------------------------------------------

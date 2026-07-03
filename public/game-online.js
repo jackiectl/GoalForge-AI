@@ -77,7 +77,7 @@ function render() {
 }
 
 function renderNotConfigured() {
-  $('app').innerHTML = `<section class="card reveal"><h2>🔌 Not configured yet</h2>
+  $('app').innerHTML = `<section class="card reveal"><h2>${t('🔌 Not configured yet')}</h2>
     <div class="mnote"><p>The multiplayer game needs a (free) Supabase project. Fill in
     <code>public/supabase-config.js</code> and follow
     <a href="https://github.com/aevum-orrin/GoalForge-AI/blob/main/docs/game-online-setup.md">docs/game-online-setup.md</a>.
@@ -86,21 +86,21 @@ function renderNotConfigured() {
 
 function renderSignedOut() {
   $('app').innerHTML = `<section class="card reveal" style="max-width:520px">
-      <h2>🔑 Sign in to play</h2>
-      <p class="hint">Free, no real money. We only store a display name and your Coins.</p>
+      <h2>${t('🔑 Sign in to play')}</h2>
+      <p class="hint">${t('Free, no real money. We only store a display name and your Coins.')}</p>
       <div class="gm-form">
-        <label class="gm-lbl">Email (magic link)
+        <label class="gm-lbl">${t('Email (magic link)')}
           <input type="email" id="email" placeholder="you@example.com" style="min-width:240px"></label>
         <div class="gm-picks">
-          <button class="gm-pick" id="magic">Email me a sign-in link</button>
-          <button class="gm-pick" id="google">Sign in with Google</button>
+          <button class="gm-pick" id="magic">${t('Email me a sign-in link')}</button>
+          <button class="gm-pick" id="google">${t('Sign in with Google')}</button>
         </div>
       </div></section>`;
   $('magic').onclick = async () => {
     const email = $('email').value.trim();
-    if (!email) return flash('Enter your email first.');
+    if (!email) return flash(t('Enter your email first.'));
     const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href } });
-    flash(error ? error.message : 'Check your inbox for the sign-in link.');
+    flash(error ? error.message : t('Check your inbox for the sign-in link.'));
   };
   $('google').onclick = async () => {
     const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.href } });
@@ -109,30 +109,30 @@ function renderSignedOut() {
 }
 
 function renderGame() {
-  if (!profile) { $('app').innerHTML = `<section class="card reveal"><p class="hint">Setting up your profile…</p></section>`; return; }
+  if (!profile) { $('app').innerHTML = `<section class="card reveal"><p class="hint">${t('Setting up your profile…')}</p></section>`; return; }
   const quota = QUOTA[profile.join_round] || 4;
   const used = myBets.filter((b) => b.status !== 'cancelled').length;
   const betByMid = Object.fromEntries(myBets.map((b) => [b.match_id, b]));
 
   const wallet = `<section class="statstrip gm-wallet">
       <div class="tile tile-violet"><div class="tile-emoji">🧑</div><div class="tile-big" style="font-size:22px">${profile.handle}</div>
-        <div class="tile-label">Signed in</div><div class="tile-sub"><a href="#" id="signout">sign out</a></div></div>
+        <div class="tile-label">${t('Signed in')}</div><div class="tile-sub"><a href="#" id="signout">${t('sign out')}</a></div></div>
       <div class="tile tile-green"><div class="tile-emoji">💰</div><div class="tile-big">${fmt(profile.coins)}</div>
-        <div class="tile-label">Coins</div><div class="tile-sub">start 1,000</div></div>
+        <div class="tile-label">Coins</div><div class="tile-sub">${t('start 1,000')}</div></div>
       <div class="tile tile-sky"><div class="tile-emoji">🎟️</div><div class="tile-big">${used}/${quota}</div>
-        <div class="tile-label">Calls used</div><div class="tile-sub">${quota - used} left</div></div>
+        <div class="tile-label">${t('Calls used')}</div><div class="tile-sub">${t('{n} left', { n: quota - used })}</div></div>
       <div class="tile tile-amber"><div class="tile-emoji">🏆</div><div class="tile-big" style="font-size:22px">${boardRank()}</div>
-        <div class="tile-label">Your rank</div><div class="tile-sub">of ${board.length}</div></div>
+        <div class="tile-label">${t('Your rank')}</div><div class="tile-sub">${t('of {n}', { n: board.length })}</div></div>
     </section>`;
 
   const rounds = ROUNDS.map((r) => {
     const cards = r.mids.map((mid) => tieCard(mid, betByMid[mid], used, quota, profile)).filter(Boolean).join('');
-    return cards ? `<section class="card reveal"><h2>${r.emoji} ${r.name}</h2><div class="gm-grid">${cards}</div></section>` : '';
+    return cards ? `<section class="card reveal"><h2>${r.emoji} ${t(r.name)}</h2><div class="gm-grid">${cards}</div></section>` : '';
   }).join('');
 
   $('app').innerHTML = wallet
-    + `<section class="card reveal"><h2>🏆 Leaderboard</h2><div class="gm-board">${leaderboardHtml()}</div></section>`
-    + (rounds || `<section class="card reveal"><p class="hint">No open ties to call right now — check back as the bracket fills in.</p></section>`);
+    + `<section class="card reveal"><h2>${t('🏆 Leaderboard')}</h2><div class="gm-board">${leaderboardHtml()}</div></section>`
+    + (rounds || `<section class="card reveal"><p class="hint">${t('No open ties to call right now — check back as the bracket fills in.')}</p></section>`);
 
   $('signout').onclick = async (e) => { e.preventDefault(); await sb.auth.signOut(); };
   bindActions();
@@ -148,9 +148,9 @@ function leaderboardHtml() {
   return board.map((r, i) => `<div class="gm-rank ${profile && r.id === profile.id ? 'gm-lead' : ''}">
       <span class="gm-medal">${i === 0 ? '👑' : '#' + (i + 1)}</span>
       <span class="gm-who">${r.handle}</span>
-      <span class="gm-rsub">${r.bets_settled}/${r.bets_placed} settled</span>
+      <span class="gm-rsub">${t('{n}/{m} settled', { n: r.bets_settled, m: r.bets_placed })}</span>
       <span class="gm-coins">${fmt(r.coins)} <small>Coins</small></span></div>`).join('')
-    || `<p class="hint">No players yet — be the first.</p>`;
+    || `<p class="hint">${t('No players yet — be the first.')}</p>`;
 }
 
 function tieCard(mid, bet, used, quota, prof) {
@@ -158,14 +158,17 @@ function tieCard(mid, bet, used, quota, prof) {
   const known = m.home && m.away;
   const bettableRound = midIdx[mid] >= (ENTRY_IDX[prof.join_round] ?? 0);
   if (bet) {
-    const badge = { pending: '⏳ Pending', won_outcome: '✅ Won · outcome', won_exact: '🎯 Won · exact!', lost: '❌ Lost', cancelled: '✖ Cancelled' }[bet.status] || bet.status;
+    const badge = { pending: t('⏳ Pending'), won_outcome: t('✅ Won · outcome'), won_exact: t('🎯 Won · exact!'), lost: t('❌ Lost'), cancelled: t('✖ Cancelled') }[bet.status] || bet.status;
     const cls = { pending: 'gm-pending', won_outcome: 'gm-won', won_exact: 'gm-won gm-exact', lost: 'gm-lost', cancelled: 'gm-lost' }[bet.status] || '';
+    const fine = bet.s_odds > 0
+      ? t('Stake {n} · outcome ×{o} · score ×{s}', { n: fmt(bet.stake), o: Number(bet.w_odds).toFixed(2), s: Number(bet.s_odds).toFixed(1) })
+      : t('Stake {n} · outcome ×{o}', { n: fmt(bet.stake), o: Number(bet.w_odds).toFixed(2) });
     return `<div class="gm-tie"><div class="gm-tie-head"><span class="pill pill-soft">${mid}</span> ${m.home} <span class="gm-v">v</span> ${m.away}</div>
       <div class="gm-slip ${cls}">
-        <div><b>Backed:</b> ${bet.pick}${bet.score_h != null ? ` · exact ${bet.score_h}–${bet.score_a}` : ''}</div>
-        <div class="gm-fine">Stake ${fmt(bet.stake)} · outcome ×${Number(bet.w_odds).toFixed(2)}${bet.s_odds > 0 ? ` · score ×${Number(bet.s_odds).toFixed(1)}` : ''}</div>
+        <div><b>${t('Backed:')}</b> ${bet.pick}${bet.score_h != null ? ' · ' + t('exact {h}–{a}', { h: bet.score_h, a: bet.score_a }) : ''}</div>
+        <div class="gm-fine">${fine}</div>
         <div class="gm-badge">${badge}${bet.payout ? ` · +${fmt(bet.payout)}` : (bet.status === 'lost' ? ` · −${fmt(bet.stake)}` : '')}</div>
-        ${bet.status === 'pending' ? `<button class="gm-mini" data-cancel="${bet.id}">Cancel (refund)</button>` : ''}
+        ${bet.status === 'pending' ? `<button class="gm-mini" data-cancel="${bet.id}">${t('Cancel (refund)')}</button>` : ''}
       </div></div>`;
   }
   if (!known || m.played || !bettableRound || used >= quota) return '';   // only open, in-quota ties get a form
@@ -173,14 +176,14 @@ function tieCard(mid, bet, used, quota, prof) {
   return `<div class="gm-tie"><div class="gm-tie-head"><span class="pill pill-soft">${mid}</span> ${m.home} <span class="gm-v">v</span> ${m.away}</div>
       <div class="gm-form">
         <div class="gm-stakerow">
-          <label class="gm-lbl">Stake <input type="number" class="gm-stake" data-mid="${mid}" value="100" min="10" step="10"></label>
-          <label class="gm-lbl">Exact 120' score <span class="gm-opt">(optional)</span>
+          <label class="gm-lbl">${t('Stake')} <input type="number" class="gm-stake" data-mid="${mid}" value="100" min="10" step="10"></label>
+          <label class="gm-lbl">${t("Exact 120' score")} <span class="gm-opt">${t('(optional)')}</span>
             <span class="gm-scorein"><input type="number" class="gm-sh" data-mid="${mid}" min="0" max="9" placeholder="${m.home.slice(0, 3)}">
             <span class="gm-dash">–</span><input type="number" class="gm-sa" data-mid="${mid}" min="0" max="9" placeholder="${m.away.slice(0, 3)}"></span></label>
         </div>
         <div class="gm-picks">
-          <button class="gm-pick" data-bet="${mid}" data-team="H">Back ${m.home}<small>advance ${(o.ph * 100).toFixed(0)}% · pays ×${o.oh.toFixed(2)}</small></button>
-          <button class="gm-pick" data-bet="${mid}" data-team="A">Back ${m.away}<small>advance ${(o.pa * 100).toFixed(0)}% · pays ×${o.oa.toFixed(2)}</small></button>
+          <button class="gm-pick" data-bet="${mid}" data-team="H">${t('Back {team}', { team: m.home })}<small>${t('advance {p}% · pays ×{o}', { p: (o.ph * 100).toFixed(0), o: o.oh.toFixed(2) })}</small></button>
+          <button class="gm-pick" data-bet="${mid}" data-team="A">${t('Back {team}', { team: m.away })}<small>${t('advance {p}% · pays ×{o}', { p: (o.pa * 100).toFixed(0), o: o.oa.toFixed(2) })}</small></button>
         </div>
       </div></div>`;
 }
@@ -194,7 +197,7 @@ async function placeBet(mid, team) {
   const m = A.bracket[mid];
   const pick = team === 'H' ? m.home : m.away;
   const stake = Math.round(Number($('app').querySelector(`.gm-stake[data-mid="${mid}"]`).value) || 0);
-  if (stake < 10) return flash('Minimum stake is 10 Coins.');
+  if (stake < 10) return flash(t('Minimum stake is 10 Coins.'));
   const shv = $('app').querySelector(`.gm-sh[data-mid="${mid}"]`).value;
   const sav = $('app').querySelector(`.gm-sa[data-mid="${mid}"]`).value;
   const o = tieOdds(m.home, m.away);
@@ -230,4 +233,5 @@ async function boot() {
   await refresh();
 }
 
+document.addEventListener('gf:langchange', () => render());   // re-render the dynamic UI on EN/中文 toggle
 boot();
