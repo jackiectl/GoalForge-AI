@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-02",
+"as_of": "2026-07-03",
 "groups": {
 "A": {
 "matches": [
@@ -2674,11 +2674,11 @@
 ]
 },
 {
-"home": "United States",
-"away": "Bosnia and Herzegovina",
+"home": "England",
+"away": "DR Congo",
 "actual": [
 2,
-0
+1
 ]
 },
 {
@@ -2690,11 +2690,19 @@
 ]
 },
 {
-"home": "England",
-"away": "DR Congo",
+"home": "United States",
+"away": "Bosnia and Herzegovina",
 "actual": [
 2,
-1
+0
+]
+},
+{
+"home": "Switzerland",
+"away": "Algeria",
+"actual": [
+2,
+0
 ]
 },
 {
@@ -2720,27 +2728,28 @@
 "pred_winner": "Portugal"
 },
 {
-"home": "Switzerland",
-"away": "Algeria",
-"actual": [
-2,
-0
-]
-},
-{
 "home": "Australia",
 "away": "Egypt",
-"actual": null
+"actual": [
+1,
+1
+]
 },
 {
 "home": "Argentina",
 "away": "Cape Verde",
-"actual": null
+"actual": [
+3,
+2
+]
 },
 {
 "home": "Colombia",
 "away": "Ghana",
-"actual": null
+"actual": [
+1,
+0
+]
 },
 {
 "home": "Canada",
@@ -2775,6 +2784,11 @@
 "pred_winner": "England"
 },
 {
+"home": "Argentina",
+"away": "Egypt",
+"actual": null
+},
+{
 "home": "Portugal",
 "away": "Spain",
 "actual": null,
@@ -2788,6 +2802,11 @@
 {
 "home": "United States",
 "away": "Belgium",
+"actual": null
+},
+{
+"home": "Switzerland",
+"away": "Colombia",
 "actual": null
 }
 ],
@@ -3016,34 +3035,52 @@
 "M86": {
 "home": "Argentina",
 "away": "Cape Verde",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+3,
+2
+],
+"winner": "Argentina",
+"played": true,
+"reg": [
+3,
+2
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M86"
 },
 "M87": {
 "home": "Colombia",
 "away": "Ghana",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+1,
+0
+],
+"winner": "Colombia",
+"played": true,
+"reg": [
+1,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M87"
 },
 "M88": {
 "home": "Australia",
 "away": "Egypt",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+1,
+1
+],
+"winner": "Egypt",
+"played": true,
+"reg": [
+1,
+1
+],
 "pens": null,
-"decided": null,
+"decided": "pens",
 "id": "M88"
 },
 "M89": {
@@ -3113,8 +3150,8 @@
 "id": "M94"
 },
 "M95": {
-"home": null,
-"away": null,
+"home": "Argentina",
+"away": "Egypt",
 "actual": null,
 "winner": null,
 "played": false,
@@ -3125,7 +3162,7 @@
 },
 "M96": {
 "home": "Switzerland",
-"away": null,
+"away": "Colombia",
 "actual": null,
 "winner": null,
 "played": false,
