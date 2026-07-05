@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-03",
-"cutoff": "2026-07-04",
+"as_of": "2026-07-04",
+"cutoff": "2026-07-05",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -261,34 +261,34 @@
 "M89": {
 "home": "Paraguay",
 "away": "France",
-"winner": "France",
-"id": "M89",
-"pred": true,
-"played": false,
+"hs": 0,
 "reg": [
-1,
-2
+0,
+1
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 2
+"winner": "France",
+"played": true,
+"pred": false,
+"id": "M89",
+"as": 1
 },
 "M90": {
 "home": "Canada",
 "away": "Morocco",
-"winner": "Morocco",
-"id": "M90",
-"pred": true,
-"played": false,
+"hs": 0,
 "reg": [
-1,
-2
+0,
+3
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 2
+"winner": "Morocco",
+"played": true,
+"pred": false,
+"id": "M90",
+"as": 3
 },
 "M91": {
 "home": "Brazil",
@@ -484,15 +484,12 @@
 "played": false,
 "reg": [
 1,
-1
+2
 ],
 "hs": 1,
-"pens": [
-3,
-4
-],
-"decided": "pens",
-"as": 1
+"pens": null,
+"decided": "reg",
+"as": 2
 },
 "M104": {
 "home": "Spain",
@@ -542,5 +539,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-03; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-04; the real bracket walked forward with actual results where played."
 }

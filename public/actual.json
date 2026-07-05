@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-03",
+"as_of": "2026-07-04",
 "groups": {
 "A": {
 "matches": [
@@ -2626,10 +2626,10 @@
 ]
 },
 {
-"home": "Brazil",
-"away": "Japan",
+"home": "Netherlands",
+"away": "Morocco",
 "actual": [
-2,
+1,
 1
 ]
 },
@@ -2642,10 +2642,10 @@
 ]
 },
 {
-"home": "Netherlands",
-"away": "Morocco",
+"home": "Brazil",
+"away": "Japan",
 "actual": [
-1,
+2,
 1
 ]
 },
@@ -2698,22 +2698,6 @@
 ]
 },
 {
-"home": "Switzerland",
-"away": "Algeria",
-"actual": [
-2,
-0
-]
-},
-{
-"home": "Spain",
-"away": "Austria",
-"actual": [
-3,
-0
-]
-},
-{
 "home": "Portugal",
 "away": "Croatia",
 "actual": [
@@ -2726,6 +2710,30 @@
 1
 ],
 "pred_winner": "Portugal"
+},
+{
+"home": "Spain",
+"away": "Austria",
+"actual": [
+3,
+0
+]
+},
+{
+"home": "Switzerland",
+"away": "Algeria",
+"actual": [
+2,
+0
+]
+},
+{
+"home": "Colombia",
+"away": "Ghana",
+"actual": [
+1,
+0
+]
 },
 {
 "home": "Australia",
@@ -2744,33 +2752,26 @@
 ]
 },
 {
-"home": "Colombia",
-"away": "Ghana",
-"actual": [
-1,
-0
-]
-},
-{
 "home": "Canada",
 "away": "Morocco",
-"actual": null
+"actual": [
+0,
+3
+]
 },
 {
 "home": "Paraguay",
 "away": "France",
-"actual": null,
+"actual": [
+0,
+1
+],
 "we_predicted_this_tie": true,
 "pred": [
 2,
 1
 ],
 "pred_winner": "France"
-},
-{
-"home": "Brazil",
-"away": "Norway",
-"actual": null
 },
 {
 "home": "Mexico",
@@ -2784,8 +2785,18 @@
 "pred_winner": "England"
 },
 {
+"home": "Brazil",
+"away": "Norway",
+"actual": null
+},
+{
 "home": "Argentina",
 "away": "Egypt",
+"actual": null
+},
+{
+"home": "Switzerland",
+"away": "Colombia",
 "actual": null
 },
 {
@@ -2805,8 +2816,8 @@
 "actual": null
 },
 {
-"home": "Switzerland",
-"away": "Colombia",
+"home": "France",
+"away": "Morocco",
 "actual": null
 }
 ],
@@ -3086,23 +3097,35 @@
 "M89": {
 "home": "Paraguay",
 "away": "France",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+0,
+1
+],
+"winner": "France",
+"played": true,
+"reg": [
+0,
+1
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M89"
 },
 "M90": {
 "home": "Canada",
 "away": "Morocco",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+0,
+3
+],
+"winner": "Morocco",
+"played": true,
+"reg": [
+0,
+3
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M90"
 },
 "M91": {
@@ -3172,8 +3195,8 @@
 "id": "M96"
 },
 "M97": {
-"home": null,
-"away": null,
+"home": "France",
+"away": "Morocco",
 "actual": null,
 "winner": null,
 "played": false,
