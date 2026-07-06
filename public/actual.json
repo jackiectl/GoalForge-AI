@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-04",
+"as_of": "2026-07-05",
 "groups": {
 "A": {
 "matches": [
@@ -2698,6 +2698,14 @@
 ]
 },
 {
+"home": "Spain",
+"away": "Austria",
+"actual": [
+3,
+0
+]
+},
+{
 "home": "Portugal",
 "away": "Croatia",
 "actual": [
@@ -2712,19 +2720,19 @@
 "pred_winner": "Portugal"
 },
 {
-"home": "Spain",
-"away": "Austria",
-"actual": [
-3,
-0
-]
-},
-{
 "home": "Switzerland",
 "away": "Algeria",
 "actual": [
 2,
 0
+]
+},
+{
+"home": "Argentina",
+"away": "Cape Verde",
+"actual": [
+3,
+2
 ]
 },
 {
@@ -2741,14 +2749,6 @@
 "actual": [
 1,
 1
-]
-},
-{
-"home": "Argentina",
-"away": "Cape Verde",
-"actual": [
-3,
-2
 ]
 },
 {
@@ -2774,30 +2774,26 @@
 "pred_winner": "France"
 },
 {
+"home": "Brazil",
+"away": "Norway",
+"actual": [
+0,
+2
+]
+},
+{
 "home": "Mexico",
 "away": "England",
-"actual": null,
+"actual": [
+2,
+3
+],
 "we_predicted_this_tie": true,
 "pred": [
 1,
 1
 ],
 "pred_winner": "England"
-},
-{
-"home": "Brazil",
-"away": "Norway",
-"actual": null
-},
-{
-"home": "Argentina",
-"away": "Egypt",
-"actual": null
-},
-{
-"home": "Switzerland",
-"away": "Colombia",
-"actual": null
 },
 {
 "home": "Portugal",
@@ -2816,9 +2812,30 @@
 "actual": null
 },
 {
+"home": "Argentina",
+"away": "Egypt",
+"actual": null
+},
+{
+"home": "Switzerland",
+"away": "Colombia",
+"actual": null
+},
+{
 "home": "France",
 "away": "Morocco",
 "actual": null
+},
+{
+"home": "Norway",
+"away": "England",
+"actual": null,
+"we_predicted_this_tie": true,
+"pred": [
+2,
+1
+],
+"pred_winner": "England"
 }
 ],
 "bracket": {
@@ -3131,23 +3148,35 @@
 "M91": {
 "home": "Brazil",
 "away": "Norway",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+0,
+2
+],
+"winner": "Norway",
+"played": true,
+"reg": [
+0,
+2
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M91"
 },
 "M92": {
 "home": "Mexico",
 "away": "England",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+2,
+3
+],
+"winner": "England",
+"played": true,
+"reg": [
+2,
+3
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M92"
 },
 "M93": {
@@ -3217,8 +3246,8 @@
 "id": "M98"
 },
 "M99": {
-"home": null,
-"away": null,
+"home": "Norway",
+"away": "England",
 "actual": null,
 "winner": null,
 "played": false,
