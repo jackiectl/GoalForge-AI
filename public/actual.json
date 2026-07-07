@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-05",
+"as_of": "2026-07-06",
 "groups": {
 "A": {
 "matches": [
@@ -2728,14 +2728,6 @@
 ]
 },
 {
-"home": "Argentina",
-"away": "Cape Verde",
-"actual": [
-3,
-2
-]
-},
-{
 "home": "Colombia",
 "away": "Ghana",
 "actual": [
@@ -2749,6 +2741,14 @@
 "actual": [
 1,
 1
+]
+},
+{
+"home": "Argentina",
+"away": "Cape Verde",
+"actual": [
+3,
+2
 ]
 },
 {
@@ -2777,7 +2777,7 @@
 "home": "Brazil",
 "away": "Norway",
 "actual": [
-0,
+1,
 2
 ]
 },
@@ -2796,9 +2796,17 @@
 "pred_winner": "England"
 },
 {
+"home": "Switzerland",
+"away": "Colombia",
+"actual": null
+},
+{
 "home": "Portugal",
 "away": "Spain",
-"actual": null,
+"actual": [
+0,
+1
+],
 "we_predicted_this_tie": true,
 "pred": [
 1,
@@ -2809,7 +2817,10 @@
 {
 "home": "United States",
 "away": "Belgium",
-"actual": null
+"actual": [
+1,
+4
+]
 },
 {
 "home": "Argentina",
@@ -2817,14 +2828,20 @@
 "actual": null
 },
 {
-"home": "Switzerland",
-"away": "Colombia",
-"actual": null
-},
-{
 "home": "France",
 "away": "Morocco",
 "actual": null
+},
+{
+"home": "Spain",
+"away": "Belgium",
+"actual": null,
+"we_predicted_this_tie": true,
+"pred": [
+2,
+1
+],
+"pred_winner": "Spain"
 },
 {
 "home": "Norway",
@@ -3149,13 +3166,13 @@
 "home": "Brazil",
 "away": "Norway",
 "actual": [
-0,
+1,
 2
 ],
 "winner": "Norway",
 "played": true,
 "reg": [
-0,
+1,
 2
 ],
 "pens": null,
@@ -3182,23 +3199,35 @@
 "M93": {
 "home": "Portugal",
 "away": "Spain",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+0,
+1
+],
+"winner": "Spain",
+"played": true,
+"reg": [
+0,
+1
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M93"
 },
 "M94": {
 "home": "United States",
 "away": "Belgium",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+1,
+4
+],
+"winner": "Belgium",
+"played": true,
+"reg": [
+1,
+4
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M94"
 },
 "M95": {
@@ -3235,8 +3264,8 @@
 "id": "M97"
 },
 "M98": {
-"home": null,
-"away": null,
+"home": "Spain",
+"away": "Belgium",
 "actual": null,
 "winner": null,
 "played": false,

@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-05",
-"cutoff": "2026-07-06",
+"as_of": "2026-07-06",
+"cutoff": "2026-07-07",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -293,9 +293,9 @@
 "M91": {
 "home": "Brazil",
 "away": "Norway",
-"hs": 0,
+"hs": 1,
 "reg": [
-0,
+1,
 2
 ],
 "pens": null,
@@ -325,34 +325,34 @@
 "M93": {
 "home": "Portugal",
 "away": "Spain",
-"winner": "Spain",
-"id": "M93",
-"pred": true,
-"played": false,
+"hs": 0,
 "reg": [
-1,
-2
+0,
+1
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 2
+"winner": "Spain",
+"played": true,
+"pred": false,
+"id": "M93",
+"as": 1
 },
 "M94": {
 "home": "United States",
 "away": "Belgium",
-"winner": "Belgium",
-"id": "M94",
-"pred": true,
-"played": false,
+"hs": 1,
 "reg": [
 1,
-2
+4
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 2
+"winner": "Belgium",
+"played": true,
+"pred": false,
+"id": "M94",
+"as": 4
 },
 "M95": {
 "home": "Argentina",
@@ -491,7 +491,7 @@
 "M104": {
 "home": "Spain",
 "away": "Argentina",
-"winner": "Argentina",
+"winner": "Spain",
 "id": "M104",
 "pred": true,
 "played": false,
@@ -501,14 +501,14 @@
 ],
 "hs": 1,
 "pens": [
-3,
-5
+5,
+3
 ],
 "decided": "pens",
 "as": 1
 }
 },
-"champion_live": "Argentina",
+"champion_live": "Spain",
 "champion_original": "Argentina",
 "original_odds": [
 {
@@ -536,5 +536,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-05; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-06; the real bracket walked forward with actual results where played."
 }
