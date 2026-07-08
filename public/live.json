@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-06",
-"cutoff": "2026-07-07",
+"as_of": "2026-07-07",
+"cutoff": "2026-07-08",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -357,39 +357,39 @@
 "M95": {
 "home": "Argentina",
 "away": "Egypt",
-"winner": "Argentina",
-"id": "M95",
-"pred": true,
-"played": false,
+"hs": 3,
 "reg": [
-1,
-0
+3,
+2
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
-"as": 0
+"winner": "Argentina",
+"played": true,
+"pred": false,
+"id": "M95",
+"as": 2
 },
 "M96": {
 "home": "Switzerland",
 "away": "Colombia",
-"winner": "Colombia",
-"id": "M96",
-"pred": true,
-"played": false,
+"hs": 0,
 "reg": [
-1,
-2
+0,
+0
 ],
-"hs": 1,
 "pens": null,
-"decided": "reg",
-"as": 2
+"decided": "pens",
+"winner": "Switzerland",
+"played": true,
+"pred": false,
+"id": "M96",
+"as": 0
 },
 "M97": {
 "home": "France",
 "away": "Morocco",
-"winner": "France",
+"winner": "Morocco",
 "id": "M97",
 "pred": true,
 "played": false,
@@ -399,8 +399,8 @@
 ],
 "hs": 1,
 "pens": [
-5,
-4
+4,
+5
 ],
 "decided": "pens",
 "as": 1
@@ -439,7 +439,7 @@
 },
 "M100": {
 "home": "Argentina",
-"away": "Colombia",
+"away": "Switzerland",
 "winner": "Argentina",
 "id": "M100",
 "pred": true,
@@ -454,7 +454,7 @@
 "as": 1
 },
 "M101": {
-"home": "France",
+"home": "Morocco",
 "away": "Spain",
 "winner": "Spain",
 "id": "M101",
@@ -466,8 +466,8 @@
 ],
 "hs": 1,
 "pens": [
-4,
-5
+1,
+2
 ],
 "decided": "pens",
 "as": 1
@@ -536,5 +536,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-06; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-07; the real bracket walked forward with actual results where played."
 }

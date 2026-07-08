@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-06",
+"as_of": "2026-07-07",
 "groups": {
 "A": {
 "matches": [
@@ -2736,19 +2736,19 @@
 ]
 },
 {
-"home": "Australia",
-"away": "Egypt",
-"actual": [
-1,
-1
-]
-},
-{
 "home": "Argentina",
 "away": "Cape Verde",
 "actual": [
 3,
 2
+]
+},
+{
+"home": "Australia",
+"away": "Egypt",
+"actual": [
+1,
+1
 ]
 },
 {
@@ -2796,11 +2796,6 @@
 "pred_winner": "England"
 },
 {
-"home": "Switzerland",
-"away": "Colombia",
-"actual": null
-},
-{
 "home": "Portugal",
 "away": "Spain",
 "actual": [
@@ -2825,7 +2820,18 @@
 {
 "home": "Argentina",
 "away": "Egypt",
-"actual": null
+"actual": [
+3,
+2
+]
+},
+{
+"home": "Switzerland",
+"away": "Colombia",
+"actual": [
+0,
+0
+]
 },
 {
 "home": "France",
@@ -2853,6 +2859,11 @@
 1
 ],
 "pred_winner": "England"
+},
+{
+"home": "Argentina",
+"away": "Switzerland",
+"actual": null
 }
 ],
 "bracket": {
@@ -3233,23 +3244,35 @@
 "M95": {
 "home": "Argentina",
 "away": "Egypt",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+3,
+2
+],
+"winner": "Argentina",
+"played": true,
+"reg": [
+3,
+2
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M95"
 },
 "M96": {
 "home": "Switzerland",
 "away": "Colombia",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+0,
+0
+],
+"winner": "Switzerland",
+"played": true,
+"reg": [
+0,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "pens",
 "id": "M96"
 },
 "M97": {
@@ -3286,8 +3309,8 @@
 "id": "M99"
 },
 "M100": {
-"home": null,
-"away": null,
+"home": "Argentina",
+"away": "Switzerland",
 "actual": null,
 "winner": null,
 "played": false,
