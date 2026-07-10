@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-07",
-"cutoff": "2026-07-08",
+"as_of": "2026-07-09",
+"cutoff": "2026-07-10",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -389,21 +389,18 @@
 "M97": {
 "home": "France",
 "away": "Morocco",
-"winner": "Morocco",
-"id": "M97",
-"pred": true,
-"played": false,
+"hs": 2,
 "reg": [
-1,
-1
+2,
+0
 ],
-"hs": 1,
-"pens": [
-4,
-5
-],
-"decided": "pens",
-"as": 1
+"pens": null,
+"decided": "reg",
+"winner": "France",
+"played": true,
+"pred": false,
+"id": "M97",
+"as": 0
 },
 "M98": {
 "home": "Spain",
@@ -454,7 +451,7 @@
 "as": 1
 },
 "M101": {
-"home": "Morocco",
+"home": "France",
 "away": "Spain",
 "winner": "Spain",
 "id": "M101",
@@ -466,8 +463,8 @@
 ],
 "hs": 1,
 "pens": [
-1,
-2
+4,
+5
 ],
 "decided": "pens",
 "as": 1
@@ -536,5 +533,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-07; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-09; the real bracket walked forward with actual results where played."
 }

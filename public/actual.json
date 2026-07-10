@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-07",
+"as_of": "2026-07-09",
 "groups": {
 "A": {
 "matches": [
@@ -2836,7 +2836,10 @@
 {
 "home": "France",
 "away": "Morocco",
-"actual": null
+"actual": [
+2,
+0
+]
 },
 {
 "home": "Spain",
@@ -3278,12 +3281,18 @@
 "M97": {
 "home": "France",
 "away": "Morocco",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+2,
+0
+],
+"winner": "France",
+"played": true,
+"reg": [
+2,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M97"
 },
 "M98": {
@@ -3320,7 +3329,7 @@
 "id": "M100"
 },
 "M101": {
-"home": null,
+"home": "France",
 "away": null,
 "actual": null,
 "winner": null,
