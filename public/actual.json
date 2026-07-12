@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-09",
+"as_of": "2026-07-10",
 "groups": {
 "A": {
 "matches": [
@@ -2844,7 +2844,10 @@
 {
 "home": "Spain",
 "away": "Belgium",
-"actual": null,
+"actual": [
+2,
+1
+],
 "we_predicted_this_tie": true,
 "pred": [
 2,
@@ -3298,12 +3301,18 @@
 "M98": {
 "home": "Spain",
 "away": "Belgium",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+2,
+1
+],
+"winner": "Spain",
+"played": true,
+"reg": [
+2,
+1
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M98"
 },
 "M99": {
@@ -3330,7 +3339,7 @@
 },
 "M101": {
 "home": "France",
-"away": null,
+"away": "Spain",
 "actual": null,
 "winner": null,
 "played": false,
