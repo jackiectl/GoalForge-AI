@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-10",
-"cutoff": "2026-07-11",
+"as_of": "2026-07-11",
+"cutoff": "2026-07-12",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -421,33 +421,33 @@
 "M99": {
 "home": "Norway",
 "away": "England",
-"winner": "England",
-"id": "M99",
-"pred": true,
-"played": false,
+"hs": 1,
 "reg": [
 1,
 2
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
+"winner": "England",
+"played": true,
+"pred": false,
+"id": "M99",
 "as": 2
 },
 "M100": {
 "home": "Argentina",
 "away": "Switzerland",
-"winner": "Argentina",
-"id": "M100",
-"pred": true,
-"played": false,
+"hs": 3,
 "reg": [
-2,
+3,
 1
 ],
-"hs": 2,
 "pens": null,
 "decided": "reg",
+"winner": "Argentina",
+"played": true,
+"pred": false,
+"id": "M100",
 "as": 1
 },
 "M101": {
@@ -459,15 +459,12 @@
 "played": false,
 "reg": [
 1,
-1
+2
 ],
 "hs": 1,
-"pens": [
-4,
-5
-],
-"decided": "pens",
-"as": 1
+"pens": null,
+"decided": "reg",
+"as": 2
 },
 "M102": {
 "home": "England",
@@ -533,5 +530,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-10; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-11; the real bracket walked forward with actual results where played."
 }
