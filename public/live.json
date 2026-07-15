@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-11",
-"cutoff": "2026-07-12",
+"as_of": "2026-07-14",
+"cutoff": "2026-07-15",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -453,17 +453,17 @@
 "M101": {
 "home": "France",
 "away": "Spain",
-"winner": "Spain",
-"id": "M101",
-"pred": true,
-"played": false,
+"hs": 0,
 "reg": [
-1,
+0,
 2
 ],
-"hs": 1,
 "pens": null,
 "decided": "reg",
+"winner": "Spain",
+"played": true,
+"pred": false,
+"id": "M101",
 "as": 2
 },
 "M102": {
@@ -530,5 +530,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-11; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-14; the real bracket walked forward with actual results where played."
 }
