@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-15",
-"cutoff": "2026-07-16",
+"as_of": "2026-07-18",
+"cutoff": "2026-07-19",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -530,5 +530,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-15; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-18; the real bracket walked forward with actual results where played."
 }
