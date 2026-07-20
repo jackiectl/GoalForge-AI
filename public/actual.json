@@ -1,5 +1,5 @@
 {
-"as_of": "2026-07-18",
+"as_of": "2026-07-19",
 "groups": {
 "A": {
 "matches": [
@@ -2910,7 +2910,10 @@
 {
 "home": "Spain",
 "away": "Argentina",
-"actual": null,
+"actual": [
+1,
+0
+],
 "we_predicted_this_tie": true,
 "pred": [
 1,
@@ -3433,16 +3436,22 @@
 "M104": {
 "home": "Spain",
 "away": "Argentina",
-"actual": null,
-"winner": null,
-"played": false,
-"reg": null,
+"actual": [
+1,
+0
+],
+"winner": "Spain",
+"played": true,
+"reg": [
+1,
+0
+],
 "pens": null,
-"decided": null,
+"decided": "reg",
 "id": "M104"
 }
 },
-"champion_actual": null,
+"champion_actual": "Spain",
 "metrics": {
 "group_matches_scored": 72,
 "outcome_acc": 0.5833,

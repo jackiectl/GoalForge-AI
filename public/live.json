@@ -1,6 +1,6 @@
 {
-"as_of": "2026-07-18",
-"cutoff": "2026-07-19",
+"as_of": "2026-07-19",
+"cutoff": "2026-07-20",
 "bracket": {
 "M73": {
 "home": "South Africa",
@@ -485,21 +485,18 @@
 "M104": {
 "home": "Spain",
 "away": "Argentina",
-"winner": "Spain",
-"id": "M104",
-"pred": true,
-"played": false,
+"hs": 1,
 "reg": [
 1,
-1
+0
 ],
-"hs": 1,
-"pens": [
-5,
-3
-],
-"decided": "pens",
-"as": 1
+"pens": null,
+"decided": "reg",
+"winner": "Spain",
+"played": true,
+"pred": false,
+"id": "M104",
+"as": 0
 }
 },
 "champion_live": "Spain",
@@ -530,5 +527,5 @@
 "p": 0.04955
 }
 ],
-"note": "Team ratings refit on every international match through 2026-07-18; the real bracket walked forward with actual results where played."
+"note": "Team ratings refit on every international match through 2026-07-19; the real bracket walked forward with actual results where played."
 }
